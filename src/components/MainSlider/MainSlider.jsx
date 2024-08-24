@@ -50,8 +50,8 @@ const sliderItems = images.images.map((item, index) => (
         <div  className="w-3/4 ">
     <Slider {...settings}>
        {/* {sliderItems} */}
-       <img src={image3} alt="" className="h-[300px]" /> 
-       <img src={image4} alt="" className="h-[300px]" /> 
+       <img src={image1} alt="" className="h-[300px]" /> 
+       <img src={image1} alt="" className="h-[300px]" /> 
 </Slider>
 </div>
 <div className="w-1/4">
