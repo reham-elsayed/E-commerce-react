@@ -11,12 +11,12 @@ const images = {
     {
       "id": 1,
       "name": "Image1",
-      "path": "src/assets/slider-image-1.jpeg"
+      "path": "./../../assets/slider-image-1.jpeg"
     },
     {
       "id": 2,
       "name": "Image2",
-      "path": "src/assets/slider-image-2.jpeg"
+      "path": "./../../src/assets/slider-image-2.jpeg"
     }
     
   ]
