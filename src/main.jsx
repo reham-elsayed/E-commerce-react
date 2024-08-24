@@ -7,18 +7,22 @@ import CartContextProvider from '../context/CartContext.jsx'
 import WishListContextProvider from '../context/WishListContext.jsx'
 import  ThemeContextProvider from '../context/ThemeContext.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <CartContextProvider>
-    <WishListContextProvider>
+  
+  
   <TokenContextProvider>
+    <CartContextProvider>
+  <WishListContextProvider>
   <ThemeContextProvider>
   
   <React.StrictMode>
     <App />
   </React.StrictMode>
   </ThemeContextProvider>
-  </TokenContextProvider>
   </WishListContextProvider>
   </CartContextProvider>
+  </TokenContextProvider>
+ 
+  
   ,
 
 )

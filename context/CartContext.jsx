@@ -32,7 +32,7 @@ async function addProductToCart(productId){
         return response;
      }).catch((error)=>{
         console.log(error)
-        toast.error(error.data.message)
+        toast.error("something went wrong")
         return error
      })
 }
@@ -72,6 +72,7 @@ async function deleteCartProduct(productId){
         return response;
      }).catch((error)=>{
         console.log(error)
+        toast.error("something went wrong")
         return error
      })
 }
@@ -90,6 +91,7 @@ async function clearCartProduct(){
         return response;
      }).catch((error)=>{
         console.log(error)
+        toast.error("something went wrong")
         return error
      })
 }
@@ -102,7 +104,7 @@ async function updateCartProduct(productId, count){
         }
      ).then((response)=>{
         console.log(response);
-        toast.success(response.data.data.totalCartPrice)
+        toast.success(response.data.data.message)
         setNoOfCartItem(response.data.numOfCartItems)
         setTotalPrice(response.data.data.totalCartPrice)
         setCartId(response.data.data._id)

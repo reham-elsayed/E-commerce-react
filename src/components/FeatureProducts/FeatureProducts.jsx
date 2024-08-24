@@ -24,8 +24,6 @@ let { addProductToCart }= useContext(CartContext)
 
 function getFeaturedProducts(){
     return axios.get("https://ecommerce.routemisr.com/api/v1/products")
-    
-
   }
 let {data, isError, isLoading, error}= useQuery({
   queryKey:["featuredProducts"],
