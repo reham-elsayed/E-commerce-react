@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import image1 from "./../../assets/slider-image-3.jpeg";
 import image2 from "./../../assets/slider-image-1.jpeg";
 import image3 from "./../../assets/slider-image-1.jpeg";
-import image4 from "./../../assets/slider-image-2.jpeg";
+import image4 from './../../assets/grocery-banner.png';
 const images = {
   "images": [
     {
@@ -47,11 +47,11 @@ const sliderItems = images.images.map((item, index) => (
   return (
     <div className="my-10 ">
       <div className="flex  mx-auto container">
-        <div  className="w-3/4 ">
+        <div  className="w-3/4 h-[300px]">
     <Slider {...settings}>
-       {/* {sliderItems} */}
-       <img src={image1} alt="" className="h-[300px]" /> 
-       <img src={image1} alt="" className="h-[300px]" /> 
+       
+       <img src={image4} alt="" className="h-[300px]" /> 
+       <img src={image4} alt="" className="h-[300px]" /> 
 </Slider>
 </div>
 <div className="w-1/4">

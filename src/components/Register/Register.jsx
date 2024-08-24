@@ -40,7 +40,7 @@ export default function Register() {
      
       navigate("/login")
       setIsLoading(false)
-    }).catch((err)=>{console.log(err.response.data.errors.msg)
+    }).catch((err)=>{console.log(err.response.data)
       setUserError(err.response.data.errors.msg)
       setIsLoading(false)
     })
@@ -48,7 +48,7 @@ export default function Register() {
   //asasas@gmn.com
   return (
  <>
- <div className='container mx-auto'>
+ <div className='container mx-auto my-20'>
   <h1 className="text-5xl mb-5 text-green-400">Register Now :</h1>
  {userMessage? <div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-green-800 dark:text-lime-50">
   {userMessage}
