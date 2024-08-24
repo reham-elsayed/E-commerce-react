@@ -3,9 +3,24 @@ import styles from "./MainSlider.module.css"
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import images from './../../assets/images.json'
+//import images from './../../assets/images.json'
 import image1 from "./../../assets/slider-image-3.jpeg";
 import image2 from "./../../assets/slider-image-1.jpeg";
+const images = {
+  "images": [
+    {
+      "id": 1,
+      "name": "Image1",
+      "path": "src/assets/slider-image-1.jpeg"
+    },
+    {
+      "id": 2,
+      "name": "Image2",
+      "path": "src/assets/slider-image-2.jpeg"
+    }
+    
+  ]
+}
 
 export default function MainSlider() {
 
