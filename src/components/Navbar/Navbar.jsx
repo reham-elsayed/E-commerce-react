@@ -2,7 +2,7 @@ import React, { useRef ,useMemo, useCallback} from 'react';
 import freshCart from './../../assets/freshcart-logo.svg'
 import styles from "./Navbar.module.css";
 import { useState, useContext, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { TokenContext } from '../../../context/TokenContext';
 import { CartContext } from '../../../context/CartContext';
 import { ThemeContext } from '../../../context/ThemeContext';
@@ -11,7 +11,7 @@ import { WishListContext } from '../../../context/WishListContext';
 export default function Navbar() {
   let {theme,  toggleTheme} = useContext(ThemeContext);
 
-
+const navigate = useNavigate()
 const toggleFunction=()=>{
  toggleTheme(theme)
  
@@ -37,6 +37,7 @@ let {noOfWishListItems, setNoOfWishListItems} = useContext(WishListContext)
     console.log(isMenuVisible)
   };
   function logOut(){
+    navigate('/home')
     localStorage.removeItem("token");
     setToken(null);
   }
@@ -115,10 +116,10 @@ let {noOfWishListItems, setNoOfWishListItems} = useContext(WishListContext)
 
 
  {token? <li>
-        <a href="/login"
+        <NavLink
         onClick={logOut}
         className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-          Logout</a>
+          Logout</NavLink>
       </li>:<>
   <li>
         <NavLink to="login" 
