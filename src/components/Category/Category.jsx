@@ -26,6 +26,7 @@ let {data, isError, isLoading, error}= useQuery({
   console.log(displaySpecificCategory)
   setIsClicked(true)
   console.log(isClicked)
+  console.log(data.data.data)
 }
 function handleNotToDisplay(){
   setIsClicked(false)
@@ -61,11 +62,11 @@ function handleNotToDisplay(){
  <div 
  onClick={()=>handleNotToDisplay(displaySpecificCategory._id)} 
  key={displaySpecificCategory._id} 
- className="pt-20 fixed top-0 left-0 right-0 bottom-0 flex   justify-center items-center bg-black bg-opacity-85  border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-   <div className="container mx-auto px-20 h-2/3 w-1/3">
-   <img className="rounded-t-lg w-full h-5/6" src={displaySpecificCategory.image} alt="" />
+ className="pt-20 fixed top-0 left-0 right-0 bottom-0 flex py-10  justify-center items-center bg-black bg-opacity-85  border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+   <div className="container mx-auto px-20 h-[300px] w-[400px]">
+   <img className="rounded-t-lg h-[300px] w-full" src={displaySpecificCategory.image} alt="" />
 
-<div className="flex h-1/6 justify-center items-center">
+<div className="flex justify-center items-center">
   
 <h5 
  className=" text-2xl tracking-tight text-green-700 dark:text-white">

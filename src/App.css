@@ -19,7 +19,7 @@
 li{
     position: relative;
 }
-/* .active::before{
+.active::before{
     content:"";
     position:absolute;
 width:100%;
@@ -28,7 +28,7 @@ top:80%;
 border-radius: 20px;
 background-color: rgb(24, 94, 47);
 }
-
+/*
 li::before{
     content:"";
     position:absolute;

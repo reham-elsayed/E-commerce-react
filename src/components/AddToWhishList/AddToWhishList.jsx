@@ -8,7 +8,7 @@ import { CartContext } from '../../../context/CartContext';
 export default function AddToWhishList() {
  let {wishList, getProductToWishlist, addProductToWishlist, deleteProductToWishlist} = useContext(WishListContext)
 const [list, setList]= useState([])
-
+const [isFull, setIsfull]= useState(false)
 let { addProductToCart }= useContext(CartContext)
  async function addToCart(productId){
   let response = await addProductToCart(productId)
@@ -23,7 +23,9 @@ let { addProductToCart }= useContext(CartContext)
  }
  useEffect(()=>{
    getWishList()
-
+if(wishList.length > 0){
+  setIsfull(true)
+}
  },[wishList])
  const [x, setX]= useState([])
 //  useEffect(()=>{
@@ -55,7 +57,7 @@ console.log(list)
   return (
     <>
     <div className='py-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2  dark:bg-gray-800 dark:border-gray-700'>
-  {x.length>0?x.map((product)=>
+  {isFull?x.map((product)=>
 <div key={product.id} className={`cardhoverrr relative bg-white p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${styles.cardhoverrer}`}>
 <button onClick={()=>{deleteProductToWishlist(product.id)}} type="button" className={`absolute right-1 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800`}>
             <i className="fa fa-trash"></i>

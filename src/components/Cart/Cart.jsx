@@ -9,10 +9,21 @@ export default function Cart() {
   let { getCartProduct, deleteCartProduct, updateCartProduct, clearCartProduct, totalPrice } = useContext(CartContext)
   const [cartItems, setCartItems ]= useState([])
   const [isClicked, setIsClicked]=useState(false)
+  const [isEmpty, setIsEmpty]=useState(false)
 async function getCart(){
   let response = await getCartProduct()
   setCartItems(response.data.data.products)
+ 
 }
+useEffect(()=>{
+
+  if(cartItems.length > 0){
+    setIsEmpty(true)
+  }
+  else{
+    setIsEmpty(false)
+  }
+},[cartItems])
 useEffect(()=>{
   getCart()
 
@@ -53,6 +64,7 @@ setCartItems([])
                 <meta charSet="utf-8" />
                 <title>Cart</title>
             </Helmet>
+    {!cartItems? <Loader/>:null}
    {cartItems.length >0? <button onClick={()=>{clearCart()}} className="bg-red-800 text-white px-5 py-2 rounded-md">Clear Cart</button>: null}
    </div>
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -128,7 +140,7 @@ setCartItems([])
         </tbody>
     </table>
               
-{cartItems.length>0?  
+{isEmpty?  
  <div  className="flex  justify-between bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
   <div className="p-4 w-1/3">
     Total Price:

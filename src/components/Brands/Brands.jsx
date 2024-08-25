@@ -62,8 +62,8 @@ function handleNotToDisplay(){
  onClick={()=>handleNotToDisplay(displaySpecificCategory._id)} 
  key={displaySpecificCategory._id} 
  className="pt-20 fixed top-0 left-0 right-0 bottom-0 flex   justify-center items-center bg-black bg-opacity-85  border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-   <div className="container mx-auto px-20 h-2/3 w-1/3">
-   <img className="rounded-t-lg w-full h-5/6" src={displaySpecificCategory.image} alt={displaySpecificCategory.name} />
+ <div className="container mx-auto px-20 h-[300px] w-[400px]">
+   <img className="rounded-t-lg w-full h-[300px]" src={displaySpecificCategory.image} alt={displaySpecificCategory.name} />
 
 <div className="flex h-1/6 justify-center items-center">
   
