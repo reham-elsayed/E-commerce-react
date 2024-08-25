@@ -53,7 +53,7 @@ setCartItems([])
                 <meta charSet="utf-8" />
                 <title>Cart</title>
             </Helmet>
-    <button onClick={()=>{clearCart()}} className="bg-red-800 text-white px-5 py-2 rounded-md">Clear Cart</button>
+   {cartItems.length >0? <button onClick={()=>{clearCart()}} className="bg-red-800 text-white px-5 py-2 rounded-md">Clear Cart</button>: null}
    </div>
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -164,7 +164,11 @@ onClick={toggleDropDowon}
 </div>
 
   </div>
-  </div>:null}
+  </div>: <div className='col-span-4 h-full flex flex-col justify-center items-center text-center py-10 ' >
+    <h1 className='text-4xl py-10'>Cart is empty</h1> 
+    <Link to="" className="bg-red-800 text-white px-5 py-2 rounded-md">Back to Home</Link>
+
+     </div>}
 
 </div>
 

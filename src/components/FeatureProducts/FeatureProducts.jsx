@@ -17,6 +17,8 @@ const [filtered, setFiltered] = useState([])
 const [title, setTitle] = useState([{ id: -1, data: "" }]);
 const [displayed, setDisplayed]= useState([])
 let { addProductToCart }= useContext(CartContext)
+let {wishList, getProductToWishlist, addProductToWishlist, deleteProductToWishlist} = useContext(WishListContext)
+
  async function addToCart(productId){
   let response = await addProductToCart(productId)
   //console.log(response)
@@ -32,6 +34,11 @@ let {data, isError, isLoading, error}= useQuery({
  
 })
 
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleOnChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
 
 
 
@@ -61,7 +68,6 @@ async function handleSearch(e){
   setTitle([{id,data}]);
   console.log("handle ",title)
  }
- let {wishList, getProductToWishlist, addProductToWishlist, deleteProductToWishlist} = useContext(WishListContext)
  
  //    console.log(product.id)
  //   console.log(data)
@@ -86,26 +92,36 @@ async function handleSearch(e){
   
   }
  
- 
- 
-  async function toggleHeart(id){
-if(await wishList.some(item=>item== id)){
-  setIsClicked(true)
-}
-
-
-   // setIsClicked(prevState => !prevState);
-   isClicked? setIsClicked(false):setIsClicked(true);
-      console.log(isClicked, id)}
-
-
-async function handleWishlist(id){  
-   if(isClicked ==true){
-   await addWishList(id)
-   }else{
-    await deleteWishList(id)
-   }
+ useEffect(()=>{
+  if( wishList.some(item=>item== displayed.id)){
+    setIsClicked(true)
   }
+ },[wishList])
+ 
+
+
+   async function handleWishlist(id){  
+    
+   if (wishList.includes(id)){
+    deleteProductToWishlist(id)
+   }
+   else{
+    addProductToWishlist(id)
+   }
+    }
+   
+   
+
+// async function handleWishlist(id){  
+//    if(isClicked==false){
+//    await addWishList(id)
+//    setIsClicked(!isClicked)
+//    }else{
+//   await deleteWishList(id)
+//   setIsClicked(!isClicked)
+//    }
+  
+//   }
 
 
 
@@ -147,7 +163,7 @@ async function handleWishlist(id){
  </Link>
  <div>
    {/* <AddToWhishList product={product} data={data.data.data}/></div> */}
-    <i onClick={()=>{toggleHeart(product.id), handleWishlist(product.id)}} className={`fa fa-heart ${wishList.some(item=>item== product.id)?'text-red-500':'text-green-500'}`}></i></div>
+    <i onClick={()=>{handleWishlist(id)}} className={`fa fa-heart ${wishList.some(item=>item== product.id)?'text-red-500':'text-green-500'}`}></i></div>
     <div className={`flex justify-center items-center  ${styles.buton}`}>
    <button onClick={()=>{addToCart(product.id)}} type="button" className={`${styles.handle}  inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800`}>
             Add to  cart
@@ -179,7 +195,7 @@ async function handleWishlist(id){
     </Link>
    
       {/* <AddToWhishList product={product} data={data.data.data}/></div> */}
-       <i onClick={()=>{toggleHeart(product.id), handleWishlist(product.id)}} className={`fa fa-heart ${wishList.some(item=>item== product.id)?'text-red-500':'text-green-500'}`}></i>
+       <i onClick={()=>{ handleWishlist(product.id)}} className={`fa fa-heart ${wishList.some(item=>item== product.id)?'text-red-500':'text-green-500'}`}></i>
     <div className={`flex justify-center items-center  ${styles.buton}`}>
    <button onClick={()=>{addToCart(product.id)}} type="button" className={`${styles.handle}  inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800`}>
             Add to  cart

@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 import { TokenContext } from '../../../context/TokenContext';
 import { CartContext } from '../../../context/CartContext';
 import { ThemeContext } from '../../../context/ThemeContext';
+import { WishListContext } from '../../../context/WishListContext';
 
 export default function Navbar() {
   let {theme,  toggleTheme} = useContext(ThemeContext);
@@ -26,6 +27,7 @@ useEffect(()=>{
 },[theme])
 console.log(theme)
 let {noOfCartItem, getCartProduct} = useContext(CartContext)
+let {noOfWishListItems, setNoOfWishListItems} = useContext(WishListContext)
   let {token, setToken} = useContext(TokenContext)
   console.log(token)
   const [isMenuVisible, setIsMenuVisible] = useState(false);
@@ -49,7 +51,7 @@ let {noOfCartItem, getCartProduct} = useContext(CartContext)
   return (
    
 <nav className={`bg-white fixed navbar w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600  dark:bg-gray-900`}>
-  <div className="container mx-auto p-5 flex flex-nowrap justify-between md:block">
+  <div className="container mx-auto p-2 flex flex-nowrap justify-between md:block">
     <div className=" md:flex justify-between ">
     <NavLink to="home" className=" flex-col md:flex items-center space-x-3 rtl:space-x-reverse dark:bg-gray-900 dark:border-gray-700 dark:text-white">
       <img src={freshCart} className="h-8 dark:text-white dark:bg-lime-400 dark:shadow-md dark:shadow-lime-800" alt="Flowbite Logo" />
@@ -80,10 +82,13 @@ let {noOfCartItem, getCartProduct} = useContext(CartContext)
           Products</NavLink>
       </li>
       <li>
-      <NavLink to="wishlist"
-      className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-      wishList
-        </NavLink>
+      <NavLink
+        to="cart"
+        className="block py-2 px-3 text-gray-900 rounded hover:before:w-full hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+          wishList
+<span className="sr-only">Notifications</span>
+  <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 opacity-85 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">{noOfWishListItems}</div>
+</NavLink>
       </li>
       <li>
         <NavLink to="category"

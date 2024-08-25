@@ -27,7 +27,24 @@ function getCategory(){
     slidesToShow: 7,
     slidesToScroll: 1,
     autoplay:true,
-   
+    responsive: [
+    
+      {
+        breakpoint: 960,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      }
+    ]
   };
   console.log(data?.data.data)
 // setRevers(data?.data.data)
@@ -51,8 +68,8 @@ function getCategory(){
      <div className={`container mx-auto   `}>
       <Slider {...settings}>
         {data?.data.data.reverse().map((item)=>
-        <div className=" ">
-        <img className="w-full h-[100px]" src={item.image}/>
+        <div  key={item._id} className=" ">
+        <img  className="w-full h-[100px]" src={item.image}/>
         <p>{item.name}</p>
          </div>
       )}

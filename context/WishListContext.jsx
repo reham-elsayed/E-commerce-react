@@ -6,6 +6,7 @@ export let WishListContext = createContext()
 
 export default function WishListContextProvider(props){
 const [wishList, setWishList] =useState([]);
+const [noOfWishListItems, setNoOfWishListItems] =useState(0)
     let token;
     token = localStorage.getItem("token");
 
@@ -18,10 +19,14 @@ const [wishList, setWishList] =useState([]);
          ).then((response)=>{
             console.log(response.data);
            // toast.success(response.data.message)
-           setWishList(response.data.data.map((item=>item._id)))
-          
+          let x =response.data.data.map(item=>item.id)
+          setNoOfWishListItems(response.data.data.length)
+          console.log(noOfWishListItems)
+          setWishList(x)
+          console.log(wishList, "from get")
             return response.data;
-         }).catch((error)=>{
+         })
+         .catch((error)=>{
             console.log(error)
           //  toast.error(error.data.message)
             return error
@@ -40,11 +45,12 @@ const [wishList, setWishList] =useState([]);
          ).then((response)=>{
             console.log(response);
             setWishList(response.data.data)
-           // toast.success(response.data.message)
+            setNoOfWishListItems(response.data.data.length)
+            toast.success(response.data.message)
             return response;
          }).catch((error)=>{
             console.log(error)
-          //  toast.error(error.data.message)
+           toast.error(error.data.message)
             return error
          })
     }
@@ -56,8 +62,9 @@ const [wishList, setWishList] =useState([]);
             } 
          ).then((response)=>{
             console.log(response);
-           // toast.success(response.data.message)
+            toast.success(response.data.message)
            setWishList(response.data.data)
+          setNoOfWishListItems(response.data.data.length)
   console.log(response.data.data)
             return response;
          }).catch((error)=>{
@@ -66,7 +73,7 @@ const [wishList, setWishList] =useState([]);
             return error
          })
       }
-    return <WishListContext.Provider value={{wishList, getProductToWishlist, addProductToWishlist,deleteProductToWishlist}}>
+    return <WishListContext.Provider value={{noOfWishListItems, wishList, getProductToWishlist, addProductToWishlist,deleteProductToWishlist}}>
 
        {props.children} 
     </WishListContext.Provider>

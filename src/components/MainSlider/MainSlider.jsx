@@ -36,12 +36,13 @@ export default function MainSlider() {
     dots:false,
     autoplaySpeed:2000,
     autoplay:true,
+    
 
   };
 images.images.map((item)=>console.log(item.path))
 // Dynamically generate slider items
 const sliderItems = images.images.map((item, index) => (
-  <img key={item.id} src="{`${item.path}`}" className="h-[300px]" alt="" />
+  <img key={item.id} src={item.path} className="h-[300px]" alt="" />
 ));
 
   return (
@@ -50,13 +51,13 @@ const sliderItems = images.images.map((item, index) => (
         <div  className="w-3/4 h-[300px]">
     <Slider {...settings}>
        
-       <img src={image4} alt="" className="h-[300px]" /> 
-       <img src={image4} alt="" className="h-[300px]" /> 
+       <img src={image3} alt="" className="h-[200px] lg:h-[300px]" /> 
+       <img src={image4} alt="" className="lg:h-[300px] h-[200px]" /> 
 </Slider>
 </div>
 <div className="w-1/4">
-<img src={image1} className="h-[150px] w-full" alt="main slider img"/>
-<img src={image1} className="h-[150px] w-full" alt="main slider img"/>
+<img src={image1} className="lg:h-[150px] h-[100px] w-full" alt="main slider img"/>
+<img src={image2} className="lg:h-[150px] h-[100px] w-full" alt="main slider img"/>
 
 </div>
 </div>

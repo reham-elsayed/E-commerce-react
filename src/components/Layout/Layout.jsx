@@ -3,6 +3,8 @@ import styles from "./Layout.module.css"
 import { Outlet } from 'react-router-dom'
 import Navbar from '../Navbar/Navbar'
 import Footer from '../Footer/Footer'
+import { Offline, Online } from "react-detect-offline";
+
 export default function Layout() {
   return (
    <>
@@ -14,6 +16,7 @@ export default function Layout() {
      </div>
    
     <Footer />
+    <Offline><div className="fixed bottom-5 left-1 p-3 rounded-md text-white bg-gray-800  border-gray-700">No internet connection!</div></Offline>
     </div>
    </>
   )

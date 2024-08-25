@@ -19,37 +19,48 @@ let { addProductToCart }= useContext(CartContext)
   async function getWishList(){
    let response = await getProductToWishlist()
    setList(response.data)
+   setX(response.data)
  }
  useEffect(()=>{
    getWishList()
 
- },[])
+ },[wishList])
+ const [x, setX]= useState([])
+//  useEffect(()=>{
+//   let data = list.filter((item)=>item.id == wishList.map(item=>item))
+//   setX(data)
+//  },[wishList])
+ console.log(x)
 console.log(list)
  async function addWishList(id){
    let response = await addProductToWishlist(id)
  
  }
  async function deleteWishList(id){
-   let response = await deleteProductToWishlist(id)
- 
- }
+  await deleteProductToWishlist(id)
+  //  let newdata =await list.filter(item=>item.id == response.data)
+  //  setList(newdata)
+  
 
-async function toggleHeart(id){
-
-  setIsClicked(prevState => !prevState);
-    console.log(isClicked, id)
- if(!isClicked){
- await addWishList(id)
- }else{
-  deleteWishList(id)
  }
-}
+//  async function handledisplayUpdate(){
+//   let data = list.filter((item)=>item.id == wishList.map(item=>item))
+//   setList(data)
+//  }
+ console.log(list)
+// async function toggleHeart(id){
+
+
 
   return (
     <>
-    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2  dark:bg-gray-800 dark:border-gray-700'>
-  {list.map((product)=>
-<div key={product.id} className={`cardhoverrr bg-white p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${styles.cardhoverrer}`}>
+    <div className='py-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2  dark:bg-gray-800 dark:border-gray-700'>
+  {x.length>0?x.map((product)=>
+<div key={product.id} className={`cardhoverrr relative bg-white p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${styles.cardhoverrer}`}>
+<button onClick={()=>{deleteProductToWishlist(product.id)}} type="button" className={`absolute right-1 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800`}>
+            <i className="fa fa-trash"></i>
+           
+        </button>
  <Link to={`/productdetail/${product.id}/${product.category.name}`}>
      <img className="rounded-t-lg w-full" src={product.imageCover} alt={product.title} />
 
@@ -69,16 +80,21 @@ async function toggleHeart(id){
  <div>
    {/* <AddToWhishList product={product} data={data.data.data}/></div> */}
    <div className={`flex justify-center items-center  ${styles.buton}`}>
-   <button onClick={()=>{addToCart(product.id)}} type="button" className={`${styles.handle}  inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800`}>
+    <div>
+   <button onClick={()=>{addToCart(product.id)}} type="button" className={`${styles.handle} left-1 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800`}>
             Add to  cart
              <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
             </svg>
-        </button></div>
+        </button>
+        
+       
+        </div>
+        </div>
 </div>
    </div> 
 
-  )}
+  ): <div className='col-span-4 h-full flex justify-center items-center text-center text-4xl' ><h1>WishList is empty</h1>  </div>}
   </div>
   </>)
 

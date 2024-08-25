@@ -90,7 +90,7 @@ console.log(product.images)
       <Slider {...settings}>
         {product.images?.map((item)=>
           <div>
-          <img src={item}/>
+          <img key={product.id} src={item} alt={product.title}/>
          </div>
       )}
     </Slider>
