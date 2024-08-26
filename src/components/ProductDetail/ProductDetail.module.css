@@ -1,1 +1,7 @@
 .ProductDetail {}
+
+.border{
+    
+    border-radius: 10px;
+    background: rgba(204, 239, 158, 0.269);
+}

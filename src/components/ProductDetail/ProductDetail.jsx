@@ -70,6 +70,7 @@ let { addProductToCart }= useContext(CartContext)
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    
   };
   useEffect(()=>{
     getData();
@@ -85,8 +86,8 @@ console.log(product.images)
    {isLoading?<Loader/>: null}
    <div className="container mx-auto dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
     
-    <div className="flex">
-      <div className='w-1/4'>
+    <div className="flex-col md:flex md:flex-row ">
+      <div className='w-100 md:w-1/4 my-1'>
       <Slider {...settings}>
         {product.images?.map((item)=>
           <div>
@@ -97,14 +98,14 @@ console.log(product.images)
     {/* <Sliderr product={product}/> */}
 </div>
       {/* <img src={product.imageCover}/></div> */}
-      <div className='w-3/4 m-10 '>
+      <div className={`w-100 md:w-3/4 l:w-3/4  ${styles.border} ms-2 p-3`}>
       
-      <h1 className="text-black font-bolder text-2xl my-5"> {product.title}</h1>
+      <h1 className="text-black dark:text-white font-bolder text-2xl my-5"> {product.title}</h1>
       <Helmet>
                 <meta charSet="utf-8" />
                 <title>{product.title}</title>
             </Helmet>
-    <h5 className="text-gray-700 my-5">{product.description}</h5>
+    <h5 className="text-gray-700 dark:text-white my-5">{product.description}</h5>
     <p className="my-5">{ product.category?.name}</p>
     <div className="flex justify-between items-center">
       <p className="w-1/2">
@@ -112,7 +113,7 @@ console.log(product.images)
       </p>
       <div className="w-1/2"><i className="fa fa-star text-yellow-300"></i>{product.ratingsQuantity}</div>
     </div>
-    <button onClick={()=>{addToCart(product.id)}} type="button" className=" inline-flex justify-center w-full items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+    <button onClick={()=>{addToCart(product.id)}} type="button" className="mt-10 inline-flex justify-center w-full items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
             Add to  cart
             <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
     <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
@@ -137,7 +138,7 @@ console.log(product.images)
             onMouseEnter={()=>{handleTitle(product.id, product.title)}}
             onMouseLeave={()=>{handleTitleSplit(product.id)}}
             onBlur={()=>{handleTitleSplit(product.id)}}
-            className="mb-3 font-normal text-gray-700 dark:text-gray-400  data-title">{(title && title[0].id== product._id)?title[0].data:product.title.split(' ').slice(0,2).join(" ") }</p>
+            className="mb-3 font-normal text-green-700 dark:text-gray-400  data-title">{(title && title[0].id== product._id)?title[0].data:product.title.split(' ').slice(0,2).join(" ") }</p>
 
         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{product.price} EGP</p>
         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><i className="fa fa-star text-yellow-300"></i>{product.ratingsQuantity}</p>

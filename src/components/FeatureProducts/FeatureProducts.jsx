@@ -142,13 +142,13 @@ async function handleSearch(e){
     {isLoading?<Loader/>:<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2'>
      
 {displayed.length >0?displayed.map((product)=>
- <div key={product.id} className={`cardhoverrr bg-white p-1 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${styles.cardhoverrer}`}>
+ <div key={product.id} className={`cardhoverrr bg-red-100 p-1 border-2 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${styles.cardhoverrer}`}>
  <Link to={`/productdetail/${product.id}/${product.category.name}`}>
      <img className="rounded-t-lg w-full" src={product.imageCover} alt={product.title} />
 
- <div className="p-1">
+ <div className="p-1 bg-white bg-opacity-60 mt-1 dark:bg-grey-800 ">
     
-         <h5 className="mb-2 text-2xl tracking-tight text-green-700 dark:text-white">{product.category.name}</h5>
+         <h5 className="mb-2 bg-transparent text-2xl tracking-tight text-green-700 dark:text-white">{product.category.name}</h5>
          <p 
          onMouseEnter={()=>{handleTitle(product.id, product.title)}}
          onMouseLeave={()=>{handleTitleSplit(product.id)}}
@@ -163,7 +163,7 @@ async function handleSearch(e){
  </Link>
  <div>
    {/* <AddToWhishList product={product} data={data.data.data}/></div> */}
-    <i onClick={()=>{handleWishlist(id)}} className={`fa fa-heart ${wishList.some(item=>item== product.id)?'text-red-500':'text-green-500'}`}></i></div>
+    <i onClick={()=>{handleWishlist(id)}} className={`fa fa-heart text-3xl ${wishList.some(item=>item== product.id)?'text-red-500':'text-gray-500'}`}></i></div>
     <div className={`flex justify-center items-center  ${styles.buton}`}>
    <button onClick={()=>{addToCart(product.id)}} type="button" className={`${styles.handle}  inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800`}>
             Add to  cart
@@ -195,7 +195,7 @@ async function handleSearch(e){
     </Link>
    
       {/* <AddToWhishList product={product} data={data.data.data}/></div> */}
-       <i onClick={()=>{ handleWishlist(product.id)}} className={`fa fa-heart ${wishList.some(item=>item== product.id)?'text-red-500':'text-green-500'}`}></i>
+       <i onClick={()=>{ handleWishlist(product.id)}} className={`fa fa-heart ${wishList.some(item=>item== product.id)?'text-red-500':'text-gray-500'}`}></i>
     <div className={`flex justify-center items-center  ${styles.buton}`}>
    <button onClick={()=>{addToCart(product.id)}} type="button" className={`${styles.handle}  inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800`}>
             Add to  cart

@@ -46,9 +46,9 @@ const sliderItems = images.images.map((item, index) => (
 ));
 
   return (
-    <div className="my-10 ">
+    <div className="my-1 md:my-10 ">
       <div className="flex  mx-auto container">
-        <div  className="w-3/4 h-[300px]">
+        <div  className="w-3/4 h-[200] lg:h-[300px]">
     <Slider {...settings}>
        
        <img src={image3} alt="" className="h-[200px] lg:h-[300px]" /> 

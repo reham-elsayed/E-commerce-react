@@ -50,20 +50,20 @@ export default function Login() {
   }
   return (
     <>
- <div className='container mx-auto p-20'>
+ <div className='container mx-auto md:py-20'>
   <h1 className="text-5xl mb-5 text-green-400">Login Now :</h1>
- {userMessage? <div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-green-800 dark:text-lime-50">
+ {userMessage? <div className="md:p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-green-800 dark:text-lime-50">
   {userMessage}
   </div>:null
    }
-   {userError? <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-800 dark:text-red-50">
+   {userError? <div className="md:p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-800 dark:text-red-50">
   {userError}
   </div>:null
    }
  
- <form onSubmit={formik.handleSubmit}>
+ <form onSubmit={formik.handleSubmit} className='border-b-2 my-3'>
  
-        <div className='my-5'>
+        <div className=''>
             <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">email</label>
             <input
             name="email"
@@ -104,10 +104,11 @@ export default function Login() {
   }
  </div>
  </form>
+
  <button type="button"
 onClick={handleforget}
   className={`text-white bg-green-700 hover:bg-hove-800 focus:ring-4 focus:outline-none focus:ring-hover-300 font-medium rounded-lg text-sm  sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800`}>ForgotPassword?</button>
-  
+ 
  </div>
  </>
   )

@@ -19,15 +19,18 @@
 li{
     position: relative;
 }
-.active::before{
-    content:"";
-    position:absolute;
-width:100%;
-height: 3px;
-top:80%;
-border-radius: 20px;
-background-color: rgb(24, 94, 47);
+@media screen and (min-width: 660px) {
+    .active::before{
+        content:"";
+        position:absolute;
+    width:100%;
+    height: 3px;
+    top:80%;
+    border-radius: 20px;
+    background-color: rgb(24, 94, 47);
+    } 
 }
+
 /*
 li::before{
     content:"";

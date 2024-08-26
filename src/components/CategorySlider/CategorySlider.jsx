@@ -54,7 +54,7 @@ function getCategory(){
 
     <>
      <h2 className="text-2xl text-green-700">Show Popular categories:</h2>
-    <div className="relative my-10 ">
+    <div className="relative md:my-10 ">
 
    {/* <Slider {...settings}>
         {data?.data.data.map((item)=>

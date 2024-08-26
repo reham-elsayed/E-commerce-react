@@ -51,17 +51,17 @@ let {noOfWishListItems, setNoOfWishListItems} = useContext(WishListContext)
  }, [])
   return (
    
-<nav className={`bg-white fixed navbar w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600  dark:bg-gray-900`}>
+<nav className={`bg-white bg-opacity-85 dark:bg-opacity-85 fixed navbar w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600  dark:bg-gray-900`}>
   <div className="container mx-auto p-4 flex flex-nowrap justify-between md:block">
     <div className=" md:flex justify-between ">
     <NavLink to="home" className=" flex-col md:flex items-center space-x-3 rtl:space-x-reverse dark:bg-gray-900 dark:border-gray-700 dark:text-white">
-      <img src={freshCart} className="h-8 dark:text-white dark:bg-lime-400 dark:shadow-md dark:shadow-lime-800" alt="Flowbite Logo" />
+      <img src={freshCart} className="h-8 dark:text-white dark:rounded-lg  dark:bg-lime-400 dark:shadow-md dark:shadow-lime-800" alt="Flowbite Logo" />
   </NavLink>
       <div className=" md:flex md:flex-row flex-col justify-between gap-32">
         {token?
       <ul className={`md:flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 ${isMenuVisible?'flex':'hidden'}`}>
       <li>
-        <NavLink to="" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">
+        <NavLink to="" className="inline-block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">
           Home
         </NavLink>
       </li>
@@ -126,7 +126,7 @@ let {noOfWishListItems, setNoOfWishListItems} = useContext(WishListContext)
         className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
           Login</NavLink>
       </li>
-      <li>
+      <li > 
         <NavLink to="register"
         className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
           Register</NavLink>

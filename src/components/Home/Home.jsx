@@ -16,7 +16,7 @@ import {Helmet} from "react-helmet";
                 <meta charSet="utf-8" />
                 <title>Home</title>
             </Helmet>
-  <div className="container mx-auto p-10 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+  <div className="container mx-auto p-0 md:p-10 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
  
     <MainSlider />
  
