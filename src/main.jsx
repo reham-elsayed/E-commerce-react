@@ -13,7 +13,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <CartContextProvider>
   <WishListContextProvider>
   <ThemeContextProvider>
-  
   <React.StrictMode>
     <App />
   </React.StrictMode>

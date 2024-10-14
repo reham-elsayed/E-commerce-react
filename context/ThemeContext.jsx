@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState , useRef, useEffect} from 'react';
 
 export const ThemeContext = createContext();
-
+export const ThemeDispatchContext = createContext();
 export default  function ThemeContextProvider({ children }){
    let initialtheme = localStorage.getItem('theme') || 'light'
   const [theme, setTheme] = useState(initialtheme);
@@ -15,8 +15,10 @@ localStorage.setItem('theme', theme)
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{theme}}>
+       <ThemeDispatchContext.Provider value={{toggleTheme}}>
       {children}
+      </ThemeDispatchContext.Provider>
     </ThemeContext.Provider>
   );
 };

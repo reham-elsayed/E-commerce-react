@@ -5,29 +5,25 @@ import { useState, useContext, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { TokenContext } from '../../../context/TokenContext';
 import { CartContext } from '../../../context/CartContext';
-import { ThemeContext } from '../../../context/ThemeContext';
+import { ThemeContext, ThemeDispatchContext } from '../../../context/ThemeContext';
 import { WishListContext } from '../../../context/WishListContext';
 
 export default function Navbar() {
-  let {theme,  toggleTheme} = useContext(ThemeContext);
-
+  let {theme} = useContext(ThemeContext);
+  let { toggleTheme} = useContext(ThemeDispatchContext);
 const navigate = useNavigate()
-const toggleFunction=()=>{
- toggleTheme(theme)
- 
 
-}
 
-useEffect(()=>{
-  if(theme == 'dark'){
-    document.documentElement.classList.add("dark")
-  }else{
-    document.documentElement.classList.remove("dark")
-  }
-},[theme])
+// useEffect(()=>{
+//   if(theme == 'dark'){
+//     document.documentElement.classList.add("dark")
+//   }else{
+//     document.documentElement.classList.remove("dark")
+//   }
+// },[theme])
 console.log(theme)
 let {noOfCartItem, getCartProduct} = useContext(CartContext)
-let {noOfWishListItems, setNoOfWishListItems} = useContext(WishListContext)
+let {noOfWishListItems} = useContext(WishListContext)
   let {token, setToken} = useContext(TokenContext)
   console.log(token)
   const [isMenuVisible, setIsMenuVisible] = useState(false);
@@ -109,7 +105,7 @@ let {noOfWishListItems, setNoOfWishListItems} = useContext(WishListContext)
   
 <label className="inline-flex items-center cursor-pointer">
   <input type="checkbox" value="" className="sr-only peer"/>
-  <div onClick={toggleFunction} 
+  <div onClick={toggleTheme} 
   className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
   <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">{theme} mode</span>
 </label>

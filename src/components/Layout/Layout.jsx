@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import styles from "./Layout.module.css"
 import { Outlet } from 'react-router-dom'
 import Navbar from '../Navbar/Navbar'
 import Foot from '../Footer/Footer'
 import { Offline, Online } from "react-detect-offline";
-
+import { ThemeContext } from '../../../context/ThemeContext'
 export default function Layout() {
+  let {theme} = useContext(ThemeContext)
+  useEffect(()=>{
+    if(theme == 'dark'){
+      document.documentElement.classList.add("dark")
+    }else{
+      document.documentElement.classList.remove("dark")
+    }
+  },[theme])
   return (
    <>
 <div className='dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700'>
