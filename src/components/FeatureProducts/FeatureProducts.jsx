@@ -109,25 +109,12 @@ async function handleSearch(e){
     addProductToWishlist(id)
    }
     }
-   
-   
-
-// async function handleWishlist(id){  
-//    if(isClicked==false){
-//    await addWishList(id)
-//    setIsClicked(!isClicked)
-//    }else{
-//   await deleteWishList(id)
-//   setIsClicked(!isClicked)
-//    }
-  
-//   }
-
 
 
   return (
    
    <div className='container mx-auto px-4 '>
+     {isLoading?<Loader/>:
      <div className='my-5'>
             <label htmlFor="search" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">search</label>
             <input
@@ -139,13 +126,16 @@ async function handleSearch(e){
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
        
         </div>
+}
     {isLoading?<Loader/>:<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2'>
      
 {displayed.length >0?displayed.map((product)=>
  <div key={product.id} className={`cardhoverrr bg-red-100 p-1 border-2 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${styles.cardhoverrer}`}>
  <Link to={`/productdetail/${product.id}/${product.category.name}`}>
-     <img className="rounded-t-lg w-full" src={product.imageCover} alt={product.title} />
+ <div className={`min-h-[100px]  bg-indigo-100 bg-gradient-to-green rounded-lg `}>
 
+     <img className="rounded-t-lg w-full" src={product.imageCover} alt={product.title} />
+</div>
  <div className="p-1 bg-white bg-opacity-60 mt-1 dark:bg-grey-800 ">
     
          <h5 className="mb-2 bg-transparent text-2xl tracking-tight text-green-700 dark:text-white">{product.category.name}</h5>
@@ -176,8 +166,10 @@ async function handleSearch(e){
 :data?.data.data.map((product)=>(
   <div key={product.id} className={` bg-white p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${styles.cardhoverrer}`}>
     <Link to={`/productdetail/${product.id}/${product.category.name}`}>
+    <div className={`min-h-[100px]  bg-indigo-100 bg-gradient-to-green rounded-lg `}>
+
         <img className="rounded-t-lg w-full" src={product.imageCover} alt={product.title} />
-  
+  </div>
     <div className="p-1">
        
             <h5 className="mb-2 text-2xl tracking-tight text-green-700 dark:text-white">{product.category.name}</h5>

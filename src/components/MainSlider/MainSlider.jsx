@@ -39,25 +39,29 @@ export default function MainSlider() {
     
 
   };
-images.images.map((item)=>console.log(item.path))
-// Dynamically generate slider items
-const sliderItems = images.images.map((item, index) => (
-  <img key={item.id} src={item.path} className="h-[300px]" alt="" />
-));
+// images.images.map((item)=>console.log(item.path))
+// // Dynamically generate slider items
+// const sliderItems = images.images.map((item, index) => (
+//   <img key={item.id} src={item.path} className="h-[300px]" alt="" loading='lazy'/>
+// ));
 
   return (
     <div className="my-1 md:my-10 ">
       <div className="flex  mx-auto container">
         <div  className="w-3/4 h-[200] lg:h-[300px]">
     <Slider {...settings}>
-       
-       <img src={image3} alt="" className="h-[200px] lg:h-[300px]" /> 
-       <img src={image4} alt="" className="lg:h-[300px] h-[200px]" /> 
+    <div className={`lg:h-[300px] h-[200px] bg-indigo-100 bg-gradient-to-green rounded-lg `}>
+
+       <img src={image3} alt="slider" className="h-[200px] lg:h-[300px] w-full" loading='lazy' /> </div>
+       <div className={`lg:h-[300px] h-[200px]  bg-indigo-100 bg-gradient-to-green rounded-lg `}>
+
+       <img src={image4} alt="slider" className="lg:h-[300px] h-[200px] w-full" loading='lazy' /> </div>
 </Slider>
 </div>
-<div className="w-1/4">
-<img src={image1} className="lg:h-[150px] h-[100px] w-full" alt="main slider img"/>
-<img src={image2} className="lg:h-[150px] h-[100px] w-full" alt="main slider img"/>
+<div className="w-1/4 lg:h-[300px] h-[200px]  bg-indigo-100 bg-gradient-to-green rounded-lg ">
+
+<img src={image1} className="lg:h-[150px] h-[100px] w-full" alt="main slider img" loading='lazy' />
+<img src={image2} className="lg:h-[150px] h-[100px] w-full" alt="main slider img" loading='lazy'/>
 
 </div>
 </div>

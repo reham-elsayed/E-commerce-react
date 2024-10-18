@@ -4,24 +4,33 @@ import styles from "./Cart.module.css"
 import { Link } from 'react-router-dom'
 import { CartContext } from '../../../context/CartContext'
 import {Helmet} from "react-helmet";
+import Loader from '../Loader/Loader';
 
 export default function Cart() {
   let { getCartProduct, deleteCartProduct, updateCartProduct, clearCartProduct, totalPrice } = useContext(CartContext)
   const [cartItems, setCartItems ]= useState([])
-  const [isClicked, setIsClicked]=useState(false)
-  const [isEmpty, setIsEmpty]=useState(false)
+  const [isLoading, setIsLoading]=useState(true)
+  const[isClicked, setIsClicked]= useState(false)
+  const [isNotEmpty, setIsNotEmpty]=useState(false)
 async function getCart(){
-  let response = await getCartProduct()
-  setCartItems(response.data.data.products)
+  try{
+    let response = await getCartProduct()
+    setCartItems(response.data.data.products)
+    setIsLoading(false)
+  } catch(err){
+    console.log(err)
+    setIsLoading(true)
+  }
+ 
  
 }
 useEffect(()=>{
 
   if(cartItems.length > 0){
-    setIsEmpty(true)
+    setIsNotEmpty(true)
   }
   else{
-    setIsEmpty(false)
+    setIsNotEmpty(false)
   }
 },[cartItems])
 useEffect(()=>{
@@ -64,7 +73,7 @@ setCartItems([])
                 <meta charSet="utf-8" />
                 <title>Cart</title>
             </Helmet>
-    {!cartItems? <Loader/>:null}
+    {isLoading? <Loader/>:null}
    {cartItems.length >0? <button onClick={()=>{clearCart()}} className="bg-red-800 text-white px-5 py-2 rounded-md">Clear Cart</button>: null}
    </div>
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -140,7 +149,7 @@ setCartItems([])
         </tbody>
     </table>
               
-{isEmpty?  
+{isNotEmpty?  
  <div  className="flex  justify-between bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
   <div className="p-4 w-1/3">
     Total Price:

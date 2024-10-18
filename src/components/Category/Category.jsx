@@ -41,10 +41,15 @@ function handleNotToDisplay(){
             </Helmet>
 {data?.data.data.map((product)=>(
   <div onClick={()=>handleDisplay(product._id)} key={product._id} className="cart flex flex-col justify-between bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-   
-        <img className="rounded-t-lg w-full h-5/6" src={product.image} alt="" />
   
-    <div className="flex h-1/6 justify-center items-center">
+     <div className={`min-h-[100px] h-5/6 bg-indigo-100 bg-gradient-to-green rounded-lg `}>
+ 
+       <img className="rounded-t-lg w-full  h-full" src={product.image} alt={product.name} loading="lazy"/>
+    </div>
+     
+      
+  
+    <div className="flex min-h-[20px] h-1/6 justify-center items-center  bg-slate-100 rounded-lg">
        
     <h5 
       className=" text-2xl tracking-tight text-green-700 dark:text-white">

@@ -55,21 +55,13 @@ function getCategory(){
     <>
      <h2 className="text-2xl text-green-700">Show Popular categories:</h2>
     <div className="relative md:my-10 ">
-
-   {/* <Slider {...settings}>
-        {data?.data.data.map((item)=>
-        <div className="min-h-1/2">
-        <img className="w-full h-[100px]" src={item.image}/>
-       
-         </div>
-      )}
-       </Slider>   */}
-
      <div className={`container mx-auto   `}>
       <Slider {...settings}>
         {data?.data.data.reverse().map((item)=>
         <div  key={item._id} className=" ">
-        <img  className="w-full h-[100px]" src={item.image}/>
+                   <div className={`min-h-[100px]  bg-indigo-100 bg-gradient-to-green rounded-lg `}>
+
+        <img  className="w-full h-[100px]" src={item.image} loading="lazy"/></div>
         <p>{item.name}</p>
          </div>
       )}
