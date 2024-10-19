@@ -4,10 +4,10 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 //import images from './../../assets/images.json'
-import image1 from "./../../assets/slider-image-3.jpeg";
-import image2 from "./../../assets/slider-image-1.jpeg";
-import image3 from "./../../assets/slider-image-1.jpeg";
-import image4 from './../../assets/grocery-banner.png';
+import image1 from "./../../assets/grocery-banner-2.jpeg";
+import image2 from "./../../assets/slider-image-2.webp";
+import image3 from "./../../assets/slider-2small.jpeg";
+import image4 from './../../assets/slider-image-3.webp';
 const images = {
   "images": [
     {
