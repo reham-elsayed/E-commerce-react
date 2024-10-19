@@ -128,8 +128,10 @@ console.log(product.images)
       
 {allproduct.map((product)=>(
   <div key={product.id} className=" bg-white p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <Link to={`/productdetail/${product.id}/${product.category.name}`}>
-        <img className="rounded-t-lg w-full" src={product.imageCover} alt="" />
+    <Link to={`/productdetail/${product.id}/${product.category.name}`}
+    ariaLabel={`go to ${product.category.name}`}
+    >
+        <img className="rounded-t-lg w-full" src={product.imageCover} alt={product.category.name}/>
   
     <div className="p-5">
        

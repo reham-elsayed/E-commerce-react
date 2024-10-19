@@ -165,7 +165,7 @@ async function handleSearch(e){
 )
 :data?.data.data.map((product)=>(
   <div key={product.id} className={` bg-white p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${styles.cardhoverrer}`}>
-    <Link to={`/productdetail/${product.id}/${product.category.name}`}>
+    <Link to={`/productdetail/${product.id}/${product.category.name}`} aria-label={`go to ${product.category.name}`}>
     <div className={`min-h-[100px]  bg-indigo-100 bg-gradient-to-green rounded-lg `}>
 
         <img className="rounded-t-lg w-full" src={product.imageCover} alt={product.title} />

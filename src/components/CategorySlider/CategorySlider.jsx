@@ -61,7 +61,7 @@ function getCategory(){
         <div  key={item._id} className=" ">
                    <div className={`min-h-[100px]  bg-indigo-100 bg-gradient-to-green rounded-lg `}>
 
-        <img  className="w-full h-[100px]" src={item.image} loading="lazy"/></div>
+        <img  className="w-full h-[100px]" src={item.image} loading="lazy" alt={item.name}/></div>
         <p>{item.name}</p>
          </div>
       )}
