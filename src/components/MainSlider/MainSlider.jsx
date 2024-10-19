@@ -8,21 +8,7 @@ import image1 from "./../../assets/grocery-banner-2.jpeg";
 import image2 from "./../../assets/slider-image-2.webp";
 import image3 from "./../../assets/slider-2small.jpeg";
 import image4 from './../../assets/slider-image-3.webp';
-const images = {
-  "images": [
-    {
-      "id": 1,
-      "name": "Image1",
-      "path": "./../../assets/slider-image-1.jpeg"
-    },
-    {
-      "id": 2,
-      "name": "Image2",
-      "path": "./../../assets/slider-image-2.jpeg"
-    }
-    
-  ]
-}
+
 
 export default function MainSlider() {
 
@@ -39,11 +25,7 @@ export default function MainSlider() {
     
 
   };
-// images.images.map((item)=>console.log(item.path))
-// // Dynamically generate slider items
-// const sliderItems = images.images.map((item, index) => (
-//   <img key={item.id} src={item.path} className="h-[300px]" alt="" loading='lazy'/>
-// ));
+
 
   return (
     <div className="my-1 md:my-10 ">
@@ -52,16 +34,16 @@ export default function MainSlider() {
     <Slider {...settings}>
     <div className={`lg:h-[300px] h-[200px] bg-indigo-100 bg-gradient-to-green rounded-lg `}>
 
-       <img src={image3} alt="slider" className="h-[200px] lg:h-[300px] w-full" loading='lazy' /> </div>
+       <img src={image3} alt="slider" className="h-[200px] lg:h-[300px] w-full"  /> </div>
        <div className={`lg:h-[300px] h-[200px]  bg-indigo-100 bg-gradient-to-green rounded-lg `}>
 
-       <img src={image4} alt="slider" className="lg:h-[300px] h-[200px] w-full" loading='lazy' /> </div>
+       <img src={image4} alt="slider" className="lg:h-[300px] h-[200px] w-full"  /> </div>
 </Slider>
 </div>
 <div className="w-1/4 lg:h-[300px] h-[200px]  bg-indigo-100 bg-gradient-to-green rounded-lg ">
 
-<img src={image1} className="lg:h-[150px] h-[100px] w-full" alt="main slider img" loading='lazy' />
-<img src={image2} className="lg:h-[150px] h-[100px] w-full" alt="main slider img" loading='lazy'/>
+<img src={image1} className="lg:h-[150px] h-[100px] w-full" alt="main slider img"/>
+<img src={image2} className="lg:h-[150px] h-[100px] w-full" alt="main slider img"/>
 
 </div>
 </div>
