@@ -41,7 +41,7 @@ export default function Register() {
       navigate("/login")
       setIsLoading(false)
     }).catch((err)=>{console.log(err.response.data)
-      setUserError(err.response.data.errors.message)
+      setUserError(err.response.data.message)
       setIsLoading(false)
     })
   }
