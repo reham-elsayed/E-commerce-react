@@ -7,7 +7,6 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { CartContext } from '../../../context/CartContext';
-import AddToWhishList from '../AddToWhishList/AddToWhishList';
 import { WishListContext } from '../../../context/WishListContext';
 import {Helmet} from "react-helmet";
 
@@ -17,6 +16,7 @@ const [filtered, setFiltered] = useState([])
 const [title, setTitle] = useState([{ id: -1, data: "" }]);
 const [displayed, setDisplayed]= useState([])
 let { addProductToCart }= useContext(CartContext)
+const [isChecked, setIsChecked] = useState(false);
 let {wishList, getProductToWishlist, addProductToWishlist, deleteProductToWishlist} = useContext(WishListContext)
 
  async function addToCart(productId){
@@ -30,18 +30,12 @@ function getFeaturedProducts(){
 let {data, isError, isLoading, error}= useQuery({
   queryKey:["featuredProducts"],
   queryFn:getFeaturedProducts,
-  
- 
 })
 
-  const [isChecked, setIsChecked] = useState(false);
 
-  const handleOnChange = (event) => {
-    setIsChecked(event.target.checked);
-  };
-
-
-
+const handleOnChange = (event) => {
+  setIsChecked(event.target.checked);
+};
 async function handleSearch(e){
   let allData = data?.data.data
   console.log(allData)
@@ -172,7 +166,7 @@ async function handleSearch(e){
   </div>
     <div className="p-1">
        
-            <h5 className="mb-2 text-2xl tracking-tight text-green-700 dark:text-white">{product.category.name}</h5>
+            <p className="mb-2 text-2xl tracking-tight text-green-700 dark:text-white">{product.category.name}</p>
             <p 
             onMouseEnter={()=>{handleTitle(product.id, product.title)}}
             onMouseLeave={()=>{handleTitleSplit(product.id)}}
