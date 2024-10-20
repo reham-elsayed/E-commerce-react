@@ -8,13 +8,14 @@ import image1 from "./../../assets/grocery-banner-2.jpeg";
 import image2 from "./../../assets/slider-image-2.webp";
 import image3 from "./../../assets/slider-2small.jpeg";
 import image4 from './../../assets/slider-image-3.webp';
+import ImageResizer from '../ImageResizer/ImageResizer';
 
 
 export default function MainSlider() {
 
 
   var settings = {
-   
+   lazyLoading:true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -30,17 +31,18 @@ export default function MainSlider() {
   return (
     <div className="my-1 md:my-10 ">
       <div className="flex  mx-auto container">
-        <div  className="w-3/4 h-[200] lg:h-[300px]">
+        <div  className="w-full md:w-3/4 h-[200] lg:h-[300px]">
     <Slider {...settings}>
     <div className={`lg:h-[300px] h-[200px] bg-indigo-100 bg-gradient-to-green rounded-lg `}>
-
-       <img src={image3} alt="slider" className="h-[200px] lg:h-[300px] w-full"  /> </div>
+<ImageResizer image={image3} imagetitle={'slider'}/>
+       {/* <img src={image3} alt="slider" className="h-[200px] lg:h-[300px] w-full" loading="lazy"  /> */}
+       </div> 
        <div className={`lg:h-[300px] h-[200px]  bg-indigo-100 bg-gradient-to-green rounded-lg `}>
 
        <img src={image4} alt="slider" className="lg:h-[300px] h-[200px] w-full"  /> </div>
 </Slider>
 </div>
-<div className="w-1/4 lg:h-[300px] h-[200px]  bg-indigo-100 bg-gradient-to-green rounded-lg ">
+<div className="hidden md:inline-block md:w-1/4 lg:h-[300px] h-[200px]  bg-indigo-100 bg-gradient-to-green rounded-lg ">
 
 <img src={image1} className="lg:h-[150px] h-[100px] w-full" alt="main slider img"/>
 <img src={image2} className="lg:h-[150px] h-[100px] w-full" alt="main slider img"/>

@@ -6,6 +6,7 @@ import axios from 'axios';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import ImageResizer from '../ImageResizer/ImageResizer';
 
 export default function CategorySlider() {
 function getCategory(){
@@ -59,9 +60,10 @@ function getCategory(){
       <Slider {...settings}>
         {data?.data.data.reverse().map((item)=>
         <div  key={item._id} className=" ">
-                   <div className={`min-h-[100px]  bg-indigo-100 bg-gradient-to-green rounded-lg `}>
-
-        <img  className="w-full h-[100px]" src={item.image} loading="lazy" alt={item.name}/></div>
+                   <div className={`h-[100px]  bg-indigo-100 bg-gradient-to-green rounded-lg `}>
+<ImageResizer image={item.image} imagetitle={item.name}/>
+        {/* <img  className="w-full h-[100px]" src={item.image} loading="lazy" alt={item.name}/>*/}
+        </div> 
         <p>{item.name}</p>
          </div>
       )}

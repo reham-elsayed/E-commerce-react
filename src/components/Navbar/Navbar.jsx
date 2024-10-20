@@ -43,21 +43,21 @@ let {noOfWishListItems} = useContext(WishListContext)
 <nav className={`bg-white bg-opacity-85 dark:bg-opacity-85 fixed navbar w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600  dark:bg-gray-900`}>
   <div className="container mx-auto p-4 flex flex-nowrap justify-between md:block">
     <div className=" md:flex justify-between ">
-    <NavLink to="home" ariaLabel="home" className=" flex-col md:flex items-center space-x-3 rtl:space-x-reverse dark:bg-gray-900 dark:border-gray-700 dark:text-white">
+    <NavLink to="home"aria-label="home" className=" flex-col md:flex items-center space-x-3 rtl:space-x-reverse dark:bg-gray-900 dark:border-gray-700 dark:text-white">
       <img src={freshCart} className="h-8 dark:text-white dark:rounded-lg  dark:bg-lime-400 dark:shadow-md dark:shadow-lime-800" alt="fresh cart" />
   </NavLink>
       <div className=" md:flex md:flex-row flex-col justify-between gap-32">
         {token?
       <ul className={`md:flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 ${isMenuVisible?'flex':'hidden'}`}>
       <li>
-        <NavLink to="" ariaLabel="go to home" className="inline-block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">
+        <NavLink to=""aria-label="go to home" className="inline-block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">
           Home
         </NavLink>
       </li>
       <li>
         <NavLink
         to="cart"
-       ariaLabel="go to cart"
+      aria-label="go to cart"
         className="block py-2 px-3 text-gray-900 rounded hover:before:w-full hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
           Cart
 <span className="sr-only">Notifications</span>
@@ -69,14 +69,14 @@ let {noOfWishListItems} = useContext(WishListContext)
       </li>
       <li>
         <NavLink to="product"
-        ariaLabel="go to product"
+       aria-label="go to product"
         className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
           Products</NavLink>
       </li>
       <li>
       <NavLink
         to="wishlist"
-       ariaLabel="go to whishlist"
+      aria-label="go to whishlist"
         className="block py-2 px-3 text-gray-900 rounded hover:before:w-full hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
           wishList
 <span className="sr-only">Notifications</span>
@@ -85,13 +85,13 @@ let {noOfWishListItems} = useContext(WishListContext)
       </li>
       <li>
         <NavLink to="category"
-         ariaLabel="go to category"
+        aria-label="go to category"
         className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
           Category</NavLink>
       </li>
       <li>
         <NavLink to="brands"
-        ariaLabel="go to brands"
+       aria-label="go to brands"
         className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
           Brands</NavLink>
       </li>
@@ -112,19 +112,19 @@ let {noOfWishListItems} = useContext(WishListContext)
  {token? <li>
         <NavLink
         onClick={logOut}
-        ariaLabel="log out"
+       aria-label="log out"
         className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
           Logout</NavLink>
       </li>:<>
   <li>
         <NavLink to="login" 
-        ariaLabel="go to login page"
+       aria-label="go to login page"
         className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
           Login</NavLink>
       </li>
       <li > 
         <NavLink to="register"
-        ariaLabel="go to registeration page"
+       aria-label="go to registeration page"
         className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
           Register</NavLink>
       </li></>}
@@ -138,7 +138,7 @@ let {noOfWishListItems} = useContext(WishListContext)
       aria-expanded={!isMenuVisible}
       className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" >
         <span className="sr-only">Open main menu</span>
-        <svg className="w-5 h-5" ariaHidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+        <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
         </svg>
     </button>
