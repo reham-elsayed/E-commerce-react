@@ -8,8 +8,6 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { CartContext } from '../../../context/CartContext';
 import { WishListContext } from '../../../context/WishListContext';
-import {Helmet} from "react-helmet";
-import ImageResizer from '../ImageResizer/ImageResizer';
 
 export default function FeatureProducts() {
   const [isClicked, setIsClicked] = useState(false)
@@ -129,8 +127,7 @@ async function handleSearch(e){
  <div key={product.id} className={`cardhoverrr bg-red-100 p-1 border-2 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${styles.cardhoverrer}`}>
  <Link to={`/productdetail/${product.id}/${product.category.name}`}>
  <div className={`min-h-[100px]  bg-indigo-100 bg-gradient-to-green rounded-lg `}>
-<ImageResizer image={product.imageCover} producttitle={product.title}/>
-     {/* <img className="rounded-t-lg w-full" src={product.imageCover} alt={product.title} /> */}
+     <img className="rounded-t-lg w-full" src={product.imageCover} alt={product.title} />
 </div>
  <div className="p-1 bg-white bg-opacity-60 mt-1 dark:bg-grey-800 ">
     
@@ -163,8 +160,7 @@ async function handleSearch(e){
   <div key={product.id} className={` bg-white p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ${styles.cardhoverrer}`}>
     <Link to={`/productdetail/${product.id}/${product.category.name}`} aria-label={`go to ${product.category.name}`}>
     <div className={`min-h-[100px]  bg-indigo-100 bg-gradient-to-green rounded-lg `}>
-    <ImageResizer image={product.imageCover} producttitle={product.title}/>
-        {/* <img className="rounded-t-lg w-full" src={product.imageCover} alt={product.title} /> */}
+        <img className="rounded-t-lg w-full" src={product.imageCover} alt={product.title} />
   </div>
     <div className="p-1">
        

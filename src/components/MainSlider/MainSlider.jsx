@@ -8,7 +8,6 @@ import image1 from "./../../assets/grocery-banner-2.jpeg";
 import image2 from "./../../assets/slider-image-2.webp";
 import image3 from "./../../assets/slider-2small.jpeg";
 import image4 from './../../assets/slider-image-3.webp';
-import ImageResizer from '../ImageResizer/ImageResizer';
 
 
 export default function MainSlider() {
@@ -34,8 +33,7 @@ export default function MainSlider() {
         <div  className="w-full md:w-3/4 h-[200] lg:h-[300px]">
     <Slider {...settings}>
     <div className={`lg:h-[300px] h-[200px] bg-indigo-100 bg-gradient-to-green rounded-lg `}>
-<ImageResizer image={image3} imagetitle={'slider'}/>
-       {/* <img src={image3} alt="slider" className="h-[200px] lg:h-[300px] w-full" loading="lazy"  /> */}
+       <img src={image3} alt="slider" className="h-[200px] lg:h-[300px] w-full" loading="lazy"  />
        </div> 
        <div className={`lg:h-[300px] h-[200px]  bg-indigo-100 bg-gradient-to-green rounded-lg `}>
 
