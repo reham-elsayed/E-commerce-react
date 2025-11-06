@@ -17,7 +17,7 @@ export default function Layout() {
     <>
       <div className='dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700'>
         <Navbar />
-        <div className="container mx-auto px-10">
+        <div className="">
 
           <Outlet />
         </div>
