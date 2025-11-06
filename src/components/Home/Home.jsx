@@ -6,31 +6,32 @@ import "slick-carousel/slick/slick-theme.css";
 import MainSlider from '../MainSlider/MainSlider';
 import CategorySlider from '../CategorySlider/CategorySlider';
 
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 import Loader from '../Loader/Loader';
+import HeroSection from '../HeroSection/HeroSection';
 
- export default function Home() {
- 
+export default function Home() {
+
   return (
     <>
-       <Helmet>
-                <meta charSet="utf-8" />
-                <title>Home</title>
-            </Helmet>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Home</title>
+      </Helmet>
 
-            <div className='mt-20 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'>
+      <div className='mt-20 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'>
 
-<div className="container mx-auto min-h-screen p-0 md:p-10 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
- 
-<>
-  <MainSlider />
-<CategorySlider />
-</>
- 
-</div>
-    <FeatureProducts/>
-  </div>
+        <div className="container mx-auto min-h-screen p-0 md:p-10 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+
+          <>
+            {/* <MainSlider />
+<CategorySlider /> */}
+          </>
+          <HeroSection />
+        </div>
+        <FeatureProducts />
+      </div>
     </>
-  
+
   )
 }
