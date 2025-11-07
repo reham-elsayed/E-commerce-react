@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -27,6 +26,19 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-green-bright: var(--green-bright);
+  --color-yellow-bright: var(--yellow-bright);
+  --color-blue-vivid: var(--blue-vivid);
+  --color-cyan-light: var(--cyan-light);
+  --color-red-intense: var(--red-intense);
+  --color-pink-soft: var(--pink-soft);
+  --green-bright: var(--color-green-bright);
+  --yellow-bright: var(--color-yellow-bright);
+  --blue-vivid: var(--color-blue-vivid);
+  --cyan-light: var(--color-cyan-light);
+  --red-intense: var(--color-red-intense);
+  --pink-soft: var(--color-pink-soft);
+
 }
 
 :root {
@@ -67,6 +79,25 @@
   --sidebar-accent-foreground: oklch(0.15 0.01 285);
   --sidebar-border: oklch(0.9 0.02 285);
   --sidebar-ring: oklch(0.73 0.03 285);
+  --color-bg-dark: oklch(0.11 0.01 277);
+  /* deep dark background */
+  --color-text-pink: oklch(0.91 0.06 342);
+  /* soft pink text */
+  --color-accent-pink: oklch(0.91 0.06 342);
+  /* matching pink accent */
+  --color-green-bright: oklch(0.55 0.18 151);
+  /* medium rich green */
+  --color-yellow-bright: oklch(0.94 0.18 105);
+  /* vivid yellow */
+  --color-blue-vivid: oklch(0.53 0.27 266);
+  /* strong blue */
+  --color-cyan-light: oklch(0.95 0.03 220);
+  /* pale icy blue */
+  --color-red-intense: oklch(0.59 0.27 30);
+  /* strong warm red */
+  --color-pink-soft: oklch(0.91 0.06 342);
+
+
 }
 
 .dark {
@@ -113,4 +144,96 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@media (min-width: 1536px) {
+
+  .px-global,
+  section {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 768px) {
+
+  .px-global,
+  section {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.px-global,
+section {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.nox {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+@media (min-width: 768px) {
+  .py-global {
+    padding-bottom: 7rem;
+  }
+}
+
+.py-global {
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 768px) {
+  .py-global {
+    padding-top: 7rem;
+  }
+}
+
+.py-global {
+  padding-top: 6rem;
+}
+
+.fnder-container {
+  /* The pink background color */
+  background-color: #ffe6e9;
+  /* padding: 50px 20px; */
+  /* min-height: 50vh; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fnder-headline {
+  /* Use the specified font and styling */
+  --font-marfa: "marfa", "marfa Fallback";
+  --font-story: "stroy", "stroy Fallback"
+    font-family: var(var(--font-marfa));
+  font-weight: 900;
+  text-transform: uppercase;
+
+
+  /* CRITICAL: Spacing for replication */
+  font-size: clamp(40px, 5.9vw, 110px);
+  line-height: .95;
+  /* Makes lines almost overlap */
+  letter-spacing: 0.05em;
+  /* Subtle spacing between letters */
+
+  /* Ensure text is centered and block-level */
+  text-align: center;
+  margin: 0;
+  white-space: pre-wrap;
+  /* Preserves manual line breaks if used */
+}
+
+/* Styles for the highlighted words */
+.highlight {
+  /* Use inline-block to allow padding/background application */
+  display: inline-block;
+
+  /* Resetting line-height/spacing might be needed for perfect alignment, but 0.95 usually works */
+  line-height: inherit;
+  letter-spacing: inherit;
 }

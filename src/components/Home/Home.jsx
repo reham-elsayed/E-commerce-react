@@ -9,6 +9,7 @@ import CategorySlider from '../CategorySlider/CategorySlider';
 import { Helmet } from "react-helmet";
 import Loader from '../Loader/Loader';
 import HeroSection from '../HeroSection/HeroSection';
+import SliderDividerSmall from '../SliderDividerSmall/SliderDividerSmall';
 
 export default function Home() {
 
@@ -21,6 +22,7 @@ export default function Home() {
 
       <div className='min-h-[calc(100vh-28rem)]'>
         <HeroSection />
+        <SliderDividerSmall />
       </div>
     </>
   )

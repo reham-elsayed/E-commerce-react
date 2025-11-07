@@ -1,46 +1,59 @@
 import React, { useState } from "react";
 import FloatingImages from "./FloatingImageAnimation";
+import SliderDividerSmall from "../SliderDividerSmall/SliderDividerSmall";
 
 export default function HeroSection() {
     const [active, setActive] = useState(null);
 
     return (
-        <section className="relative overflow-hidden flex items-center justify-center bg-[#ffd6ec] text-[#100f14] px-0 py-24 min-h-[70vh] md:min-h-screen">
-            <h1 className=" text-xl md:text-3xl lg:text-6xl uppercase font-stroy font-bold !leading-tight text-center mx-auto max-w-[90rem] w-full h-full relative">
-                <p>
-                    We curate the world's best products <br /> Find amazing
+        <section className="relative   nox py-global overflow-hidden flex items-center justify-center bg-[#ffe6e9] text-[#100f14] min-h-[70vh]   fnder-container  md:-mt-8">
+            {/* The main text is wrapped to allow for easier responsiveness */}
+            <div className=" px-global w-[95vw] mx-auto">
+                <p className="fnder-headline relative">
+                    LOOKING FOR YOUR NEXT FIT?<br />
+                    {/* Highlight CLOTHES */}
                     <span
                         onMouseEnter={() => setActive("clothes")}
                         onMouseLeave={() => setActive(null)}
-                        className="px-3 text-nowrap bg-[#100F14] rounded-md text-[#FFD6EC] "
+                        className="cursor-pointer"
                     >
+                        {/* Styles applied here: padding, background, text color */}
                         <span
-                            className="mt-0.5 md:mt-1 inline-block"
+                            className="inline-block leading-none  px-3 my-2 text-pink-soft bg-[#100F14] text-highlight hover:bg-green-bright hover:text-yellow-bright rounded-md"
                         >
-                            CLOTHES,
-                        </span>
-
+                            CLOTHES
+                        </span>,
                     </span>{" "}
-                    and{" "}
+                    AND fresh{" "}
+                    {/* Highlight GROCERIES */}
                     <span
                         onMouseEnter={() => setActive("design")}
                         onMouseLeave={() => setActive(null)}
-                        className="text-green-400 cursor-pointer hover:underline"
+                        className="cursor-pointer"
                     >
-                        fresh GROCERIES
+                        <span
+                            className="inline-block px-3 my-2 leading-none text-pink-soft bg-[#100F14] text- highlight hover:bg-blue-vivid hover:text-cyan-light rounded-md"
+                        >
+                            GROCERIES
+                        </span>
                     </span>{" "}
-                    and advanced
+                    AND ADVANCED
+                    {/* Highlight TECH GEER */}
                     <span
                         onMouseEnter={() => setActive("tech")}
                         onMouseLeave={() => setActive(null)}
-                        className="text-blue-400 cursor-pointer hover:underline"
+                        className="cursor-pointer"
                     >
-                        TECH GEER
+                        <span
+                            className="inline-block px-3 my-2 leading-none text-pink-soft bg-[#100F14] text- highlight hover:bg-red-intense hover:text-pink-soft rounded-md"
+                        >
+                            TECH GEER
+                        </span>
                     </span>
-                    gear—all here.
                     <FloatingImages active={active} />
                 </p>
-            </h1>
+            </div>
+
 
             {/* Floating placeholders */}
 

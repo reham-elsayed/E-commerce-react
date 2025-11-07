@@ -16,7 +16,7 @@ export default function Layout() {
   return (
     <>
       <div className='dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700'>
-        <Navbar />
+
         <div className="">
 
           <Outlet />

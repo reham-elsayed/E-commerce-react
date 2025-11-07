@@ -79,12 +79,12 @@ const floatingImages = {
     clothes: [
         {
             color: "bg-[#3b82f6]", // blue-500
-            style: "absolute -top-1/5 left-5% ",
+            style: "absolute -top-1/5 left-[5%] ",
             animation: "",
         },
         {
             color: "bg-[#3b82f6]", // blue-500
-            style: "absolute -top-3/10 right-5% ",
+            style: "absolute -top-1/6 right-[5%] ",
             animation: "",
         },
         {
@@ -93,7 +93,7 @@ const floatingImages = {
             animation: "",
         },
         {
-            color: "",
+            color: "bg-[#ef4444]",
             style: "absolute bottom-[15%] right-[15%]",
         },
     ],
@@ -110,7 +110,7 @@ const floatingImages = {
         },
         {
             color: "bg-[#eab308]", // yellow-500
-            style: "absolute bottom-[20%] right-[35%]",
+            style: "absolute bottom-[20%] right-[35%] ",
             animation: "",
         },
         {

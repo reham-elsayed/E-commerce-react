@@ -1,0 +1,81 @@
+
+export default {
+    darkMode: ["class"],
+    content: [
+        "./src/**/*.{js,jsx,mdx}",
+        "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+        "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    ],
+    theme: {
+        extend: {
+            colors: {
+                background: "hsl(var(--background))",
+                foreground: "hsl(var(--foreground))",
+                card: {
+                    DEFAULT: "hsl(var(--card))",
+                    foreground: "hsl(var(--card-foreground))",
+                },
+                popover: {
+                    DEFAULT: "hsl(var(--popover))",
+                    foreground: "hsl(var(--popover-foreground))",
+                },
+                primary: {
+                    DEFAULT: "hsl(var(--primary))",
+                    foreground: "hsl(var(--primary-foreground))",
+                },
+                secondary: {
+                    DEFAULT: "hsl(var(--secondary))",
+                    foreground: "hsl(var(--secondary-foreground))",
+                },
+                muted: {
+                    DEFAULT: "hsl(var(--muted))",
+                    foreground: "hsl(var(--muted-foreground))",
+                },
+                accent: {
+                    DEFAULT: "hsl(var(--accent))",
+                    foreground: "hsl(var(--accent-foreground))",
+                },
+                destructive: {
+                    DEFAULT: "hsl(var(--destructive))",
+                    foreground: "hsl(var(--destructive-foreground))",
+                },
+                border: "hsl(var(--border))",
+                input: "hsl(var(--input))",
+                ring: "hsl(var(--ring))",
+                chart: {
+                    "0": "hsl(var(--chart-1))",
+                    "1": "hsl(var(--chart-1))",
+                    "2": "hsl(var(--chart-2))",
+                    "3": "hsl(var(--chart-3))",
+                    "4": "hsl(var(--chart-4))",
+                    "5": "hsl(var(--chart-5))",
+                },
+                aurora1: "var(--aurora-1)",
+                aurora2: "var(--aurora-2)",
+                aurora3: "var(--aurora-3)",
+                aurora4: "var(--aurora-4)",
+                greenbright: "var(--color- green - bright)",
+                yellowbright: "var(--color - yellow - bright)",
+                bluevivid: "var(--color - blue - vivid)",
+                cyanlight: "var(--color - cyan - light)",
+                redintense: "var(--color - red - intense)",
+                pinksoft: "var(--color - pink - soft)",
+            },
+            borderRadius: {
+                lg: "var(--radius)",
+                md: "calc(var(--radius) - 2px)",
+                sm: "calc(var(--radius) - 4px)",
+            },
+            fontFamily: {
+                geist: ["var(--font-geist)", "sans-serif"], // Use the CSS variable here
+            },
+        },
+    },
+    safelist: [
+        {
+            pattern: /(from|to|via)-(gray|orange|emerald|blue|purple|pink)-(200|300|800|900)/,
+            variants: ['dark'],
+        },
+    ],
+    plugins: [require("tailwindcss-animate")],
+} 
