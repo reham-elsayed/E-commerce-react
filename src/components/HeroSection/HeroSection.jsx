@@ -6,7 +6,7 @@ export default function HeroSection() {
     const [active, setActive] = useState(null);
 
     return (
-        <section className="relative   nox py-global overflow-hidden flex items-center justify-center bg-[#ffe6e9] text-[#100f14] min-h-[70vh]   fnder-container  md:-mt-8">
+        <section className="relative  py-global overflow-hidden flex items-center justify-center bg-[#ffe6e9] text-[#100f14] min-h-[70vh]   fnder-container  md:-mt-8">
             {/* The main text is wrapped to allow for easier responsiveness */}
             <div className=" px-global w-[95vw] mx-auto">
                 <p className="fnder-headline relative">

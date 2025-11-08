@@ -20,7 +20,7 @@ export default function Home() {
         <title>Home</title>
       </Helmet>
 
-      <div className='min-h-[calc(100vh-28rem)]'>
+      <div className='min-h-[calc(100vh-28rem)] '>
         <HeroSection />
         <SliderDividerSmall />
       </div>

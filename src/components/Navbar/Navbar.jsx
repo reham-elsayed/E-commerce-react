@@ -1,4 +1,4 @@
-import React, { useRef ,useMemo, useCallback} from 'react';
+import React, { useRef, useMemo, useCallback } from 'react';
 import freshCart from './../../assets/freshcart-logo.svg'
 import styles from "./Navbar.module.css";
 import { useState, useContext, useEffect } from 'react';
@@ -7,40 +7,48 @@ import { TokenContext } from '../../../context/TokenContext';
 import { CartContext } from '../../../context/CartContext';
 import { ThemeContext, ThemeDispatchContext } from '../../../context/ThemeContext';
 import { WishListContext } from '../../../context/WishListContext';
+import { Navbar04 } from '../ui/shadcn-io/navbar-04';
 
 export default function Navbar() {
-  let {theme} = useContext(ThemeContext);
-  let { toggleTheme} = useContext(ThemeDispatchContext);
-const navigate = useNavigate()
+  let { theme } = useContext(ThemeContext);
+  let { toggleTheme } = useContext(ThemeDispatchContext);
+  const navigate = useNavigate()
 
 
-console.log(theme)
-let {noOfCartItem, getCartProduct} = useContext(CartContext)
-let {noOfWishListItems} = useContext(WishListContext)
-  let {token, setToken} = useContext(TokenContext)
+  console.log(theme)
+  let { noOfCartItem, getCartProduct } = useContext(CartContext)
+  let { noOfWishListItems } = useContext(WishListContext)
+  let { token, setToken } = useContext(TokenContext)
   console.log(token)
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const toggleMenu = () => {
-    
+
     setIsMenuVisible(!isMenuVisible);
     console.log(isMenuVisible)
   };
-  function logOut(){
+  function logOut() {
     navigate('/home')
     localStorage.removeItem("token");
     setToken(null);
   }
-  async function getCartOnLoad(){
-    if (localStorage.getItem("token")){
+  async function getCartOnLoad() {
+    if (localStorage.getItem("token")) {
       return await getCartProduct();
     }
   }
- useEffect(()=>{
-  getCartOnLoad()
- }, [])
+  useEffect(() => {
+    getCartOnLoad()
+  }, [])
   return (
-   
-<nav className={`bg-white bg-opacity-85 dark:bg-opacity-85 fixed navbar w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600  dark:bg-gray-900`}>
+    <>
+
+
+      <Navbar04 />
+
+
+
+
+      {/* <nav className={`bg-white bg-opacity-85 dark:bg-opacity-85 fixed navbar w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600  dark:bg-gray-900`}>
   <div className="container mx-auto p-4 flex flex-nowrap justify-between md:block">
     <div className=" md:flex justify-between ">
     <NavLink to="home"aria-label="home" className=" flex-col md:flex items-center space-x-3 rtl:space-x-reverse dark:bg-gray-900 dark:border-gray-700 dark:text-white">
@@ -146,8 +154,8 @@ let {noOfWishListItems} = useContext(WishListContext)
     
 
   </div>
-</nav>
+</nav> */}
 
-
+    </>
   )
 }

@@ -79,12 +79,12 @@ const floatingImages = {
     clothes: [
         {
             color: "bg-[#3b82f6]", // blue-500
-            style: "absolute -top-1/5 left-[5%] ",
+            style: "absolute -top-1/10 left-[5%] ",
             animation: "",
         },
         {
             color: "bg-[#3b82f6]", // blue-500
-            style: "absolute -top-1/6 right-[5%] ",
+            style: "absolute -top-1/9 right-[5%] ",
             animation: "",
         },
         {
@@ -100,12 +100,12 @@ const floatingImages = {
     design: [
         {
             color: "bg-[#3b82f6]", // blue-500
-            style: "absolute -top-2/10 left-[30%]",
+            style: "absolute -top-1/10 right-[10%]",
             animation: "",
         },
         {
             color: "bg-[#22c55e]", // green-500
-            style: "absolute top-[20%] -right-5% ",
+            style: "absolute bottom-[7%] -right-5% ",
             animation: "",
         },
         {
@@ -123,12 +123,12 @@ const floatingImages = {
     tech: [
         {
             color: "bg-[#ef4444]", // red-500
-            style: "absolute -top-5% left-[15%] ",
+            style: "absolute -top-7% left-[15%] ",
             animation: "",
         },
         {
             color: "bg-[#3b82f6]", // blue-500
-            style: "absolute -top-[15%] right-[20%]",
+            style: "absolute -top-[10%] right-[20%]",
             animation: "",
         },
         {
@@ -168,7 +168,7 @@ export default function FloatingImages({ active }) {
                                 animate="visible"
                                 exit="exit"
                                 transition={{ duration: 0.3, ease: "easeOut", delay: i * .1 }}
-                                className={`absolute ${img.style} w-32 h-32 rounded-xl shadow-xl ${img.color} opacity-90`}
+                                className={`absolute ${img.style} w-40 h-40 rounded-xl shadow-xl ${img.color} opacity-90`}
                             />
                         ))}
                     </>
