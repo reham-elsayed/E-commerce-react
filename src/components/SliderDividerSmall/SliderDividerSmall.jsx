@@ -14,7 +14,7 @@ const SliderDividerSmall = () => {
         ease: "linear",
     };
     return (
-        <div className="relative overflow-hidden  py-0 -translate-6 bg-[#ffe6e9]">
+        <div className="relative overflow-hidden  py-0  bg-[#ffe6e9] ">
             <div className="w-full h-5 ">
                 <motion.div
                     // Initial position (start)

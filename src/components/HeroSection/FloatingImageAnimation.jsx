@@ -155,7 +155,7 @@ export default function FloatingImages({ active }) {
     const [floatingImagesActive, setFloatingImagesActive] = React.useState([]);
     const data = floatingImages[active] || [];
     return (
-        <div className="absolute inset-0 pointer-events-none hidden md:block">
+        <span className="absolute inset-0 pointer-events-none hidden md:block">
 
             <AnimatePresence>
                 {active && (
@@ -175,6 +175,6 @@ export default function FloatingImages({ active }) {
                 )}
             </AnimatePresence>
 
-        </div>
+        </span>
     );
 }
