@@ -21,7 +21,7 @@ export default function Home() {
         <meta charSet="utf-8" />
         <title>Home</title>
       </Helmet>
-
+      {/* 
       <div className='min-h-[calc(100vh-28rem)] '>
         <HeroSection />
         <SliderDividerSmall />
@@ -32,7 +32,8 @@ export default function Home() {
           </Suspense>
 
         </VortexSaleSectionWrapper>
-      </div>
+        <FeatureProducts />
+      </div> */}
     </>
   )
 }

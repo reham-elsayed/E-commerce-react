@@ -22,6 +22,7 @@ export default function Layout() {
         <Outlet />
 
 
+        <Online><div className="fixed bottom-5 left-1 p-3 rounded-md text-white bg-green-300  border-pink-700">Back Online!</div></Online>
 
         <Offline><div className="fixed bottom-5 left-1 p-3 rounded-md text-white bg-gray-800  border-gray-700">No internet connection!</div></Offline>
       </div>

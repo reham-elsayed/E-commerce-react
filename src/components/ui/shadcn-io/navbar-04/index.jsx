@@ -16,7 +16,7 @@ import {
   PopoverTrigger,
 } from '../../popover';
 import { cn } from '../../../../lib/utils';
-
+import { Link } from "react-router-dom"
 // Simple logo component for the navbar
 const Logo = (props) => {
   return (
@@ -78,9 +78,10 @@ const HamburgerIcon = ({
 
 // Default navigation links
 const defaultNavigationLinks = [
-  { href: '#', label: 'Products' },
-  { href: '#', label: 'Categories' },
-  { href: '#', label: 'Deals' },
+  { href: '/product', label: 'Products' },
+  { href: '/category', label: 'Categories' },
+  { href: '/brands', label: 'Deals' },
+  { href: '/wishlist', label: 'WishList' }
 ];
 
 export const Navbar04 = React.forwardRef((
@@ -91,13 +92,15 @@ export const Navbar04 = React.forwardRef((
     navigationLinks = defaultNavigationLinks,
     signInText = 'Sign In',
     signInHref = '#signin',
+    token = "",
     cartText = 'Cart',
     cartHref = '#cart',
-    cartCount = 2,
+    cartCount = 0,
     searchPlaceholder = 'Search...',
     onSignInClick,
     onCartClick,
     onSearchSubmit,
+    wishlistCount = 0,
     ...props
   },
   ref
@@ -174,9 +177,11 @@ export const Navbar04 = React.forwardRef((
                     {navigationLinks.map((link, index) => (
                       <NavigationMenuItem key={index} className="w-full">
                         <button
-                          onClick={(e) => e.preventDefault()}
                           className="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer no-underline">
                           {link.label}
+                          {link.label === "WishList" && <span className="text-gray-800 text-xs">
+                            {wishlistCount}
+                          </span>}
                         </button>
                       </NavigationMenuItem>
                     ))}
@@ -187,21 +192,35 @@ export const Navbar04 = React.forwardRef((
                         className="bg-border -mx-1 my-1 h-px" />
                     </NavigationMenuItem>
                     <NavigationMenuItem className="w-full">
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          if (onSignInClick) onSignInClick();
-                        }}
-                        className="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer no-underline">
-                        {signInText}
-                      </button>
+                      {token ?
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (onSignInClick) onSignInClick();
+                          }}
+                          className="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer no-underline">
+                          {signInText}
+                        </button> :
+                        <Button
+                          size="sm"
+                          className="mt-0.5 w-full text-left text-sm"
+                        >
+                          <span className="flex items-baseline gap-2">
+                            <Link to="login" >
+                              SignIn
+                            </Link>
+
+                          </span>
+                        </Button>
+                      }
                     </NavigationMenuItem>
                     <NavigationMenuItem className="w-full">
+
                       <Button
                         size="sm"
                         className="mt-0.5 w-full text-left text-sm"
                         onClick={(e) => {
-                          e.preventDefault();
+                          console.log("cart")
                           if (onCartClick) onCartClick();
                         }}>
                         <span className="flex items-baseline gap-2">
@@ -235,9 +254,11 @@ export const Navbar04 = React.forwardRef((
                     <NavigationMenuItem key={index}>
                       <NavigationMenuLink
                         href={link.href}
-                        onClick={(e) => e.preventDefault()}
-                        className="text-muted-foreground hover:text-primary py-1.5 font-medium transition-colors cursor-pointer group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
-                        {link.label}
+                        className="relative text-muted-foreground hover:text-primary py-1.5 font-medium transition-colors cursor-pointer group inline-flex h-10 w-max items-center justify-center group rounded-md bg-background px-4 py-2 text-sm focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
+                        <span>{link.label}</span>
+                        {link.label === "WishList" && <span className="text-gray-800 text-xs absolute top-0 right-0 bg-amber-200 w-5 h-5 rounded-full flex justify-center items-center group-hover:-translate-y-1 duration-200">
+                          {wishlistCount}
+                        </span>}
                       </NavigationMenuLink>
                     </NavigationMenuItem>
                   ))}
@@ -245,7 +266,7 @@ export const Navbar04 = React.forwardRef((
               </NavigationMenu>
             )}
             {/* Search form */}
-            <form onSubmit={handleSearchSubmit} className="relative">
+            {/* <form onSubmit={handleSearchSubmit} className="relative">
               <Input
                 id={searchId}
                 name="search"
@@ -256,13 +277,13 @@ export const Navbar04 = React.forwardRef((
                 className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-2 peer-disabled:opacity-50">
                 <SearchIcon size={16} />
               </div>
-            </form>
+            </form> */}
           </div>
         </div>
         {/* Right side */}
         {!isMobile && (
           <div className="flex items-center gap-3">
-            <Button
+            {/* <Button
               variant="ghost"
               size="sm"
               className="text-sm font-medium hover:bg-accent hover:text-accent-foreground"
@@ -271,12 +292,33 @@ export const Navbar04 = React.forwardRef((
                 if (onSignInClick) onSignInClick();
               }}>
               {signInText}
-            </Button>
+            </Button> */}
+            {token ?
+              <button
+                onClick={(e) => {
+
+                  if (onSignInClick) onSignInClick();
+                }}
+                className="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer no-underline">
+                {signInText}
+              </button> :
+              <button
+                size="sm"
+                className="mt-0.5 w-full text-left text-sm"
+              >
+                <span className="flex items-baseline gap-2">
+                  <Link to="login" >
+                    SignIn
+                  </Link>
+
+                </span>
+              </button>
+            }
             <Button
               size="sm"
               className="text-sm font-medium px-4 h-9 rounded-md shadow-sm"
               onClick={(e) => {
-                e.preventDefault();
+
                 if (onCartClick) onCartClick();
               }}>
               <span className="flex items-baseline gap-2">
