@@ -1,6 +1,8 @@
 import React from 'react'
+import { Input } from '../ui/input'
+import { SearchIcon } from 'lucide-react'
 
-const SearchFormCompound = () => {
+const SearchFormCompound = ({searchPlaceholder,searchId, handleSearchSubmit}) => {
   return (
         <form onSubmit={handleSearchSubmit} className="relative">
                   <Input

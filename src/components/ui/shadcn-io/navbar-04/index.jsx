@@ -17,6 +17,7 @@ import {
 } from '../../popover';
 import { cn } from '../../../../lib/utils';
 import { Link } from "react-router-dom"
+import SearchFormCompound from '@/components/SearchFormCompound/SearchFormCompound';
 // Simple logo component for the navbar
 const Logo = (props) => {
   return (
@@ -278,6 +279,7 @@ export const Navbar04 = React.forwardRef((
                 <SearchIcon size={16} />
               </div>
             </form> */}
+            <SearchFormCompound searchPlaceHolder={searchPlaceholder} searchId={searchId} handleSearchSubmit={handleSearchSubmit}/>
           </div>
         </div>
         {/* Right side */}
