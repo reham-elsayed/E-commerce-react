@@ -12,6 +12,8 @@ import ImageVortexVanta from '../VortexSaleSection/VortexComponent';
 import VortexSaleSectionWrapper, { GlassCategoryCard } from '../VortexSaleSection/VortexSaleSectionWrapper';
 import { lazy } from 'react';
 import { Suspense } from 'react';
+import { SearchWithData } from '../ui/combobox';
+import { useState } from 'react';
 const LazyVortex = lazy(() => import("../VortexSaleSection/VortexComponent"));
 export default function Home() {
 
@@ -34,6 +36,7 @@ export default function Home() {
         </VortexSaleSectionWrapper>
         <FeatureProducts />
       </div> */}
+     
     </>
   )
 }

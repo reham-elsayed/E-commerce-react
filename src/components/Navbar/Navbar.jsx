@@ -1,8 +1,7 @@
-import React, { useRef, useMemo, useCallback } from 'react';
-import freshCart from './../../assets/freshcart-logo.svg'
+
 import styles from "./Navbar.module.css";
-import { useState, useContext, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import {  useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { TokenContext } from '../../../context/TokenContext';
 import { CartContext } from '../../../context/CartContext';
 import { ThemeContext, ThemeDispatchContext } from '../../../context/ThemeContext';

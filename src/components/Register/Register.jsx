@@ -17,26 +17,23 @@ export default function Register() {
     email: Yup.string(),
     password: Yup.string(),
 
-    rePassword: Yup.string(),
-
-    phone: Yup.string(),
+   avatar:Yup.string()
   })
   let formik = useFormik({
     initialValues: {
       name: "",
       email: "",
       password: "",
-      rePassword: "",
-      phone: "",
+     avatar: "https://picsum.photos/800"
     },
     validationSchema: mySchema,
     onSubmit: (values) => { (registration(values)) }
   })
   async function registration(values) {
     setIsLoading(true)
-    return await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signup", values).then((data) => {
-      console.log("data submitted", data.data.message)
-      setUserMessage(data.data.message)
+    return await axios.post("https://api.escuelajs.co/api/v1/users/", values).then((data) => {
+      console.log("data submitted", data)
+      setUserMessage(data)
 
       navigate("/login")
       setIsLoading(false)
@@ -103,29 +100,8 @@ export default function Register() {
               <div className=" bg-red-200 border-2 border-red-400 px-5 py-2 rounded-md m-1">{formik.errors.password}</div>
             ) : null}
           </div>
-          <div className='my-5'>
-            <label htmlFor="rePassword" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">re password</label>
-            <input name="rePassword"
-              onChange={formik.handleChange}
-              value={formik.values.rePassword}
-              onBlur={formik.handleBlur}
-              type="password" id="rePassword" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-            {formik.touched.rePassword && formik.errors.rePassword ? (
-              <div className=" bg-red-200  border-2 border-red-400 px-5 py-2 rounded-md m-1">{formik.errors.rePassword}</div>
-            ) : null}
-          </div>
-          <div className='my-5'>
-            <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">phone</label>
-            <input name="phone"
-              onChange={formik.handleChange}
-              value={formik.values.phone}
-              onBlur={formik.handleBlur}
-              type="tel" id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-            {formik.touched.phone && formik.errors.phone ? (
-              <div className=" bg-red-200 border-2 border-red-400 px-5 py-2 rounded-md m-1">{formik.errors.phone}</div>
-            ) : null}
-          </div>
-
+         
+         
           <div className='text-right my-5'>
             {isLoading ? <button type="button" aria-label="Loading" className=" text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
               <i className="fa fa-spinner fa-spin"></i>

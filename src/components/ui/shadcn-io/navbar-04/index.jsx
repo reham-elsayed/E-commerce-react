@@ -1,9 +1,9 @@
-'use client';;
+'use client';
+
 import * as React from 'react';
-import { useEffect, useState, useRef, useId } from 'react';
-import { SearchIcon } from 'lucide-react';
+import { useEffect, useState, useRef} from 'react';
+import PropTypes from 'prop-types';
 import { Button } from '../../button';
-import { Input } from '../../input';
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -16,9 +16,14 @@ import {
   PopoverTrigger,
 } from '../../popover';
 import { cn } from '../../../../lib/utils';
-import { Link } from "react-router-dom"
-import SearchFormCompound from '@/components/SearchFormCompound/SearchFormCompound';
-// Simple logo component for the navbar
+import { Link } from "react-router-dom";
+import { SearchWithData } from '../../combobox';
+import { useProductSearch } from '@/hooks/useProductSearch';
+
+/**
+ * Logo component for Navbar
+ * @param {Object} props
+ */
 const Logo = (props) => {
   return (
     <svg
@@ -35,7 +40,8 @@ const Logo = (props) => {
         height='36.5788'
         rx='18.2894'
         transform='rotate(-38.5799 88.1023 144.792)'
-        fill='currentColor' />
+        fill='currentColor'
+      />
       <rect
         x='85.3459'
         y='244.537'
@@ -43,16 +49,16 @@ const Logo = (props) => {
         height='36.5788'
         rx='18.2894'
         transform='rotate(-38.5799 85.3459 244.537)'
-        fill='currentColor' />
+        fill='currentColor'
+      />
     </svg>
   );
 };
 
-// Hamburger icon component
-const HamburgerIcon = ({
-  className,
-  ...props
-}) => (
+/**
+ * Hamburger Icon for Mobile
+ */
+const HamburgerIcon = ({ className, ...props }) => (
   <svg
     className={cn('pointer-events-none', className)}
     width={16}
@@ -67,17 +73,22 @@ const HamburgerIcon = ({
     {...props}>
     <path
       d="M4 12L20 12"
-      className="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]" />
+      className="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]"
+    />
     <path
       d="M4 12H20"
-      className="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45" />
+      className="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45"
+    />
     <path
       d="M4 12H20"
-      className="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]" />
+      className="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]"
+    />
   </svg>
 );
 
-// Default navigation links
+/**
+ * Default navigation structure
+ */
 const defaultNavigationLinks = [
   { href: '/product', label: 'Products' },
   { href: '/category', label: 'Categories' },
@@ -85,258 +96,295 @@ const defaultNavigationLinks = [
   { href: '/wishlist', label: 'WishList' }
 ];
 
-export const Navbar04 = React.forwardRef((
-  {
-    className,
-    logo = <Logo />,
-    logoHref = '#',
-    navigationLinks = defaultNavigationLinks,
-    signInText = 'Sign In',
-    signInHref = '#signin',
-    token = "",
-    cartText = 'Cart',
-    cartHref = '#cart',
-    cartCount = 0,
-    searchPlaceholder = 'Search...',
-    onSignInClick,
-    onCartClick,
-    onSearchSubmit,
-    wishlistCount = 0,
-    ...props
-  },
-  ref
-) => {
+/**
+ * Navbar04 – fully responsive navigation with mobile/desktop menus.
+ *
+ * @component
+ * @param {Object} props
+ * @param {string} [props.className]
+ * @param {React.ReactNode} [props.logo]
+ * @param {string} [props.logoHref]
+ * @param {Array<{href:string,label:string}>} [props.navigationLinks]
+ * @param {string} [props.signInText]
+ * @param {string} [props.signInHref]
+ * @param {string} [props.token]
+ * @param {string} [props.cartText]
+ * @param {string} [props.cartHref]
+ * @param {number} [props.cartCount]
+ * @param {number} [props.wishlistCount]
+ * @param {string} [props.searchPlaceholder]
+ * @param {function} [props.onSignInClick]
+ * @param {function} [props.onCartClick]
+ * @param {function} [props.onSearchSubmit]
+ */
+export const Navbar04 = React.forwardRef(({
+  className,
+  logo,
+  navigationLinks,
+  signInText,
+  token,
+  cartText,
+  cartCount,
+  wishlistCount,
+  
+  onSignInClick,
+  onCartClick,
+
+  ...props
+}, ref) => {
   const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef(null);
-  const searchId = useId();
-
+ 
+let{isSearching,setIsSearching}=useProductSearch()
   useEffect(() => {
     const checkWidth = () => {
       if (containerRef.current) {
-        const width = containerRef.current.offsetWidth;
-        setIsMobile(width < 768); // 768px is md breakpoint
+        setIsMobile(containerRef.current.offsetWidth < 768);
       }
     };
 
     checkWidth();
-
     const resizeObserver = new ResizeObserver(checkWidth);
-    if (containerRef.current) {
-      resizeObserver.observe(containerRef.current);
-    }
+    if (containerRef.current) resizeObserver.observe(containerRef.current);
 
-    return () => {
-      resizeObserver.disconnect();
-    };
+    return () => resizeObserver.disconnect();
   }, []);
 
-  // Combine refs
   const combinedRef = React.useCallback((node) => {
     containerRef.current = node;
-    if (typeof ref === 'function') {
-      ref(node);
-    } else if (ref) {
-      ref.current = node;
-    }
+    if (typeof ref === 'function') ref(node);
+    else if (ref) ref.current = node;
   }, [ref]);
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const query = formData.get('search');
-    if (onSearchSubmit) {
-      onSearchSubmit(query);
-    }
-  };
+  // const handleSearchSubmit = (e) => {
+  //   e.preventDefault();
+  //   const form = new FormData(e.currentTarget);
+  //   const query = form.get('search');
+  //   if (onSearchSubmit) onSearchSubmit(query);
+  // };
 
   return (
     <header
       ref={combinedRef}
       className={cn(
-        'sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 md:px-6 [&_*]:no-underline ',
+        'sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 md:px-6 [&_*]:no-underline',
         className
       )}
-      {...props}>
-      <div
-        className="container mx-auto flex h-12 max-w-screen-2xl items-center justify-between gap-4">
-        {/* Left side */}
+      {...props}
+    >
+
+      <div className="container mx-auto flex h-12 max-w-screen-2xl items-center justify-between gap-4">
+        {/* Left Section */}
         <div className="flex flex-1 items-center gap-2">
-          {/* Mobile menu trigger */}
+
+          {/* Mobile Menu */}
           {isMobile && (
             <Popover>
               <PopoverTrigger asChild>
                 <Button
                   className="group h-9 w-9 hover:bg-accent hover:text-accent-foreground"
                   variant="ghost"
-                  size="icon">
+                  size="icon"
+                >
                   <HamburgerIcon />
                 </Button>
               </PopoverTrigger>
+
               <PopoverContent align="start" className="w-64 p-1">
                 <NavigationMenu className="max-w-none">
                   <NavigationMenuList className="flex-col items-start gap-0">
                     {navigationLinks.map((link, index) => (
                       <NavigationMenuItem key={index} className="w-full">
-                        <button
-                          className="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer no-underline">
+                        <button className="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground cursor-pointer">
                           {link.label}
-                          {link.label === "WishList" && <span className="text-gray-800 text-xs">
-                            {wishlistCount}
-                          </span>}
+                          {link.label === "WishList" && (
+                            <span className="text-gray-800 text-xs">{wishlistCount}</span>
+                          )}
                         </button>
                       </NavigationMenuItem>
                     ))}
-                    <NavigationMenuItem className="w-full" role="presentation" aria-hidden={true}>
-                      <div
-                        role="separator"
-                        aria-orientation="horizontal"
-                        className="bg-border -mx-1 my-1 h-px" />
+
+                    <NavigationMenuItem className="w-full" role="presentation">
+                      <div className="bg-border -mx-1 my-1 h-px" />
                     </NavigationMenuItem>
+
                     <NavigationMenuItem className="w-full">
-                      {token ?
+                      {token ? (
                         <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            if (onSignInClick) onSignInClick();
-                          }}
-                          className="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer no-underline">
-                          {signInText}
-                        </button> :
-                        <Button
-                          size="sm"
-                          className="mt-0.5 w-full text-left text-sm"
+                          onClick={() => onSignInClick && onSignInClick()}
+                          className="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground"
                         >
-                          <span className="flex items-baseline gap-2">
-                            <Link to="login" >
-                              SignIn
-                            </Link>
-
-                          </span>
+                          {signInText}
+                        </button>
+                      ) : (
+                        <Button size="sm" className="mt-0.5 w-full text-sm">
+                          <Link to="login">SignIn!</Link>
                         </Button>
-                      }
+                      )}
                     </NavigationMenuItem>
-                    <NavigationMenuItem className="w-full">
 
+                    <NavigationMenuItem className="w-full">
                       <Button
                         size="sm"
-                        className="mt-0.5 w-full text-left text-sm"
-                        onClick={(e) => {
-                          console.log("cart")
-                          if (onCartClick) onCartClick();
-                        }}>
+                        className="mt-0.5 w-full text-sm"
+                        onClick={() => onCartClick && onCartClick()}
+                      >
                         <span className="flex items-baseline gap-2">
                           {cartText}
-                          <span className="text-primary-foreground/60 text-xs">
-                            {cartCount}
-                          </span>
+                          <span className="text-primary-foreground/60 text-xs">{cartCount}</span>
                         </span>
                       </Button>
                     </NavigationMenuItem>
+
                   </NavigationMenuList>
                 </NavigationMenu>
               </PopoverContent>
             </Popover>
           )}
-          {/* Main nav */}
+
+          {/* Logo + Desktop Nav */}
           <div className="flex flex-1 items-center gap-6 max-md:justify-between">
+
+            {/* Logo */}
             <button
               onClick={(e) => e.preventDefault()}
-              className="flex items-center space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer">
-              <div className="text-2xl">
-                {logo}
-              </div>
-              <span className="hidden font-bold text-xl sm:inline-block">shadcn.io</span>
+              className="flex items-center space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer"
+            >
+              <div className="text-2xl">{logo}</div>
+              <span className="hidden font-bold text-xl sm:inline-block">{isSearching?'happy':'not happpy'}</span>
             </button>
-            {/* Navigation menu */}
-            {!isMobile && (
+
+            {/* Desktop Navigation */}
+           {!isSearching&&(<>
+             {!isMobile  &&(
               <NavigationMenu className="flex">
                 <NavigationMenuList className="gap-1">
                   {navigationLinks.map((link, index) => (
                     <NavigationMenuItem key={index}>
                       <NavigationMenuLink
                         href={link.href}
-                        className="relative text-muted-foreground hover:text-primary py-1.5 font-medium transition-colors cursor-pointer group inline-flex h-10 w-max items-center justify-center group rounded-md bg-background px-4 py-2 text-sm focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50">
+                        className="relative text-muted-foreground hover:text-primary py-1.5 font-medium transition-colors cursor-pointer rounded-md px-4 text-sm"
+                      >
                         <span>{link.label}</span>
-                        {link.label === "WishList" && <span className="text-gray-800 text-xs absolute top-0 right-0 bg-amber-200 w-5 h-5 rounded-full flex justify-center items-center group-hover:-translate-y-1 duration-200">
-                          {wishlistCount}
-                        </span>}
+
+                        {link.label === "WishList" && (
+                          <span
+                            className="text-gray-800 text-xs absolute top-0 right-0 bg-amber-200 w-5 h-5 rounded-full flex justify-center items-center"
+                          >
+                            {wishlistCount}
+                          </span>
+                        )}
                       </NavigationMenuLink>
                     </NavigationMenuItem>
                   ))}
                 </NavigationMenuList>
               </NavigationMenu>
-            )}
-            {/* Search form */}
-            {/* <form onSubmit={handleSearchSubmit} className="relative">
-              <Input
-                id={searchId}
-                name="search"
-                className="peer h-8 ps-8 pe-2"
-                placeholder={searchPlaceholder}
-                type="search" />
-              <div
-                className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-2 peer-disabled:opacity-50">
-                <SearchIcon size={16} />
-              </div>
-            </form> */}
-            <SearchFormCompound searchPlaceHolder={searchPlaceholder} searchId={searchId} handleSearchSubmit={handleSearchSubmit}/>
+            )}</>
+           )}
+
+            {/* Search Form */}
+            {/* <SearchFormCompound
+              searchPlaceholder={searchPlaceholder}
+              searchId={searchId}
+              handleSearchSubmit={handleSearchSubmit}
+            /> */}
+            <SearchWithData setIsSearching={setIsSearching}/>
           </div>
         </div>
-        {/* Right side */}
+
+        {/* Right Section Desktop */}
         {!isMobile && (
           <div className="flex items-center gap-3">
-            {/* <Button
-              variant="ghost"
-              size="sm"
-              className="text-sm font-medium hover:bg-accent hover:text-accent-foreground"
-              onClick={(e) => {
-                e.preventDefault();
-                if (onSignInClick) onSignInClick();
-              }}>
-              {signInText}
-            </Button> */}
-            {token ?
-              <button
-                onClick={(e) => {
 
-                  if (onSignInClick) onSignInClick();
-                }}
-                className="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer no-underline">
-                {signInText}
-              </button> :
+            {token ? (
               <button
-                size="sm"
-                className="mt-0.5 w-full text-left text-sm"
+                onClick={() => onSignInClick && onSignInClick()}
+                className="rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground"
               >
-                <span className="flex items-baseline gap-2">
-                  <Link to="login" >
-                    SignIn
-                  </Link>
-
-                </span>
+                {signInText}
               </button>
-            }
+            ) : (
+              <button className="text-sm">
+                <Link to="login">SignIn</Link>
+              </button>
+            )}
+
             <Button
               size="sm"
-              className="text-sm font-medium px-4 h-9 rounded-md shadow-sm"
-              onClick={(e) => {
-
-                if (onCartClick) onCartClick();
-              }}>
+              className="text-sm font-medium px-4 h-9 rounded-md"
+              onClick={() => onCartClick && onCartClick()}
+            >
               <span className="flex items-baseline gap-2">
                 {cartText}
-                <span className="text-primary-foreground/60 text-xs">
-                  {cartCount}
-                </span>
+                <span className="text-primary-foreground/60 text-xs">{cartCount}</span>
               </span>
             </Button>
           </div>
         )}
+
       </div>
     </header>
   );
 });
 
 Navbar04.displayName = 'Navbar04';
+
+/* -----------------------------------------
+   PROP TYPES (STRICT)
+------------------------------------------ */
+Navbar04.propTypes = {
+  className: PropTypes.string,
+  logo: PropTypes.node,
+  logoHref: PropTypes.string,
+
+  navigationLinks: PropTypes.arrayOf(
+    PropTypes.shape({
+      href: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    })
+  ),
+
+  signInText: PropTypes.string,
+  signInHref: PropTypes.string,
+  token: PropTypes.string,
+
+  cartText: PropTypes.string,
+  cartHref: PropTypes.string,
+  cartCount: PropTypes.number,
+
+  wishlistCount: PropTypes.number,
+
+  searchPlaceholder: PropTypes.string,
+
+  onSignInClick: PropTypes.func,
+  onCartClick: PropTypes.func,
+  onSearchSubmit: PropTypes.func,
+
+  ref: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+  ])
+};
+
+/* -----------------------------------------
+   DEFAULT PROPS (SAFE FALLBACKS)
+------------------------------------------ */
+Navbar04.defaultProps = {
+  className: '',
+  logo: <Logo />,
+  logoHref: '#',
+  navigationLinks: defaultNavigationLinks,
+  signInText: 'Sign In',
+  signInHref: '#signin',
+  token: '',
+  cartText: 'Cart',
+  cartHref: '#cart',
+  cartCount: 0,
+  wishlistCount: 0,
+  searchPlaceholder: 'Search...',
+  onSignInClick: null,
+  onCartClick: null,
+  onSearchSubmit: null
+};
 
 export { Logo, HamburgerIcon };

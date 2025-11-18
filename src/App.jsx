@@ -44,7 +44,7 @@ const router= createBrowserRouter([
       element:<ProtectedRoutes><Products/></ProtectedRoutes>
     },
     {path:"login", element:<ProtectedAuth><Login/></ProtectedAuth>},
-    {path:"Register", element:<ProtectedAuth><Register/></ProtectedAuth>},
+    {path:"signup", element:<ProtectedAuth><Register/></ProtectedAuth>},
     {path:"Cart", element:<ProtectedRoutes><Cart/></ProtectedRoutes>},
     {path:"Brands", element:<ProtectedRoutes><Brands/></ProtectedRoutes>},
     {path:"category", element:<ProtectedRoutes><Category/></ProtectedRoutes>},
