@@ -14,6 +14,7 @@ import { lazy } from 'react';
 import { Suspense } from 'react';
 import { SearchWithData } from '../ui/combobox';
 import { useState } from 'react';
+import LatestBrandHomeSection from '../LatestBrandsHomeSection/LatestBrandHomeSection';
 const LazyVortex = lazy(() => import("../VortexSaleSection/VortexComponent"));
 export default function Home() {
 
@@ -23,6 +24,7 @@ export default function Home() {
         <meta charSet="utf-8" />
         <title>Home</title>
       </Helmet>
+      <LatestBrandHomeSection/>
       {/* 
       <div className='min-h-[calc(100vh-28rem)] '>
         <HeroSection />

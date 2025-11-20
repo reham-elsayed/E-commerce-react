@@ -17,8 +17,12 @@ import {
 } from '../../popover';
 import { cn } from '../../../../lib/utils';
 import { Link } from "react-router-dom";
-import { SearchWithData } from '../../combobox';
 import { useProductSearch } from '@/hooks/useProductSearch';
+import { Badge } from '../../badge';
+import Search from '@/components/Search/Search';
+import { Input } from '../../input';
+import { X } from 'lucide-react';
+import { AnimatePresence ,motion} from 'framer-motion';
 
 /**
  * Logo component for Navbar
@@ -133,10 +137,28 @@ export const Navbar04 = React.forwardRef(({
   ...props
 }, ref) => {
   const [isMobile, setIsMobile] = useState(false);
+  const[isSearchActive,setIsSearchActive]=useState(false)
   const containerRef = useRef(null);
  
-let{isSearching,setIsSearching}=useProductSearch()
-  useEffect(() => {
+  const {
+    query,
+    setQuery,
+    isOpen,
+    setIsOpen,
+    filteredProducts,
+    highlightedIndex,
+    searchRef,
+    inputRef,
+    handleKeyDown,
+    clearSearch,
+    setHighlightedIndex,
+    handleSelect,
+  } = useProductSearch();
+useEffect(() => {
+    setIsSearchActive(query.length > 0 || isOpen);
+  }, [query, isOpen]);
+
+    useEffect(() => {
     const checkWidth = () => {
       if (containerRef.current) {
         setIsMobile(containerRef.current.offsetWidth < 768);
@@ -251,12 +273,12 @@ let{isSearching,setIsSearching}=useProductSearch()
               className="flex items-center space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer"
             >
               <div className="text-2xl">{logo}</div>
-              <span className="hidden font-bold text-xl sm:inline-block">{isSearching?'happy':'not happpy'}</span>
+              <span className="hidden font-bold text-xl sm:inline-block">{isOpen?'happy':'not happpy'}</span>
             </button>
 
             {/* Desktop Navigation */}
-           {!isSearching&&(<>
-             {!isMobile  &&(
+           
+             {!isSearchActive && !isMobile  &&(
               <NavigationMenu className="flex">
                 <NavigationMenuList className="gap-1">
                   {navigationLinks.map((link, index) => (
@@ -279,16 +301,79 @@ let{isSearching,setIsSearching}=useProductSearch()
                   ))}
                 </NavigationMenuList>
               </NavigationMenu>
-            )}</>
-           )}
+            )}
+         
 
             {/* Search Form */}
-            {/* <SearchFormCompound
-              searchPlaceholder={searchPlaceholder}
-              searchId={searchId}
-              handleSearchSubmit={handleSearchSubmit}
-            /> */}
-            <SearchWithData setIsSearching={setIsSearching}/>
+            <div ref={searchRef} className="relative w-full max-w-5xl">
+      {/* Input */}
+      <div className={`relative ${isSearchActive?'w-[900px]':'w-[50%]'}`}>
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-muted-foreground" />
+
+        <Input
+          ref={inputRef}
+          type="text"
+          placeholder="Search products..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onFocus={()=>filteredProducts.length > 0 && setIsOpen(true) }
+          onKeyDown={handleKeyDown}
+          className="pl-10 pr-10 h-10 border-gray-200 focus-visible:ring-purple-100"
+        />
+
+        {query && (
+          <button
+            onClick={clearSearch}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <X className="size-4" />
+          </button>
+        )}
+      </div>
+
+      {/* Dropdown */}
+      <AnimatePresence>
+        {isOpen && filteredProducts.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-full mt-2 w-full bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-50"
+          >
+            <div className="max-h-[calc(100vh-10rem)] overflow-y-auto">
+              {filteredProducts.map((product, index) => {
+                const isHighlighted = index === highlightedIndex;
+                return (
+                  <motion.div
+                    key={product.id}
+                    onClick={() => handleSelect(product)}
+                    onMouseEnter={() => setHighlightedIndex(index)}
+                    className={`px-4 py-3 cursor-pointer border-b last:border-b-0 transition-colors ${
+                      isHighlighted ? "bg-purple-50" : "hover:bg-gray-50"
+                    }`}
+                  >
+                    <h4 className="font-medium truncate">{product.title}</h4>
+                    <p className="text-sm text-muted-foreground line-clamp-2">
+                      {product.description}
+                    </p>
+                    {product.category && (
+                      <Badge className="mt-1 text-xs">
+                        {product.category.name}
+                      </Badge>
+                    )}
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            <div className="p-2 bg-gray-50 border-t text-xs text-center text-muted-foreground">
+              Use ↑↓ to navigate • Enter to select • Esc to close
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
           </div>
         </div>
 
