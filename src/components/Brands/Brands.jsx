@@ -1,24 +1,10 @@
-import {  useState} from 'react';
-import axios from 'axios'
 import Loader from '../Loader/Loader';
 import {Helmet} from "react-helmet";
 
-import { useQuery } from '@tanstack/react-query';
 import { useBrands } from '@/hooks/useBrands';
 export default function Brands() {
-const [displaySpecificCategory, setDisplaySpecificCategory] = useState({})
 const{data: brands,isLoading}=useBrands()
-//  function handleDisplay(id){
-//   console.log("clicked category")
-//   let filteredData = data?.data.data.filter((item)=>item._id === id)
-//   setDisplaySpecificCategory(filteredData[0])
-//   console.log(displaySpecificCategory)
-//   setIsClicked(true)
-//   console.log(isClicked)
-// }
-// function handleNotToDisplay(){
-//   setIsClicked(false)
-// }
+
   return (
     <div className='container mx-auto px-4 '>
     {isLoading?<Loader/>:
