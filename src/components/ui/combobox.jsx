@@ -2,7 +2,7 @@
 
 import { Search, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Input } from "./input";
+import  Input  from "./input";
 import { Badge } from "./badge";
 import { useProductSearch } from "@/hooks/useProductSearch";
 

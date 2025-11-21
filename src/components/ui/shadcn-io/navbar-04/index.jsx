@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
 import { useProductSearch } from '@/hooks/useProductSearch';
 import { Badge } from '../../badge';
 import Search from '@/components/Search/Search';
-import { Input } from '../../input';
+import  Input  from '../../input';
 import { X } from 'lucide-react';
 import { AnimatePresence ,motion} from 'framer-motion';
 
@@ -129,11 +129,9 @@ export const Navbar04 = React.forwardRef(({
   token,
   cartText,
   cartCount,
-  wishlistCount,
-  
+  wishlistCount, 
   onSignInClick,
   onCartClick,
-
   ...props
 }, ref) => {
   const [isMobile, setIsMobile] = useState(false);

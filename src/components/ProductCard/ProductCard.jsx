@@ -6,8 +6,6 @@ import { WishListContext } from '../../../context/WishListContext';
 import { Link } from 'react-router-dom';
 const ProductCard = ({ product, styles }) => {
     let { addProductToCart } = useContext(CartContext)
-    // const [isChecked, setIsChecked] = useState(false);
-    // const [isClicked, setIsClicked] = useState(false)
     const [title, setTitle] = useState([{ id: -1, data: "" }]);
 
     let { wishList, getProductToWishlist, addProductToWishlist, deleteProductToWishlist } = useContext(WishListContext)

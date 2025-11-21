@@ -1,5 +1,3 @@
-import { createContext, useState } from 'react'
-import Navbar from './components/Navbar/Navbar'
 import Layout from './components/Layout/Layout'
 import Products from './components/Products/Products'
 import Home from './components/Home/Home'
@@ -10,7 +8,6 @@ import Register from './components/Register/Register'
 import Cart from './components/Cart/Cart'
 import Brands from './components/Brands/Brands'
 import Category from './components/Category/Category'
-import ProductCategoryDisplay from './components/ProductCategoryDisplay/ProductCategoryDisplay'
 import NotFound from './components/Not-found/Not-found'
 import ForgotPassword from './components/ForgotPassword/ForgotPassword'
 import ChangePassword from './components/ChangePassword/ChangePassword'
@@ -24,6 +21,8 @@ import { Toaster } from 'react-hot-toast'
 import AllOrders from './components/AllOrders/AllOrders'
 import CheckOut from './components/CheckOut/CheckOut'
 import AddToWhishList from './components/AddToWhishList/AddToWhishList'
+import SingleBrandDisplay from './components/Brands/SingleBrandDisplay'
+import BrandsLayout from './components/Brands/BrandsLayout'
 
 
 const router= createBrowserRouter([
@@ -46,7 +45,12 @@ const router= createBrowserRouter([
     {path:"login", element:<ProtectedAuth><Login/></ProtectedAuth>},
     {path:"signup", element:<ProtectedAuth><Register/></ProtectedAuth>},
     {path:"Cart", element:<ProtectedRoutes><Cart/></ProtectedRoutes>},
-    {path:"Brands", element:<ProtectedRoutes><Brands/></ProtectedRoutes>},
+    { path: "Brands",
+  element: <ProtectedRoutes><BrandsLayout /></ProtectedRoutes>,
+  children: [
+    { index: true, element: <Brands /> },
+    { path: ":brandname", element: <SingleBrandDisplay /> }
+  ]},
     {path:"category", element:<ProtectedRoutes><Category/></ProtectedRoutes>},
     {path:"forgotpassword", element:<ForgotPassword/>},
     {path:"resetpassword", element:<ResetPassword/>},
