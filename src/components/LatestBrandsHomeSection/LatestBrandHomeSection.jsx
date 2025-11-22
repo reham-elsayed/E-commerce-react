@@ -5,21 +5,7 @@ import {  useRef } from 'react'
 import { NavLink } from 'react-router-dom'
 const imgs=["src/assets/slider-amazon.jpg","src/assets/slider-furniture.jpg","src/assets/slider-labtop.jpg","src/assets/slider-assus.jpg"]
 const LatestBrandHomeSection = () => {
-  const targetRef = useRef(null)
-
-  // Ensure ref exists before framer reads it
-
-  const { scrollYProgress } = useScroll(
-  
-       {
-          target: targetRef?targetRef:null,
-          offset: ["start end", "end start"],
-        }
-      
-  )
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, 180])
-
+ 
   const { data: brands, isLoading, isError } = useBrands()
 
   if (isLoading) return <div className="h-screen flex items-center justify-center">Loading...</div>
@@ -28,7 +14,7 @@ const LatestBrandHomeSection = () => {
   return (
  <div className=' flex justify-center items-center py-7 '>
   <div
-    ref={targetRef}
+   
     className='w-screen'
   >
     <div className='group flex flex-wrap md:flex-nowrap '>
@@ -56,7 +42,39 @@ const LatestBrandHomeSection = () => {
           </p>
         </div>
 
-        <div className='absolute inset-0 left-2 flex justify-start items-center pointer-events-none'>
+     <CTAButton brandName={brand.name}/>
+      </div>
+      ))}
+    </div>
+
+  </div>
+</div>
+
+  )
+}
+
+export default LatestBrandHomeSection
+
+
+function CTAButton({brandName}){
+   const targetRef = useRef(null)
+
+  // Ensure ref exists before framer reads it
+
+  const { scrollYProgress } = useScroll(
+  
+       {
+          target: targetRef?targetRef:null,
+          offset: ["start end", "end start"],
+        }
+      
+  )
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, 180])
+
+
+  return(
+       <div  ref={targetRef} className='absolute inset-0 left-2 flex justify-start items-center pointer-events-none'>
             <motion.div
               style={{ y }}
               className="
@@ -81,7 +99,7 @@ const LatestBrandHomeSection = () => {
                   <NavLink 
            className="relative pointer-events-auto"
            onClick={()=>console.log("click")}
-           to={`/Brands/${brand.name}`} >
+           to={`/Brands/${brandName}`} >
            <>
               <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-gray-500/5 rounded-[0.625rem] " ></div>
 
@@ -97,14 +115,5 @@ const LatestBrandHomeSection = () => {
           
           
         </div>
-      </div>
-      ))}
-    </div>
-
-  </div>
-</div>
-
   )
 }
-
-export default LatestBrandHomeSection

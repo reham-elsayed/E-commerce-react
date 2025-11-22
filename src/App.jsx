@@ -55,12 +55,11 @@ const router= createBrowserRouter([
     {path:"forgotpassword", element:<ForgotPassword/>},
     {path:"resetpassword", element:<ResetPassword/>},
     {path:"changepassword", element:<ChangePassword />},
-{path:"productdetail/:id/:category", element:<ProtectedRoutes><ProductDetail /></ProtectedRoutes>},
+    {path:"productdetail/:id/:category", element:<ProtectedRoutes><ProductDetail /></ProtectedRoutes>},
     {path:"checkout",element: <ProtectedRoutes><CheckOut/></ProtectedRoutes>},
-{path:"allorders", element:<ProtectedRoutes><AllOrders/></ProtectedRoutes>},
-{path:"wishlist", element:<ProtectedRoutes><AddToWhishList/></ProtectedRoutes>},
-
-{path:"*", element:<NotFound/>}
+    {path:"allorders", element:<ProtectedRoutes><AllOrders/></ProtectedRoutes>},
+    {path:"wishlist", element:<ProtectedRoutes><AddToWhishList/></ProtectedRoutes>},
+    {path:"*", element:<NotFound/>}
   ]
 }
 ])

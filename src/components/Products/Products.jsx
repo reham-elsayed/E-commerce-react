@@ -1,10 +1,7 @@
-import React from 'react'
-import styles from "./Products.module.css"
-import FeatureProducts from '../FeatureProducts/FeatureProducts'
-
 import { Suspense } from 'react'
 import { lazy } from 'react';
 import VortexSaleSectionWrapper, { GlassCategoryCard } from '../VortexSaleSection/VortexSaleSectionWrapper'
+import ProductsPage from './ProductsWithFilters';
 const LazyVortex = lazy(() => import("../VortexSaleSection/VortexComponent"));
 
 export default function Products() {
@@ -17,7 +14,7 @@ export default function Products() {
           </Suspense>
 
         </VortexSaleSectionWrapper>
-      <FeatureProducts />
+      <ProductsPage/>
     </div>
   )
 }
