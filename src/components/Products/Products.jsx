@@ -14,6 +14,7 @@ export default function Products() {
           </Suspense>
 
         </VortexSaleSectionWrapper>
+      
       <ProductsPage/>
     </div>
   )

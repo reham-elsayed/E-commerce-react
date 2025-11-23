@@ -4,6 +4,8 @@ import { useCategories, useProducts } from '@/hooks/useProducts';
 import ProductCard from "../ProductCardGeneral/ProductCardGeneral";
 import { PriceRangeSlider } from './PriceRangeSlider';
 import { CollapsibleFilterSelect } from './FiltersProducts';
+import BrandsSlider from './BrandsSlider';
+
 import { useBrands } from '@/hooks/useBrands';
 import { useEffect } from 'react';
 
@@ -97,6 +99,7 @@ console.log(filteredProducts,"filtered--------------------")
   }
   return (
     <div className="min-h-screen bg-gray-50">
+        <BrandsSlider handleBrandsChange={handleBrandsChange}/>
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Products</h1>
@@ -106,7 +109,7 @@ console.log(filteredProducts,"filtered--------------------")
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Filters Sidebar */}
           <div className="w-full lg:w-80 flex-shrink-0">
-            <div className="bg-white rounded-lg shadow-sm p-6 sticky top-4">
+            <div className="bg-white/55 backdrop-blur-md rounded-sm shadow-sm p-6 sticky top-4">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-lg font-semibold">Filters</h2>
                 <Button 
@@ -133,7 +136,7 @@ console.log(filteredProducts,"filtered--------------------")
 <CollapsibleFilterSelect
   title="Categories" // Title prop
   options={categories} // Full list of categories from your hook
-  selectedValues={categoriesFilters} // Current state array
+  selectedValues={categoriesFilters} // Current state
   onValueChange={(category) => handleCategoryChange(category)}/>
 </div>
 
@@ -158,7 +161,7 @@ console.log(filteredProducts,"filtered--------------------")
           </div>
    
           {/* Products Grid */}
-          <div className="flex-1">
+          <div className="flex-1 -mt-24">
             <div className="flex justify-between items-center mb-6">
               <p className="text-gray-600">
                 Showing {productsToDisplay.length} products

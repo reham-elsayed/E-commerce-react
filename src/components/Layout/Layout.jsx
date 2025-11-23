@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom'
 import Navbar from '../Navbar/Navbar'
 import { Offline, Online } from "react-detect-offline";
 import { ThemeContext } from '../../../context/ThemeContext'
+import { Footer } from '../Footer/Footer';
 export default function Layout() {
   let { theme } = useContext(ThemeContext)
   useEffect(() => {
@@ -20,7 +21,7 @@ export default function Layout() {
         <Navbar />
 
         <Outlet />
-
+<Footer/>
 
         <Online><div className="fixed bottom-5 left-1 p-3 rounded-md text-white bg-green-300  border-pink-700">Back Online!</div></Online>
 

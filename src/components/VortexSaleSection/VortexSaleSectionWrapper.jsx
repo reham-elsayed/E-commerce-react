@@ -1,9 +1,6 @@
-import React from 'react'
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+
 const VortexSaleSectionWrapper = ({ children }) => {
-    return (<div className="flex justify-center items-center  relative h-screen w-full  overflow-hidden">
+    return (<div className="flex justify-center items-center  relative h-[90hv] w-full  overflow-hidden">
         {children}
     </div>
 
@@ -25,7 +22,7 @@ export function GlassCategoryCard() {
     return (
         <div className="relative w-[40vh] h-[32vw] bg-transparent border-0 z-50 flex justify-center items-center">
 
-            <p className="text-3xl">Hot DEALs</p>
+            <p className="text-3xl">20% Off on your first order</p>
 
             {/* Hidden content for accessibility */}
             <div className="sr-only">

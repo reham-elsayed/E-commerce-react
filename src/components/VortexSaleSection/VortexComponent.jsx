@@ -145,7 +145,7 @@ export default function FullScreenVortexImages() {
         });
 
         return allConfigs;
-    }, [images, w, h, vortexCenters, seededRandom]);
+    }, [images, w, h, vortexCenters, seededRandom,getEdgeRadius]);
 
     // --- Spiral settings ---
     // Calculate a reference radius for spiral distances (use average of width and height)
@@ -160,7 +160,7 @@ export default function FullScreenVortexImages() {
 
     return (
         <div
-            className=" w-full con absolute inset-0 bg-[#ffe6e9] h-[722px] flex items-center justify-center"
+            className=" w-full con absolute inset-0 bg-[#ffe6e9] h-[500px] flex items-center justify-center"
             role="img"
             aria-label="Animated vortex of falling images "
         >

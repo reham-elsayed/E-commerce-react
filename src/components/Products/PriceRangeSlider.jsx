@@ -14,7 +14,7 @@ export function PriceRangeSlider({ currentRange = [MIN_PRICE, MAX_PRICE],handleP
   const [min, max] = currentRange;
 
   return (
-    <div className="space-y-6 p-4 border rounded-lg bg-white shadow-sm">
+    <div className="space-y-4 mb-4">
       <h3 className="font-semibold text-lg">Price Range</h3>
       
       {/* --- Price Range Display and Slider --- */}
