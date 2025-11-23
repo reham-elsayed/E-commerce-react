@@ -1,87 +1,100 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
-import Input from '../ui/input'; // Retained only for potential future use, though currently commented out
-import { useCategories, useProducts, useProductsByCategory } from '@/hooks/useProducts';
-// Note: ProductCard definition is provided separately below for clarity.
+import { useCategories, useProducts } from '@/hooks/useProducts';
 import ProductCard from "../ProductCardGeneral/ProductCardGeneral";
+import { PriceRangeSlider } from './PriceRangeSlider';
+import { CollapsibleFilterSelect } from './FiltersProducts';
+import { useBrands } from '@/hooks/useBrands';
+import { useEffect } from 'react';
 
 export default function ProductsPage() {
-  const [filters, setFilters] = useState({
-    categories: [], // Only need the categories array for this version
-  });
-
-  // --- Fetching Logic ---
-  const selectedCategory = filters.categories.length === 1 ? filters.categories[0] : null;
-
-  // 1. Fetch products by a single selected category (if one is selected)
-  const { 
-    data: categoryData, 
-    isLoading: loadingCategory,
-  } = useProductsByCategory(selectedCategory);
-
-  // 2. Fallback: Fetch all products (if no category is selected, i.e., selectedCategory is null)
+const[categoriesFilters,setCategoriesFilters]=useState('')
+const[priceRange,setPriceRange]=useState([0,1000])
+const[brandsFilters,setBrandsFilters]=useState('')
+const[brandsSelection,setBrands]=useState([])
+  // Fetch ALL products once - no filtering in the hook
+  function handlePriceChange(newRange){
+    setPriceRange(newRange)
+  }
   const { 
     data: allProductsData, 
     isLoading: loadingAll,
-  } = useProducts({ 
-    enabled: selectedCategory === null,
-  });
+  } = useProducts();
 
-  // Determine the final list of products to display
-  const productsToDisplay = useMemo(() => {
-    // If one category is selected, use the results from useProductsByCategory
-    if (selectedCategory && categoryData?.products) {
-      return categoryData.products;
-    }
-    // If no category is selected, use the results from the general useProducts hook
-    if (selectedCategory === null && allProductsData?.products) {
-      return allProductsData.products;
-    }
-    // If filters.categories has MORE than 1 item, we can't use the single-category endpoint, so return none for now.
-    // If the data hasn't loaded, return an empty array.
-    return [];
-  }, [selectedCategory, categoryData, allProductsData]);
-  
-  // Extract unique categories (for filter sidebar)
+  // Extract unique categories
   const { data: categories = [] } = useCategories();
+const { data: brands = [] } = useBrands()
+useEffect(() => {
+  setBrands(brands.map(brand => brand.name.toLowerCase()))
+
+ 
+}, [brands])
+
+  // Apply all filters client-side
+  const productsToDisplay = useMemo(() => {
+    if (!allProductsData?.products) return [];
+console.log(allProductsData,"product",categoriesFilters)
+    let filteredProducts = allProductsData.products;
+    // Category filtering - one category at a time
+   if (categoriesFilters) {
+    // 💡 FIX: Convert BOTH strings to lowercase before comparing
+    const filterValue = categoriesFilters.toLowerCase();
+ filteredProducts = filteredProducts.filter(product => 
+        product.category.toLowerCase() === filterValue
+    );  
+}
+  console.log(brandsFilters,"brand filter")
+  if(brandsFilters){
+    const brandFilterValue = brandsFilters?.toLowerCase();
+    filteredProducts = filteredProducts.filter(product =>product.brand?.toLowerCase() === brandFilterValue)
+  }
+    // Price filtering
+    const [min, max] = priceRange || [0,1000];
+    console.log(priceRange,"min max")
+    filteredProducts = filteredProducts.filter(product => 
+      product.price >= min && product.price <= max
+    );
+console.log(filteredProducts,"filtered--------------------")
+    return filteredProducts;
+  }, [allProductsData, categoriesFilters,priceRange,brandsFilters]);
 
   // --- Handlers ---
-  const handleCategoryToggle = (category) => {
-    setFilters(prev => {
-      let newCategories;
-      
-      // If the category is already selected, remove it.
-      if (prev.categories.includes(category)) {
-        newCategories = prev.categories.filter(c => c !== category);
-      } else {
-        // If a new category is selected, we only support ONE at a time for the useProductsByCategory hook.
-        // So, we replace the existing selection with the new one.
-        newCategories = [category];
-      }
+  const handleCategoryChange = (selectedValue) => {
+    
+    if (selectedValue === '') {
+      // Clear all categories
+      setCategoriesFilters('');
+    } else {
+      // Set only one category at a time
+      setCategoriesFilters(selectedValue);
+    }
+  }
 
-      return {
-        ...prev,
-        categories: newCategories
-      };
-    });
-  };
+  const clearAllFilters = useCallback(() => {
+   setCategoriesFilters('');
+   setPriceRange([0,1000])
+  }, []); 
+   const handleBrandsChange = (selectedValue) => {
+    
+    if (selectedValue === '') {
+      // Clear all categories
+      setBrandsFilters('');
+    } else {
+      // Set only one category at a time
+      setBrandsFilters(selectedValue);
+    }
+  }
 
-  const clearAllFilters = () => {
-    setFilters({ categories: [] });
-  };
   
-  const isLoading = selectedCategory ? loadingCategory : loadingAll;
-  
+
   // --- Loading State ---
-  if (isLoading) {
+  if (loadingAll) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-lg">Loading products...</div>
       </div>
     );
   }
-
-  // --- Render ---
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
@@ -106,33 +119,44 @@ export default function ProductsPage() {
                 </Button>
               </div>
 
-              {/* Categories */}
+              {/* Styled Select for Categories */}
               <div className="mb-6">
-                <h3 className="font-medium mb-3">Categories (Select One)</h3>
-                <div className="space-y-2">
-                  {categories.map(category => (
-                    <div key={category} className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id={`category-${category}`}
-                        // Check if this category is the one currently selected
-                        checked={filters.categories[0] === category} 
-                        onChange={() => handleCategoryToggle(category)}
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                      />
-                      <label 
-                        htmlFor={`category-${category}`}
-                        className="ml-2 text-sm capitalize"
-                      >
-                        {category}
-                      </label>
-                    </div>
-                  ))}
-                </div>
+           {/* Price Range Slider */}
+              <PriceRangeSlider 
+                currentRange={priceRange} 
+               handlePriceChange={handlePriceChange}
+              />
+<div className="mb-6">
+  <h3 className="font-medium mb-3">Filter by Category</h3>
+
+  {/* Collapsible Container */}
+<CollapsibleFilterSelect
+  title="Categories" // Title prop
+  options={categories} // Full list of categories from your hook
+  selectedValues={categoriesFilters} // Current state array
+  onValueChange={(category) => handleCategoryChange(category)}/>
+</div>
+
+
               </div>
+              <div className="mb-6">
+  <h3 className="font-medium mb-3">Filter by Brand</h3>
+
+  {/* Collapsible Container */}
+<CollapsibleFilterSelect
+  title="Brands" // Title prop
+  options={brandsSelection} // Full list of categories from your hook
+  selectedValues={brandsFilters} // Current state array
+  onValueChange={(brand) => handleBrandsChange(brand)}/>
+
+
+
+              </div>
+
+            
             </div>
           </div>
-
+   
           {/* Products Grid */}
           <div className="flex-1">
             <div className="flex justify-between items-center mb-6">
@@ -155,7 +179,7 @@ export default function ProductsPage() {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {productsToDisplay.map(product => (
-        <ProductCard key={product.id} product={product}/>
+                  <ProductCard key={product.id} product={product}/>
                 ))}
               </div>
             )}
