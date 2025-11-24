@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from 'react'
 import styles from "./Sliderr.module.css"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 export default function Slider({product}) {
-  console.log(product)
-const [prodImg, setProdImg]= useState([])
-// useEffect(()=>{
-//   setProdImg(product.images);
-// },[])
+
 console.log(product)
   var settings = {
     dots: true,
@@ -20,7 +15,7 @@ console.log(product)
  <>
    <Slider {...settings}>
         {product.images.map((item)=>
-          <div>
+          <div key={item} className={styles.sliderimg}>
           <img src={item}/>
          </div>
       )}

@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 // Fetch all products with optional search parameters
 const fetchProducts = async () => {
-  const response = await fetch('https://dummyjson.com/products');
+  const response = await fetch('https://dummyjson.com/products?limit=100');
   if (!response.ok) {
     throw new Error('Failed to fetch products');
   }

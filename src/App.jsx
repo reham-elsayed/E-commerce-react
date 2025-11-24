@@ -2,6 +2,8 @@ import Layout from './components/Layout/Layout'
 import Products from './components/Products/Products'
 import Home from './components/Home/Home'
 import './App.css'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './components/Login/Login'
 import Register from './components/Register/Register'

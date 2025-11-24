@@ -23,6 +23,7 @@ export default function Login() {
     initialValues: {
       email: "",
       password: "",
+      expiresInMinutes:100,
     },
     validationSchema: mySchema,
     onSubmit: (values) => { (loginForm(values)) }
@@ -32,7 +33,7 @@ export default function Login() {
     setIsLoading(true);
 
     const res = await axios.post(
-      "https://api.escuelajs.co/api/v1/auth/login",
+      "https://dummyjson.com/auth/login",
       values
     );
 
@@ -41,10 +42,10 @@ export default function Login() {
     console.log("data submitted", newData);
 
     setUserMessage(newData);
-    setToken(newData.access_token);
+    setToken(newData.accessToken);
 
-    localStorage.setItem("token", newData.access_token);
-
+    localStorage.setItem("token", newData.accessToken);
+ localStorage.setItem("user", newData.id);
     navigate("/home");
 
   } catch (error) {

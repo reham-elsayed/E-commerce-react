@@ -1,6 +1,6 @@
 
 const VortexSaleSectionWrapper = ({ children }) => {
-    return (<div className="flex justify-center items-center  relative h-[90hv] w-full  overflow-hidden">
+    return (<div className="flex justify-center items-center  relative h-[50vh] w-full  overflow-hidden">
         {children}
     </div>
 
@@ -35,4 +35,10 @@ export function GlassCategoryCard() {
     );
 }
 
-
+export const VortexFallback = () => (
+    // Set the fallback div to fill the parent wrapper (h-full w-full)
+    // Add a minimum height to reserve the visual space (relative to the wrapper's 90vh)
+    <div className='w-full h-[500px]  absolute inset-0 bg-gray-100 dark:bg-gray-800 flex justify-center items-center'>
+        {/* Optional: Add a subtle loading spinner or placeholder text */}
+    </div>
+);

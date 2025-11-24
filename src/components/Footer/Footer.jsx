@@ -3,13 +3,13 @@ import {
   Facebook, Twitter, Instagram, Linkedin, Mail, Smartphone, ChevronDown
 } from 'lucide-react';
 import { Button } from '@/components/ui/button'; // Shadcn Button
-import { Input } from '@/components/ui/input';   // Shadcn Input
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'; // Shadcn Accordion
+import Input from '../ui/input';
 
 // --- Data Structure for Navigation Links (Same as before) ---
 const FOOTER_LINKS = [
@@ -98,10 +98,10 @@ export function Footer() {
             
             <h4 className="text-lg font-semibold text-white mt-5 mb-2">Follow Us</h4>
             <div className="flex space-x-4">
-              <SocialIcon Icon={facebook} href="#" />
+              {/* <SocialIcon Icon={facebook} href="#" />
               <SocialIcon Icon={Twitter} href="#" />
               <SocialIcon Icon={Instagram} href="#" />
-              <SocialIcon Icon={Linkedin} href="#" />
+              <SocialIcon Icon={Linkedin} href="#" /> */}
             </div>
           </div>
         </div>
@@ -126,11 +126,7 @@ export function Footer() {
                 <span className="text-xs px-2 py-1 bg-white border border-gray-200 rounded text-gray-900 font-semibold">VISA</span>
                 <span className="text-xs px-2 py-1 bg-white border border-gray-200 rounded text-gray-900 font-semibold">Mastercard</span>
             </div>
-            <h4 className="text-base font-semibold text-white mt-6 mb-3">Download Our App</h4>
-            <div className="flex gap-3">
-                <Button variant="outline" className="text-xs bg-gray-800 border-gray-700 hover:bg-gray-700 text-white">App Store</Button>
-                <Button variant="outline" className="text-xs bg-gray-800 border-gray-700 hover:bg-gray-700 text-white">Google Play</Button>
-            </div>
+        
           </div>
         </div>
         
@@ -156,7 +152,7 @@ export function Footer() {
       <div className="bg-gray-800">
         <div className="container mx-auto max-w-7xl px-4 py-4 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
           <p className="order-2 md:order-1 mt-3 md:mt-0">
-            &copy; {currentYear} E-Commerce Name. All rights reserved.
+            &copy; {currentYear}HYPE STATION. All rights reserved.
           </p>
           <div className="order-1 md:order-2 flex space-x-4">
             <a href="#" className="hover:text-yellow-500 transition-colors">Safety Center</a>

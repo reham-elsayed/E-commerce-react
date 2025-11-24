@@ -8,159 +8,315 @@ import Loader from '../Loader/Loader'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Link } from 'react-router-dom'
 //import Sliderr from '../Slider/Sliderr'
 import {Helmet} from "react-helmet";
+import { Button } from '../ui/button';
+import { ShoppingCart } from 'lucide-react';
+import { Star } from 'lucide-react';
+import { Truck } from 'lucide-react';
+import ProductCard from '../ProductCardGeneral/ProductCardGeneral';
+import { SectionTitle } from '../TitleComponent/TitleComponent';
+import { NavLink } from 'react-router-dom';
+import { ArrowBigRight } from 'lucide-react';
+import { Store } from 'lucide-react';
+import { StarIcon } from 'lucide-react';
+import { ThumbsUp } from 'lucide-react';
+import { BadgeCheck } from 'lucide-react';
+import { Calendar } from 'lucide-react';
+import { RotateCcw } from 'lucide-react';
+import { TrendingUp } from 'lucide-react';
+import { Undo2 } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 
 export default function ProductDetail() {
-  const [title, setTitle] = useState([{ id: -1, data: "" }]);
-
-  const [product, setProduct] = useState({})
-  const [allproduct, setAllProduct] = useState([])
-  const [isLoading, setIsLoading] =useState(true)
-  let { id, category } = useParams()
-console.log(id)
-
-let { addProductToCart }= useContext(CartContext)
- async function addToCart(productId){
-  let response = await addProductToCart(productId)
-  console.log(response)
- }
-
-
- async function getData(){
-    return  await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`).then((data)=>{
-      console.log(data)
-      setProduct(data?.data.data)
-      setIsLoading(false)
-    }).catch((err)=>{
-      console.log(err)
-      setIsLoading(false)
-    })
-  
-  }
-
-  async function getRelatedDetail(){
-    return  await axios.get(`https://ecommerce.routemisr.com/api/v1/products`).then((data)=>{
-     console.log(data?.data.data,"related")
-     let product = data?.data.data.filter((item)=>item.category.name === category)
-
-      setAllProduct(product)
-      console.log(product)
-      setIsLoading(false)
-    }).catch((err)=>{
-      console.log(err)
-      setIsLoading(false)
-    })
-  
-  }
-
-  async function handleTitleSplit(id){
-    setTitle([{id:"-1", data:""}])
-   
-    console.log(title)
-   }
-   async function handleTitle(id,data){
-    setTitle([{id,data}]);
-    console.log("handle ",title)
-   }
-  var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+    };
     
-  };
-  useEffect(()=>{
-    getData();
-    getRelatedDetail();
-  }, [])
-  useEffect(()=>{
-    getData();
-    getRelatedDetail();
-  }, [id])
-console.log(product.images)
+    const [product, setProduct] = useState({});
+    const [allproduct, setAllProduct] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    let { id, category } = useParams(); // 'category' may be undefined initially
+
+    let { addProductToCart } = useContext(CartContext);
+    async function addToCart(productId) {
+        let response = await addProductToCart(productId);
+        console.log(response);
+    }
+
+    // Fetch Main Product Data
+    async function getProductDetail(productId) {
+        setIsLoading(true);
+        try {
+            const response = await axios.get(`https://dummyjson.com/products/${productId}`);
+            const fetchedProduct = response.data;
+            setProduct(fetchedProduct);
+            return fetchedProduct; 
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    //Fetch Related Products
+    async function getRelatedDetail(productCategory, currentProductId) {
+        if (!productCategory) return; 
+
+        try {
+            const response = await axios.get(`https://dummyjson.com/products/category/${productCategory}`);
+            const related = response.data.products
+                .filter(item => item.id !== currentProductId)
+                .slice(0, 4); 
+
+            setAllProduct(related);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    // --- useEffect for Initial Load and ID Change ---
+    useEffect(() => {
+        // 1. Fetch the main product
+        getProductDetail(id).then(fetchedProduct => {
+            if (fetchedProduct && fetchedProduct.category) {
+                // 2. Use category from the fetched product to get related items
+                getRelatedDetail(fetchedProduct.category, fetchedProduct.id);
+            }
+        });
+        
+        // Cleanup function for when the component unmounts or ID changes
+        return () => {
+            setProduct({});
+            setAllProduct([]);
+        };
+    }, [id]); // Depend only on 'id'
+
+    // If the component is loading or product data hasn't arrived, show the loader.
+    if (isLoading || !product.id) {
+        return <Loader />;
+    }
   return (
    <>
-   {isLoading?<Loader/>: null}
-   <div className="container mx-auto dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-    
-    <div className="flex-col md:flex md:flex-row ">
-      <div className='w-100 md:w-1/4 my-1'>
-      <Slider {...settings}>
-        {product.images?.map((item)=>
-          <div>
-          <img key={product.id} src={item} alt={product.title}/>
-         </div>
-      )}
-    </Slider>
-    {/* <Sliderr product={product}/> */}
-</div>
-      {/* <img src={product.imageCover}/></div> */}
-      <div className={`w-100 md:w-3/4 l:w-3/4  ${styles.border} ms-2 p-3`}>
-      
-      <h1 className="text-black dark:text-white font-bolder text-2xl my-5"> {product.title}</h1>
-      <Helmet>
+   <div className=" dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+   <div className="container mx-auto max-w-9xl px-4 py-8">
+            <Helmet>
                 <meta charSet="utf-8" />
-                <title>{product.title}</title>
+                <title>{`${product?.title} | HYPE STATION`}</title>
             </Helmet>
-    <h5 className="text-gray-700 dark:text-white my-5">{product.description}</h5>
-    <p className="my-5">{ product.category?.name}</p>
-    <div className="flex justify-between items-center">
-      <p className="w-1/2">
-        {product.price} EGP
-      </p>
-      <div className="w-1/2"><i className="fa fa-star text-yellow-300"></i>{product.ratingsQuantity}</div>
-    </div>
-    <button onClick={()=>{addToCart(product.id)}} type="button" className="mt-10 inline-flex justify-center w-full items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-            Add to  cart
-            <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
-</svg>
-        </button>
-    </div>
-    </div>
+
+            <div className="flex flex-col md:flex-row gap-8 items-center">
+                
+                {/* 1. Image Slider (25% on desktop) */}
+                <div className="w-full md:w-1/4 lg:w-2/6">
+                    <div className="border border-gray-200 dark:border-gray-700 rounded-sm shadow-sm">
+                        <Slider {...settings}>
+                            {/* Use product.images for the slider */}
+                            {product.images?.map((image, index) => (
+                                <div key={index}>
+                                    <img 
+                                        src={image} 
+                                        alt={`${product.title} image ${index + 1}`} 
+                                        className="w-full h-auto object-cover aspect-square" 
+                                    />
+                                </div>
+                            ))}
+                        </Slider>
+                    </div>
+
+                  
+                </div>
+
+                {/* 2. Product Information (75% on desktop) */}
+                <div className="w-full md:w-2/4 lg:w-2/6 p-4">
+                    
+                    {/* Title and Brand */}
+                    <h1 className="text-black dark:text-white font-extrabold text-3xl mb-2">{product.title}</h1>
+                    <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-6">Brand: {product.brand}</p>
+
+                    {/* Description */}
+                    <h5 className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">{product.description}</h5>
+                    
+                    {/* Category */}
+                    <p className="mb-6 inline-block bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
+                        Category: {product.category}
+                    </p>
+
+                    <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+                        
+                        {/* Price and Ratings */}
+                        <div className="flex justify-between items-center mb-2">
+                            <div className="w-1/2">
+                                <p className="text-3xl font-bold text-green-600 dark:text-green-400">
+                                    {product.price} EGP
+                                </p>
+                                {product.discountPercentage > 0 && (
+                                    <p className="text-sm text-red-500 mt-1">Save {product.discountPercentage}%</p>
+                                )}
+                            </div>
+                            
+                            <div className="w-1/2 flex items-center justify-end">
+                                <Star className="w-5 h-5 text-yellow-400 fill-yellow-400 mr-1" />
+                                <span className="text-xl font-semibold text-black dark:text-white">
+                                    {product.rating}
+                                </span>
+                                <span className="text-sm text-gray-500 dark:text-gray-400 ml-1">
+                                    ({product.reviews?.length || 0} reviews)
+                                </span>
+                            </div>
+                        </div>
+<div>
+  <NavLink
+    to={`/Brands/${product.brand}`}
+    className="
+      inline-flex items-center gap-1.5 
+      px-4 py-2 
+      rounded-sm
+      bg-gray-100/55 
+      text-gray-800
+      backdrop-blur-sm
+      font-medium 
+      transition-all duration-300
+      hover:bg-indigo-100
+      hover:text-gray-900
+      group
+    "
+  >
+    See other products of {product.brand}
+
+    <span
+      className="
+        inline-block 
+        transition-transform duration-300 
+        group-hover:translate-x-1
+      "
+    >
+      <ArrowBigRight className="w-4 h-4" />
+    </span>
+  </NavLink>
+</div>
+
+                        {/* Stock Status */}
+                        <p className={`text-base font-semibold ${product.stock > 10 ? 'text-green-600' : 'text-orange-500'} mb-4`}>
+                            {product.stock > 0 ? `${product.stock} items left in stock` : 'Out of Stock'}
+                        </p>
+
+                        {/* Add to Cart Button */}
+                        <Button
+                            onClick={() => addToCart(product.id)} 
+                            disabled={product.stock === 0}
+                            className="inline-flex justify-center w-full items-center px-6 py-3 text-lg font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors focus:ring-4 focus:outline-none focus:ring-blue-300 disabled:opacity-50"
+                        >
+                            <ShoppingCart className="w-5 h-5 mr-3" />
+                            {product.stock > 0 ? 'Add to Cart' : 'Notify When Available'}
+                        </Button>
+                    </div>
+
+                </div>
+
+                <div className='w-full  md:w-1/4 lg:w-2/6 border border-gray-200 dark:border-gray-700 rounded-sm p-4 shadow-sm'>
+ <div className="mt-4  dark:bg-gray-800  text-basic text-gray-700 dark:text-gray-300 space-y-2">
+
+ <div className='flex flex-col items-center justify-center space-y-4 border-b border-gray-300 pb-4 mb-4'>
+     <p className="flex items-center">
+    <Store className="w-4 h-4 mr-2 text-blue-500" />
+    Sold by: <span className="ml-1 font-medium text-gray-900 dark:text-gray-100">Hype Station</span>
+  </p>
+
+<div className='flex justify-between items-center '>
+      <p className="flex items-center border-r border-gray-300 pr-4">
+    <StarIcon className="w-4 h-4 mr-2 text-yellow-500" />
+    Rating: <span className="ml-1 font-medium">4.1 / 5</span>
+  </p>
+
+  <p className="flex items-center pl-2">
+    <ThumbsUp className="w-4 h-4 mr-2 text-green-500" />
+    Positive Feedback: <span className="ml-1 font-medium">75%</span>
+  </p>
+
+</div>
+ </div>
+ <div className='flex flex-wrap space-y-4 gap-x-1'>
+     <p className="flex items-center    inline-flex items-center gap-1.5 
+       p-2 
+      rounded-sm
+      bg-gray-100/55 
+      text-gray-800
+      backdrop-blur-sm">
+    <BadgeCheck className="w-4 h-4  text-blue-500" />
+    Item as described: <span className="ml-1 font-medium">80%</span>
+  </p>
+
+  <p className="flex items-center    inline-flex items-center gap-1.5 
+       p-2 
+      rounded-sm
+      bg-gray-100/55 
+      text-gray-800
+      backdrop-blur-sm">
+    <Calendar className="w-4 h-4  text-indigo-500" />
+    Partner since: <span className="ml-1 font-medium">3+ years</span>
+  </p>
+
+  <p className="flex items-center   inline-flex items-center gap-1.5 
+      p-2 
+      rounded-sm
+      bg-gray-100/55 
+      text-gray-800
+      backdrop-blur-sm">
+    <RotateCcw className="w-4 h-4  text-purple-500" />
+    Low return rate seller
+  </p>
+
+   <p className=" flex items-center gap-1.5 
+      p-2 rounded-sm bg-gray-100/55 text-gray-800 backdrop-blur-sm">
+    <TrendingUp className="w-4 h-4 text-green-500" />
+    Great recent rating
+  </p>
+
+ </div>
+<div className='flex flex-col space-y-4 border-t border-gray-300 pt-4 mt-4'>
+      <p className="flex items-center">
+    <Truck className="w-4 h-4 mr-2 text-blue-600" />
+    Free delivery on Lockers & Pickup Points
+  </p>
+
+  <p className="flex items-center">
+    <Undo2 className="w-4 h-4 mr-2 text-orange-500" />
+    Easy & hassle-free returns
+  </p>
+
+  <p className="flex items-center">
+    <ShieldCheck className="w-4 h-4 mr-2 text-green-600" />
+    Secure payments
+  </p>
+</div>
+</div>
+
+                </div>
+            </div>
+       
 
 
     <div className='my-10 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'>
-    {isLoading?<Loader/>:<div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2'>
-      
+    {isLoading?<Loader/>:
+   <>
+      <SectionTitle title="Related Products" className="col-span-full"/>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2'>
 {allproduct.map((product)=>(
-  <div key={product.id} className=" bg-white p-2 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <Link to={`/productdetail/${product.id}/${product.category.name}`}
-    ariaLabel={`go to ${product.category.name}`}
-    >
-        <img className="rounded-t-lg w-full" src={product.imageCover} alt={product.category.name}/>
-  
-    <div className="p-5">
-       
-            <h5 className="mb-2 text-2xl tracking-tight text-green-700 dark:text-white">{product.category.name}</h5>
-            <p 
-            onMouseEnter={()=>{handleTitle(product.id, product.title)}}
-            onMouseLeave={()=>{handleTitleSplit(product.id)}}
-            onBlur={()=>{handleTitleSplit(product.id)}}
-            className="mb-3 font-normal text-green-700 dark:text-gray-400  data-title">{(title && title[0].id== product._id)?title[0].data:product.title.split(' ').slice(0,2).join(" ") }</p>
-
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{product.price} EGP</p>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><i className="fa fa-star text-yellow-300"></i>{product.ratingsQuantity}</p>
-
-        
-    </div>
-    </Link>
-    <button type="button" onClick={()=>{addToCart(product.id)}} className=" inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-            Add to  cart
-             <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-            </svg>
-        </button>
-</div>
+  <ProductCard key={product.id} product={product}/>
 
 ))}
   </div>
+   </>
 }
     </div>
    </div>
+    </div>
    </>
   )
 }

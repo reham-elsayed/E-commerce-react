@@ -45,11 +45,15 @@ console.log(allProductsData,"product",categoriesFilters)
         product.category.toLowerCase() === filterValue
     );  
 }
-  console.log(brandsFilters,"brand filter")
   if(brandsFilters){
     const brandFilterValue = brandsFilters?.toLowerCase();
     filteredProducts = filteredProducts.filter(product =>product.brand?.toLowerCase() === brandFilterValue)
+filteredProducts.map(product =>console.log(product.brand,"brand name loop"))
+
   }
+
+    console.log(brandsFilters,"brand filter ",filteredProducts,"after brand",)
+
     // Price filtering
     const [min, max] = priceRange || [0,1000];
     console.log(priceRange,"min max")
@@ -149,7 +153,7 @@ console.log(filteredProducts,"filtered--------------------")
 <CollapsibleFilterSelect
   title="Brands" // Title prop
   options={brandsSelection} // Full list of categories from your hook
-  selectedValues={brandsFilters} // Current state array
+  selectedValues={brandsFilters} // Current state 
   onValueChange={(brand) => handleBrandsChange(brand)}/>
 
 
@@ -171,7 +175,7 @@ console.log(filteredProducts,"filtered--------------------")
             {/* Products */}
             {productsToDisplay.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-gray-500 text-lg">No products found matching your filters.</p>
+                <p className="text-gray-500 text-lg">No products found matching {categoriesFilters} {brandsFilters}</p>
                 <Button 
                   onClick={clearAllFilters}
                   className="mt-4"

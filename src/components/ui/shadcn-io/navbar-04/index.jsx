@@ -23,7 +23,7 @@ import Search from '@/components/Search/Search';
 import  Input  from '../../input';
 import { X } from 'lucide-react';
 import { AnimatePresence ,motion} from 'framer-motion';
-
+import ThemeToggle from '@/components/Navbar/ThemeToggler';
 /**
  * Logo component for Navbar
  * @param {Object} props
@@ -223,7 +223,7 @@ useEffect(() => {
                         </button>
                       </NavigationMenuItem>
                     ))}
-
+<ThemeToggle/>
                     <NavigationMenuItem className="w-full" role="presentation">
                       <div className="bg-border -mx-1 my-1 h-px" />
                     </NavigationMenuItem>
@@ -266,13 +266,22 @@ useEffect(() => {
           <div className="flex flex-1 items-center gap-6 max-md:justify-between">
 
             {/* Logo */}
-            <button
-              onClick={(e) => e.preventDefault()}
+            <Link
+            to={'/'}
               className="flex items-center space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer"
             >
               <div className="text-2xl">{logo}</div>
-              <span className="hidden font-bold text-xl sm:inline-block">{isOpen?'happy':'not happpy'}</span>
-            </button>
+              {/* <span className="hidden font-bold text-xl sm:inline-block">{isOpen?'happy':'not happpy'}</span> */}
+   <div className='flec flex-col relative text-2xl leading-none'>
+       <h1 className="font-sans text-xl font-extrabold  leading-none ">
+  HYPE
+  {/* The negative top margin pulls STATION up over HYPE */}
+ 
+</h1>
+ <span className="text-primary -ml-1 -mt-3 font-bold leading-none">STATION</span>
+           
+   </div>
+            </Link>
 
             {/* Desktop Navigation */}
            
@@ -303,9 +312,9 @@ useEffect(() => {
          
 
             {/* Search Form */}
-            <div ref={searchRef} className="relative w-full max-w-5xl">
+          <div ref={searchRef} className="relative flex-1 md:flex-initial md:max-w-sm lg:max-w-md">
       {/* Input */}
-      <div className={`relative ${isSearchActive?'w-[900px]':'w-[50%]'}`}>
+      <div className={`relative w-full ${isSearchActive?'md:w-[900px]':'md:w-[50%]'}`}>
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-muted-foreground" />
 
         <Input
@@ -316,7 +325,7 @@ useEffect(() => {
           onChange={(e) => setQuery(e.target.value)}
           onFocus={()=>filteredProducts.length > 0 && setIsOpen(true) }
           onKeyDown={handleKeyDown}
-          className="pl-10 pr-10 h-10 border-gray-200 focus-visible:ring-purple-100"
+          className="w-full pl-10 pr-10 h-10 border-gray-200 focus-visible:ring-purple-100"
         />
 
         {query && (
@@ -337,9 +346,9 @@ useEffect(() => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full mt-2 w-full bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-50"
+            className={cn(isSearchActive?'md:w-[900px]':'md:w-[50%]',"absolute top-full mt-2 w-full bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden z-50")}
           >
-            <div className="max-h-[calc(100vh-10rem)] overflow-y-auto">
+            <div className={`relative w-full bg-background max-h-[calc(100vh-10rem)] overflow-y-auto `}>
               {filteredProducts.map((product, index) => {
                 const isHighlighted = index === highlightedIndex;
                 return (
@@ -348,11 +357,11 @@ useEffect(() => {
                     onClick={() => handleSelect(product)}
                     onMouseEnter={() => setHighlightedIndex(index)}
                     className={`px-4 py-3 cursor-pointer border-b last:border-b-0 transition-colors ${
-                      isHighlighted ? "bg-purple-50" : "hover:bg-gray-50"
+                      isHighlighted ? "bg-muted" : ""
                     }`}
                   >
-                    <h4 className="font-medium truncate">{product.title}</h4>
-                    <p className="text-sm text-muted-foreground line-clamp-2">
+                    <h4 className="font-medium  text-foreground truncate">{product.title}</h4>
+                    <p className="text-sm text-foreground line-clamp-2">
                       {product.description}
                     </p>
                     {product.category && (
@@ -402,6 +411,7 @@ useEffect(() => {
                 <span className="text-primary-foreground/60 text-xs">{cartCount}</span>
               </span>
             </Button>
+            <ThemeToggle/>
           </div>
         )}
 

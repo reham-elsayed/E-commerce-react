@@ -41,6 +41,9 @@ export default function Navbar() {
       navigate("login")
     }
   }
+  function handleProductSelect(product){
+    navigate(`/productdetail/${product.id}/${product.category}`)
+  }
   return (
     <>
 
@@ -53,6 +56,7 @@ export default function Navbar() {
         token={token}
         onCartClick={handleOnCartClick}
         wishlistCount={noOfWishListItems}
+        handleSelect={handleProductSelect}
       />
 
     </>
