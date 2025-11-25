@@ -16,4 +16,10 @@ export const FORM_FIELDS = [
         label: 'Password',
         type: 'password',
         placeholder: 'Enter a secure password',
-    }]
+    },{
+        name: 'rePassword',
+        label: 'Rewrite Password',
+        type: 'password',
+        placeholder: 'Rewrite your password',
+    }
+]

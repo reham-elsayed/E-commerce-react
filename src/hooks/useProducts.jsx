@@ -1,56 +1,76 @@
 // hooks/useProducts.ts
 import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
-// Fetch all products with optional search parameters
-const fetchProducts = async () => {
-  const response = await fetch('https://dummyjson.com/products?limit=100');
-  if (!response.ok) {
-    throw new Error('Failed to fetch products');
-  }
-  return response.json();
+const BASE_URL = 'https://ecommerce.routemisr.com/api/v1';
+
+// ---------------------------------------------
+// Generic fetcher with dynamic params
+// ---------------------------------------------
+const fetchProducts = async (params = {}) => {
+ 
+  const { data } = await axios.get(`${BASE_URL}/products`, { params });
+  
+  return data.data; // routeMisr returns: { results, metadata, data[] }
 };
-// Fetch all categories
+
+// ---------------------------------------------
+// Fetch categories
+// ---------------------------------------------
 const fetchCategories = async () => {
-  const response = await fetch('https://dummyjson.com/products/categories');
-  if (!response.ok) {
-    throw new Error('Failed to fetch categories');
-  }
-  const categories = await response.json();
-  // Extract just the category names from the objects
-  return categories.map(category => category.name);
+  const { data } = await axios.get(`${BASE_URL}/categories`);
+  return data.data.map((cat) => ({
+    id: cat._id,
+    name: cat.name,
+    slug: cat.slug,
+    image: cat.image
+  }));
 };
 
+// ---------------------------------------------
 // Fetch products by category
-export const fetchProductsByCategory = async (category) => {
-  const response = await fetch(`https://dummyjson.com/products/category/${category}`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch products by category');
-  }
-  return response.json();
+// ---------------------------------------------
+const fetchProductsByCategory = async (categoryId, params = {}) => {
+  const mergedParams = {
+    'category[in]': categoryId,
+    ...params
+  };
+
+  const { data } = await axios.get(`${BASE_URL}/products`, {
+    params: mergedParams
+  });
+
+  return data;
 };
 
-// Custom hooks
-export const useProducts = () => {
+// ---------------------------------------------
+// React Query Hooks
+// ---------------------------------------------
+
+// All products with filtering/pagination support
+export const useProducts = (params = {}) => {
   return useQuery({
-    queryKey: ['products'],
-    queryFn: fetchProducts,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    queryKey: ['products', params],
+    queryFn: () => fetchProducts(params),
+    staleTime: 300000, // 5 min
   });
 };
 
+// All categories
 export const useCategories = () => {
   return useQuery({
     queryKey: ['categories'],
     queryFn: fetchCategories,
-    staleTime: 10 * 60 * 1000, // 10 minutes
+    staleTime: 600000, // 10 min
   });
 };
 
-export const useProductsByCategory = (category) => {
+// Products filtered by one category
+export const useProductsByCategory = (categoryId, params = {}) => {
   return useQuery({
-    queryKey: ['products', 'category', category],
-    queryFn: () => fetchProductsByCategory(category),
-    enabled: !!category,
-    staleTime: 5 * 60 * 1000,
+    queryKey: ['products', 'category', categoryId, params],
+    queryFn: () => fetchProductsByCategory(categoryId, params),
+    enabled: !!categoryId,
+    staleTime: 300000,
   });
 };

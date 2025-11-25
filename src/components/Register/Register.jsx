@@ -7,44 +7,45 @@ import { FORM_FIELDS } from '@/lib/formData';
 import { FormField } from './FormField';
 import { NavLink } from 'react-router-dom';
 export default function Register() {
-  const [userMessage, setUserMessage] = useState(null)
-  const [userError, setUserError] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [userMessage, setUserMessage]= useState(null)
+  const [userError, setUserError]= useState(null)
+  const [isLoading, setIsLoading]= useState(false)
 
 
   let navigate = useNavigate()
   let mySchema = Yup.object({
-    name: Yup.string(),
-    email: Yup.string(),
-    password: Yup.string(),
+    name:Yup.string().required("Name is Required").min(3, "name can't be less than 3 character").max(10, "max is 10 character"),
+      email:Yup.string().required("Email required").email("invalid email"),
+      password:Yup.string().required("password is required"),
 
-   avatar:Yup.string()
+      rePassword:Yup.string().required("write your password again").oneOf([Yup.ref("password")], "password did not match"),
+
+      phone:Yup.string().required(),
   })
   let formik = useFormik({
-    initialValues: {
-      name: "",
-      email: "",
-      password: "",
-     avatar: "https://picsum.photos/800"
+    initialValues:{
+      name:"",
+      email:"",
+      password:"",
+      rePassword:"",
+      phone:"01090032455",
     },
-    validationSchema: mySchema,
-    onSubmit: (values) => { (registration(values)) }
+    validationSchema:mySchema,
+    onSubmit:(values)=>{(registration(values))}
   })
-  async function registration(values) {
+  async function registration(values){
     setIsLoading(true)
-    return await axios.post("https://dummyjson.com/users/add", values).then((data) => {
-      console.log("data submitted", data)
-      setUserMessage(data)
-
+    return await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signup", values).then((data)=>{
+      console.log("data submitted",data.data.message)
+      setUserMessage(data.data.message)
+     
       navigate("/login")
       setIsLoading(false)
-    }).catch((err) => {
-      console.log(err.response.data)
+    }).catch((err)=>{console.log(err.response.data)
       setUserError(err.response.data.message)
       setIsLoading(false)
     })
   }
-  //asasas@gmn.com
   return (
     <>
    <div className="container mx-auto flex flex-col items-center py-16">

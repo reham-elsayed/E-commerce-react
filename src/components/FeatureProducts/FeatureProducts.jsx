@@ -16,7 +16,7 @@ console.log(products)
  
       {isLoading ? <Loader /> : <div className='grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-2'>
 
-        {products.products?.map((product) => (<ProductCard key={product.id} product={product}/>))}
+        {products?.map((product) => (<ProductCard key={product.id} product={product}/>))}
       </div>
       }
     </div>

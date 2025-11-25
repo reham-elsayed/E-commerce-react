@@ -2,33 +2,38 @@
 
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { useProducts } from "./useProducts";
+import { useNavigate } from "react-router-dom";
 
 export function useProductSearch(){
+   const navigate = useNavigate();
   const[isSearching,setIsSearching]=useState(false)
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
+   const [filteredProducts, setFilteredProducts] = useState([]);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
 
   const searchRef = useRef(null);
   const inputRef = useRef(null);
 
   // Fetch products once
-  useEffect(() => {
-    async function getData() {
-      try {
-        const { data } = await axios.get(
-          `https://api.escuelajs.co/api/v1/products`
-        );
-        setProducts(data);
-        setFilteredProducts(data);
-      } catch (error) {
-        console.error("Failed to fetch products:", error);
-      }
-    }
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   async function getData() {
+  //     try {
+  //       const { data } = await axios.get(
+  //         `https://ecommerce.routemisr.com/api/v1/products/`
+  //       );
+  //       setProducts(data);
+  //       setFilteredProducts(data);
+  //     } catch (error) {
+  //       console.error("Failed to fetch products:", error);
+  //     }
+  //   }
+  //   getData();
+  // }, []);
+  // Using custom hook to fetch products
+const {data:products}=useProducts()
 
   // Local filtering
   useEffect(() => {
@@ -38,7 +43,7 @@ export function useProductSearch(){
       p.description.toLowerCase().includes(term) ||
       p.category?.name?.toLowerCase().includes(term)
     );
-    setFilteredProducts(filtered);
+    setFilteredProducts(filtered? filtered : products);
     setHighlightedIndex(0);
   }, [query, products]);
 
@@ -97,6 +102,7 @@ export function useProductSearch(){
     setQuery("");
     setIsSearching(false)
     setIsOpen(false);
+    navigate(`/productdetail/${product.id}/${product.category}`)
   };
 
   const clearSearch = () => {

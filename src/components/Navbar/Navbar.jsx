@@ -1,16 +1,14 @@
 
-import styles from "./Navbar.module.css";
 import {  useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TokenContext } from '../../../context/TokenContext';
 import { CartContext } from '../../../context/CartContext';
-import { ThemeContext, ThemeDispatchContext } from '../../../context/ThemeContext';
+import { ThemeContext} from '../../../context/ThemeContext';
 import { WishListContext } from '../../../context/WishListContext';
 import { Navbar04 } from '../ui/shadcn-io/navbar-04';
 
 export default function Navbar() {
   let { theme } = useContext(ThemeContext);
-  let { toggleTheme } = useContext(ThemeDispatchContext);
   const navigate = useNavigate()
 
 

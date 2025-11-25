@@ -7,58 +7,44 @@ import { TokenContext } from '../../../context/TokenContext';
 import { NavLink } from 'react-router-dom';
 
 export default function Login() {
-  let { token, setToken } = useContext(TokenContext)
+  let {token, setToken} = useContext(TokenContext)
   console.log(token)
-  const [userMessage, setUserMessage] = useState(null)
-  const [userError, setUserError] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [userMessage, setUserMessage]= useState(null)
+  const [userError, setUserError]= useState(null)
+  const [isLoading, setIsLoading]= useState(false)
 
 
   let navigate = useNavigate()
   let mySchema = Yup.object({
-    username: Yup.string().required("Name required"),
-    password: Yup.string().required("password is required"),
+      email:Yup.string().required("Email required").email("invalid email"),
+      password:Yup.string().required("password is required"),
   })
   let formik = useFormik({
-    initialValues: {
-    username: "emilys",
-  password: "emilyspass",
-  expiresInMins: 30,
+    initialValues:{
+      email:"",
+      password:"",
     },
-    validationSchema: mySchema,
-    onSubmit: (values) => { (loginForm(values)) }
+    validationSchema:mySchema,
+    onSubmit:(values)=>{(loginForm(values))}
   })
-  async function loginForm(values) {
-    console.log("values", values);
-  try {
-    setIsLoading(true);
-
-    const res = await axios.post(
-      "https://dummyjson.com/user/login",
-       {
-    username: "emilys",
-  password: "emilyspass",
-  expiresInMins: 30,
-    },
-    );
-
-    const newData = res.data;
-
-    console.log("data submitted", newData);
-
-    setUserMessage(newData);
-    setToken(newData.accessToken);
-
-    localStorage.setItem("token", newData.accessToken);
- localStorage.setItem("user", newData.id);
-    navigate("/home");
-
-  } catch (error) {
-    console.error("Login failed:", error);
-    setUserError("Login failed. Please check your credentials.");
-  } finally {
-    setIsLoading(false);
+  async function loginForm(values){
+    setIsLoading(true)
+    return await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signin", values).then((data)=>{
+      console.log("data submitted",data.data.message)
+      setUserMessage(data.data.message)
+     setToken(data.data.token)
+     localStorage.setItem("token",data.data.token )
+     setIsLoading(false)
+      navigate("/home")
+    
+    }).catch((err)=>{console.log(err.response.data.message)
+      setIsLoading(false)
+      setUserError(err.response.data.message)
+    
+    })
   }
+  function handleforget(){
+    navigate("/forgotpassword");
   }
  
   return (
@@ -100,23 +86,23 @@ export default function Login() {
           htmlFor="username"
           className="block text-sm font-medium text-gray-900 dark:text-gray-100"
         >
-          Name
-        </label>
+          
+Email        </label>
 
     <input
-  id="username"
-  name="username"
-  type="text"
-  autoComplete="username"
+  id="email"
+  name="email"
+  type="email"
+  autoComplete="email"
   onChange={formik.handleChange}
   onBlur={formik.handleBlur}
-  value={formik.values.username}
-  placeholder="write your name"
+  value={formik.values.email}
+  placeholder="write your email"
   className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-green-500 focus:border-green-500 dark:bg-gray-800 dark:text-white dark:border-gray-600"
 />
 
-        {formik.touched.username && formik.errors.username && (
-          <p className="text-red-600 text-sm">{formik.errors.username}</p>
+        {formik.touched.email && formik.errors.email && (
+          <p className="text-red-600 text-sm">{formik.errors.email}</p>
         )}
       </div>
 
