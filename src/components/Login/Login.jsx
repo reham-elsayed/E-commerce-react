@@ -16,25 +16,30 @@ export default function Login() {
 
   let navigate = useNavigate()
   let mySchema = Yup.object({
-    email: Yup.string().required("Email required").email("invalid email"),
+    username: Yup.string().required("Name required"),
     password: Yup.string().required("password is required"),
   })
   let formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
-      expiresInMinutes:100,
+    username: "emilys",
+  password: "emilyspass",
+  expiresInMins: 30,
     },
     validationSchema: mySchema,
     onSubmit: (values) => { (loginForm(values)) }
   })
   async function loginForm(values) {
+    console.log("values", values);
   try {
     setIsLoading(true);
 
     const res = await axios.post(
-      "https://dummyjson.com/auth/login",
-      values
+      "https://dummyjson.com/user/login",
+       {
+    username: "emilys",
+  password: "emilyspass",
+  expiresInMins: 30,
+    },
     );
 
     const newData = res.data;
@@ -55,9 +60,7 @@ export default function Login() {
     setIsLoading(false);
   }
   }
-  // function handleforget() {
-  //   navigate("/forgotpassword");
-  // }
+ 
   return (
     <>
     <div className="container mx-auto flex flex-col items-center py-16">
@@ -91,28 +94,29 @@ export default function Login() {
       onSubmit={formik.handleSubmit}
       className="bg-white dark:bg-gray-900 shadow-lg rounded-2xl p-8 space-y-6 border border-gray-100 dark:border-gray-700"
     >
-      {/* Email */}
+      {/* Name */}
       <div className="space-y-2">
         <label
-          htmlFor="email"
+          htmlFor="username"
           className="block text-sm font-medium text-gray-900 dark:text-gray-100"
         >
-          Email
+          Name
         </label>
 
-        <input
-          id="email"
-          name="email"
-          type="email"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.email}
-          placeholder="name@example.com"
-          className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-green-500 focus:border-green-500 dark:bg-gray-800 dark:text-white dark:border-gray-600"
-        />
+    <input
+  id="username"
+  name="username"
+  type="text"
+  autoComplete="username"
+  onChange={formik.handleChange}
+  onBlur={formik.handleBlur}
+  value={formik.values.username}
+  placeholder="write your name"
+  className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-green-500 focus:border-green-500 dark:bg-gray-800 dark:text-white dark:border-gray-600"
+/>
 
-        {formik.touched.email && formik.errors.email && (
-          <p className="text-red-600 text-sm">{formik.errors.email}</p>
+        {formik.touched.username && formik.errors.username && (
+          <p className="text-red-600 text-sm">{formik.errors.username}</p>
         )}
       </div>
 
@@ -129,10 +133,11 @@ export default function Login() {
           id="password"
           name="password"
           type="password"
+          autoComplete="current-password"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.password}
-          placeholder="••••••••"
+          placeholder="password ..."
           className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-green-500 focus:border-green-500 dark:bg-gray-800 dark:text-white dark:border-gray-600"
         />
 
