@@ -1,4 +1,4 @@
-
+/* 
 @media screen and (min-width: 660px){
     li::before{
         content:"";
@@ -13,4 +13,4 @@
   nav li:hover::before {
         width: 100%;
     } 
-}
+} */

@@ -13,8 +13,9 @@ const [cartOwner, setCartOwner] = useState(owner)
 useEffect(()=>{localStorage.setItem("owner", cartOwner)
     },[cartOwner])
 
-let token;
-    token = localStorage.getItem("token");
+
+ const   token = localStorage.getItem("token");
+ console.log("cart token", token)
 async function addProductToCart(productId){
     return await axios.post("https://ecommerce.routemisr.com/api/v1/cart",
         {productId},
@@ -43,7 +44,7 @@ async function getCartProduct(){
             {token}
         }  
      ).then((response)=>{
-        console.log(response);
+        console.log(response,"cart Info");
         setNoOfCartItem(response.data.numOfCartItems)
         setTotalPrice(response.data.data.totalCartPrice)
         setCartId(response.data.data._id)
@@ -147,12 +148,12 @@ async function cashPayment(shippingAddress){
         }
      ).then((response)=>{
         console.log(response);
-         toast.success(response.data.data.status)
+         toast.success(response.data.data)
         setNoOfCartItem(0)
         setTotalPrice(0)
         setCartOwner(response.data.cartOwner)
         console.log(response.data.data.cartOwner)
-        window.location.href="https://localhost:5173/allorders"
+        
         // setNoOfCartItem(response.data.numOfCartItems)
         // setTotalPrice(response.data.data.totalCartPrice)
 

@@ -1,34 +1,42 @@
-.data-title:hover{
+.data-title:hover {
     /* Prevent text wrapping */
-    line-height: 1.5; /* Increase line height for spacing */
-   position: relative; /* Ensure text appears above others */
-    z-index: 1; /* Higher stack order */
-    padding: 5px; /* Extra space around text */
-    margin:5px;
+    line-height: 1.5;
+    /* Increase line height for spacing */
+    position: relative;
+    /* Ensure text appears above others */
+    z-index: 1;
+    /* Higher stack order */
+    padding: 5px;
+    /* Extra space around text */
+    margin: 5px;
     background-color: rgba(28, 81, 54, 0.973);
     border-radius: 5px;
-    box-shadow:black;
-    color:aliceblue
+    box-shadow: black;
+    color: aliceblue
 }
-.cart{
-    transition:all 1s;
+
+.cart {
+    transition: all 1s;
 }
-.cart :hover{
+
+.cart :hover {
     box-shadow: 1px 1px 10px #4fa74f;
 }
-li{
+
+li {
     position: relative;
 }
+
 @media screen and (min-width: 660px) {
-    .active::before{
-        content:"";
-        position:absolute;
-    width:100%;
-    height: 3px;
-    top:80%;
-    border-radius: 20px;
-    background-color: rgb(24, 94, 47);
-    } 
+    /* .active::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 3px;
+        top: 80%;
+        border-radius: 20px;
+        background-color: rgb(24, 94, 47);
+    } */
 }
 
 /*

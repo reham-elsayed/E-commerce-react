@@ -1,10 +1,15 @@
-import React from 'react'
 import {useState, useEffect, useContext} from 'react';
-import styles from "./Cart.module.css"
 import { Link } from 'react-router-dom'
 import { CartContext } from '../../../context/CartContext'
 import {Helmet} from "react-helmet";
 import Loader from '../Loader/Loader';
+import { Button } from '../ui/button';
+import { Card } from '../ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
+import { Minus } from 'lucide-react';
+import { Plus } from 'lucide-react';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
+import { ChevronDown } from 'lucide-react';
 
 export default function Cart() {
   let { getCartProduct, deleteCartProduct, updateCartProduct, clearCartProduct, totalPrice } = useContext(CartContext)
@@ -67,131 +72,175 @@ setCartItems([])
    <>
    
 
-<div className="relative container mx-auto overflow-x-auto shadow-md sm:rounded-lg my-32">
-   <div className="text-right p-3">
-   <Helmet>
-                <meta charSet="utf-8" />
-                <title>Cart</title>
-            </Helmet>
-    {isLoading? <Loader/>:null}
-   {cartItems.length >0? <button onClick={()=>{clearCart()}} className="bg-red-800 text-white px-5 py-2 rounded-md">Clear Cart</button>: null}
-   </div>
-    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" className="px-16 py-3">
-                    <span className="sr-only">Image</span>
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Product
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Qty
-                </th>
-                <th scope="col" className="px-6 py-3">
-                   Unit Price
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Total Price
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Action
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-          {cartItems.map((item)=>
-             <tr key={item.product.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-  <td className="p-4">
-      <img src={item.product.imageCover} className="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch"/>
-  </td>
-  <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-      {item.product.title}
-  </td>
-  <td className="px-6 py-4">
-      <div className="flex items-center">
-          <button
-          onClick={()=>{updateItem(item.product.id, item.count-1 <= 0 ? deleteItem(item.product.id) : item.count - 1)}}
-          className="inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
-              <span className="sr-only">Quantity button</span>
-              <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h16"/>
-              </svg>
-          </button>
-          <div>
-             <span>{item.count}</span>
-          </div>
-          <button 
-          onClick={()=>{updateItem(item.product.id, item.count+1)}}
-          className="inline-flex items-center justify-center h-6 w-6 p-1 ms-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
-              <span className="sr-only">Quantity button</span>
-              <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 1v16M1 9h16"/>
-              </svg>
-          </button>
-      </div>
-  </td>
-  <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-  {item.price} EGP
-  </td>
-  <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-  {item.count * item.price} EGP
-  </td>
-  <td className="px-6 py-4">
-      <button onClick={()=>{deleteItem(item.product.id)}} className="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</button>
-  </td>
-            </tr>
+<div className="container px-20 mx-auto my-32">
 
-          )}
+  {/* Page Header */}
+  <div className="flex justify-end p-3">
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>Cart</title>
+    </Helmet>
 
+    {isLoading && <Loader />}
 
-
-        </tbody>
-    </table>
-              
-{isNotEmpty?  
- <div  className="flex  justify-between bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-  <div className="p-4 w-1/3">
-    Total Price:
+    {cartItems.length > 0 && (
+      <Button
+        variant="destructive"
+        onClick={clearCart}
+        className="px-5 py-2"
+      >
+        Clear Cart
+      </Button>
+    )}
   </div>
-  <div className="px-6 py-4 font-semibold text-gray-900 dark:text-white  w-1/3">
-      {totalPrice}
-  </div>
-  <div className="px-6 py-4 font-semibold text-gray-900 dark:text-white  w-1/3">
-    
-<button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-onClick={toggleDropDowon}
- className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" type="button">Payment Method 
-    <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-<path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
-</svg>
-</button>
 
+  {/* Cart Table */}
+  <Card className="overflow-hidden shadow-md">
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-32"></TableHead>
+          <TableHead>Product</TableHead>
+          <TableHead>Qty</TableHead>
+          <TableHead>Unit Price</TableHead>
+          <TableHead>Total Price</TableHead>
+          <TableHead className="text-right">Action</TableHead>
+        </TableRow>
+      </TableHeader>
 
-<div id="dropdown" className={`z-50 ${isClicked?'block':'hidden'}   divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700`}>
-    <ul className="py-2 text-sm text-gray-900 bg-slate-200 dark:text-gray-200 rounded-md" aria-labelledby="dropdownDefaultButton">
-      <li>
-        <Link to="/checkout" 
-        state={{type:"online Payment"}}
-        className="block px-4 py-2 text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Online Payment</Link>
-      </li>
-      <li>
-      <Link to="/checkout" 
-        state={{type:"Cash on delivery"}}
-         className="block px-4 py-2 text-black hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Cash On Delivery</Link>
-      </li>
-     
-    </ul>
+      <TableBody>
+        {cartItems.map((item) => (
+          <TableRow key={item.product.id}>
+            
+            {/* Image */}
+            <TableCell>
+              <img
+                src={item.product.imageCover}
+                className="w-16 md:w-32 rounded"
+                alt={item.product.title}
+              />
+            </TableCell>
+
+            {/* Title */}
+            <TableCell className="font-semibold">
+              {item.product.title}
+            </TableCell>
+
+            {/* Quantity Controls */}
+            <TableCell>
+              <div className="flex items-center gap-3">
+                
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="h-7 w-7"
+                  onClick={() =>
+                    updateItem(
+                      item.product.id,
+                      item.count - 1 <= 0
+                        ? deleteItem(item.product.id)
+                        : item.count - 1
+                    )
+                  }
+                >
+                  <Minus className="w-3 h-3" />
+                </Button>
+
+                <span>{item.count}</span>
+
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="h-7 w-7"
+                  onClick={() =>
+                    updateItem(item.product.id, item.count + 1)
+                  }
+                >
+                  <Plus className="w-3 h-3" />
+                </Button>
+              </div>
+            </TableCell>
+
+            {/* Unit Price */}
+            <TableCell className="font-semibold">
+              {item.price} EGP
+            </TableCell>
+
+            {/* Total */}
+            <TableCell className="font-semibold">
+              {item.price * item.count} EGP
+            </TableCell>
+
+            {/* Remove */}
+            <TableCell className="text-right">
+              <Button
+                variant="ghost"
+                className="text-red-600"
+                onClick={() => deleteItem(item.product.id)}
+              >
+                Remove
+              </Button>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  </Card>
+
+  {/* Bottom Total + Payment */}
+  {isNotEmpty ? (
+    <Card className="mt-6 p-4 flex items-center justify-between">
+      {/* Total Price Label */}
+      <div className="text-lg font-medium">Total Price:</div>
+
+      {/* Total Price Value */}
+      <div className="text-xl font-semibold">{totalPrice} EGP</div>
+
+      {/* Payment Dropdown */}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button className="bg-green-700 hover:bg-green-800 text-white">
+            Payment Method
+            <ChevronDown className="ml-2 h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+
+        <DropdownMenuContent align="end" className="w-48">
+          <DropdownMenuItem>
+            <Link
+              to="/checkout"
+              state={{ type: "online Payment" }}
+              className="w-full"
+            >
+              Online Payment
+            </Link>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem>
+            <Link
+              to="/checkout"
+              state={{ type: "Cash on delivery" }}
+              className="w-full"
+            >
+              Cash On Delivery
+            </Link>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </Card>
+  ) : (
+    <div className="flex flex-col justify-center items-center text-center py-10">
+      <h1 className="text-4xl py-10">Cart is empty</h1>
+      <Link
+        to="/"
+        className="bg-red-800 text-white px-5 py-2 rounded-md"
+      >
+        Back to Home
+      </Link>
+    </div>
+  )}
 </div>
 
-  </div>
-  </div>: <div className='col-span-4 h-full flex flex-col justify-center items-center text-center py-10 ' >
-    <h1 className='text-4xl py-10'>Cart is empty</h1> 
-    <Link to="" className="bg-red-800 text-white px-5 py-2 rounded-md">Back to Home</Link>
-
-     </div>}
-
-</div>
 
    </>
   )
