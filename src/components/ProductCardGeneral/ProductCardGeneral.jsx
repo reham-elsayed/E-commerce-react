@@ -5,13 +5,14 @@ import { CrossIcon } from 'lucide-react';
 import { useContext } from "react";
 import { CartContext } from '../../../context/CartContext';
 import { ProductStatsSwitcher } from './ProductStatsSwitcher';
+import basket from "../../assets/basket.webp"
+
 // Assuming CrossIcon is imported correctly
 // Assuming addProductToCart is defined
 
 // The component function wrapper for context
 const ProductCard = ({ product }) => {
     let { addProductToCart } = useContext(CartContext)
-
     // The mouse move handler is essential for the glow effect
     const handleMouseMove = (e) => {
         const rect = e.currentTarget.getBoundingClientRect();
@@ -25,7 +26,7 @@ const ProductCard = ({ product }) => {
     return (
      <Card
       key={product._id}
-      className="group bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden relative p-0 gap-0 border-none w-full max-w-[280px] sm:max-w-[240px] md:max-w-[260px] lg:max-w-[280px] h-[380px] flex flex-col"
+      className=" group bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden relative p-0 gap-0 border-none w-full max-w-[280px] sm:max-w-[240px] md:max-w-[260px] lg:max-w-[280px] h-[380px] flex flex-col"
       onMouseMove={handleMouseMove}
     >
 
@@ -49,12 +50,12 @@ const ProductCard = ({ product }) => {
         <span className="absolute inset-1 flex items-start justify-end">
           <Button
             onClick={() => addProductToCart(product._id)}
-            className="p-0 h-10 w-10 rounded-full bg-black backdrop-blur-sm text-white font-bold uppercase tracking-widest
-                        text-xs sm:text-sm md:text-base flex justify-center items-center hover:bg-black/90"
+            className="p-0 h-10 w-10 rounded-full bg-white backdrop-blur-sm text-white font-bold uppercase tracking-widest
+                        text-xs sm:text-sm md:text-base flex justify-center items-center hover:scale-110 "
             variant="ghost"
             size="icon"
           >
-            <CrossIcon width={50} height={50} />
+            <img src={basket} alt="Add to Cart" className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"/>
           </Button>
         </span>
       </div>

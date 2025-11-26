@@ -45,8 +45,9 @@ const settings = {
 
     let { addProductToCart } = useContext(CartContext);
     async function addToCart(productId) {
+        console.log("Adding to cart:", productId);
         let response = await addProductToCart(productId);
-        console.log(response);
+        console.log(response ,"product added to cart");
     }
 
     // Fetch Main Product Data

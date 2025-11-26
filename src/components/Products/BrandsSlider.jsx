@@ -68,7 +68,7 @@ export default function BrandSlider({handleBrandsChange}) {
         >
           {BRAND_ITEMS.map((brand, index) => (
             <div 
-            onClick={handleBrandsChange.bind(null, brand.name)}
+            onClick={()=>{handleBrandsChange(brand.name)}}
               key={index} // Safe key because the content repeats but the index is unique within the list
               className="flex-shrink-0 w-[150px] h-[150px] p-4 flex flex-col items-center justify-center cursor-pointer group  hover:scale-105 transition-all duration-300 rounded-lg"
             >

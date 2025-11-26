@@ -53,7 +53,6 @@ const router= createBrowserRouter([
     { index: true, element: <Brands /> },
     { path: ":brandname", element: <SingleBrandDisplay /> }
   ]},
-    {path:"category", element:<ProtectedRoutes><Category/></ProtectedRoutes>},
     {path:"forgotpassword", element:<ForgotPassword/>},
     {path:"resetpassword", element:<ResetPassword/>},
     {path:"changepassword", element:<ChangePassword />},

@@ -24,7 +24,7 @@ export const ProductStatsSwitcher = ({ sold, quantity }) => {
             transition={{ duration: 0.3 }}
             className="px-2 py-1 text-xs font-semibold bg-black/70 text-white rounded-full shadow"
           >
-            Sold: {sold}
+            Sold: {String(Math.round(sold)).slice(0, 3)}
           </motion.div>
         ) : (
           <motion.div

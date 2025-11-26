@@ -8,12 +8,15 @@ import BrandsSlider from './BrandsSlider';
 
 import { useBrands } from '@/hooks/useBrands';
 import { useEffect } from 'react';
+import Loader from '../Loader/Loader';
 
 export default function ProductsPage() {
 const[categoriesFilters,setCategoriesFilters]=useState('')
 const[priceRange,setPriceRange]=useState([0,1000])
 const[brandsFilters,setBrandsFilters]=useState('')
 const[brandsSelection,setBrands]=useState([])
+const[categoriesSelection,setCategories]=useState([])
+
   // Fetch ALL products once - no filtering in the hook
   function handlePriceChange(newRange){
     setPriceRange(newRange)
@@ -28,26 +31,25 @@ const[brandsSelection,setBrands]=useState([])
 const { data: brands = [] } = useBrands()
 useEffect(() => {
   setBrands(brands.map(brand => brand.name.toLowerCase()))
-
+setCategories(categories.map(category => category.name.toLowerCase()))
  
-}, [brands])
-
+}, [brands, categories])
+console.log(allProductsData,"product",categories,"category filter",brands,"brand filter")
   // Apply all filters client-side
   const productsToDisplay = useMemo(() => {
-    if (!allProductsData?.products) return [];
-console.log(allProductsData,"product",categoriesFilters)
-    let filteredProducts = allProductsData.products;
+    if (!allProductsData) return [];
+    let filteredProducts = allProductsData;
     // Category filtering - one category at a time
    if (categoriesFilters) {
     // 💡 FIX: Convert BOTH strings to lowercase before comparing
     const filterValue = categoriesFilters.toLowerCase();
  filteredProducts = filteredProducts.filter(product => 
-        product.category.toLowerCase() === filterValue
+        product.category.name.toLowerCase() === filterValue
     );  
 }
   if(brandsFilters){
     const brandFilterValue = brandsFilters?.toLowerCase();
-    filteredProducts = filteredProducts.filter(product =>product.brand?.toLowerCase() === brandFilterValue)
+    filteredProducts = filteredProducts.filter(product =>product.brand?.name.toLowerCase() === brandFilterValue)
 filteredProducts.map(product =>console.log(product.brand,"brand name loop"))
 
   }
@@ -78,7 +80,9 @@ console.log(filteredProducts,"filtered--------------------")
 
   const clearAllFilters = useCallback(() => {
    setCategoriesFilters('');
+   setBrandsFilters('')
    setPriceRange([0,1000])
+   
   }, []); 
    const handleBrandsChange = (selectedValue) => {
     
@@ -97,7 +101,7 @@ console.log(filteredProducts,"filtered--------------------")
   if (loadingAll) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-lg">Loading products...</div>
+        <div className="text-lg"><Loader/></div>
       </div>
     );
   }
@@ -139,7 +143,7 @@ console.log(filteredProducts,"filtered--------------------")
   {/* Collapsible Container */}
 <CollapsibleFilterSelect
   title="Categories" // Title prop
-  options={categories} // Full list of categories from your hook
+  options={categoriesSelection?categoriesSelection:''} // Full list of categories from your hook
   selectedValues={categoriesFilters} // Current state
   onValueChange={(category) => handleCategoryChange(category)}/>
 </div>
@@ -186,7 +190,7 @@ console.log(filteredProducts,"filtered--------------------")
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {productsToDisplay.map(product => (
-                  <ProductCard key={product.id} product={product}/>
+                  <ProductCard key={product._id} product={product}/>
                 ))}
               </div>
             )}

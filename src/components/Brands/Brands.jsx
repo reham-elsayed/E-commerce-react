@@ -20,7 +20,7 @@ const{data: brands,isLoading}=useBrands()
                 <title>Brands</title>
             </Helmet>
 {brands.map((product)=>(
-<CategoryCard key={product.name} categoryName={product.name} categoryImage={product.image} productCount={product.productCount}/>
+<CategoryCard key={product.name} categoryName={product.name} categoryId={product.id} categoryImage={product.image} productCount={product.productCount}/>
 
 ))}
   </div>
@@ -31,7 +31,7 @@ const{data: brands,isLoading}=useBrands()
 
 // Assuming you have a Link component from a router (like react-router-dom or Next.js)
 
-export const CategoryCard = ({ categoryName, categoryImage, productCount }) => {
+export const CategoryCard = ({ categoryName, categoryImage, productCount ,categoryId}) => {
   
  const wiggleVariants = {
     initial: { rotate: 0 },
@@ -78,7 +78,7 @@ export const CategoryCard = ({ categoryName, categoryImage, productCount }) => {
               variant="default" 
               size="sm"
             >
-              <Link to={`/Brands/${categoryName.toLowerCase()}`}>
+              <Link to={`/Brands/${categoryId}`}>
                 View Products
               </Link>
             </Button>

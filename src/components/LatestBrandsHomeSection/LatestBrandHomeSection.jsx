@@ -3,12 +3,13 @@ import { useBrands } from '@/hooks/useBrands'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import {  useRef } from 'react'
 import { NavLink } from 'react-router-dom'
+import Loader from '../Loader/Loader'
 const imgs=["src/assets/slider-amazon.jpg","src/assets/slider-furniture.jpg","src/assets/slider-labtop.jpg","src/assets/slider-assus.jpg"]
 const LatestBrandHomeSection = () => {
  
   const { data: brands, isLoading, isError } = useBrands()
 
-  if (isLoading) return <div className="h-screen flex items-center justify-center">Loading...</div>
+  if (isLoading) return <div className="h-screen flex items-center justify-center"><Loader/></div>
   if (isError) return <div className="h-screen flex items-center justify-center">Error loading brands</div>
 
   return (
@@ -42,7 +43,7 @@ const LatestBrandHomeSection = () => {
           </p>
         </div>
 
-     <CTAButton brandName={brand.name}/>
+     <CTAButton brandName={brand.id}/>
       </div>
       ))}
     </div>

@@ -55,16 +55,16 @@ export function useBrands() {
 
 
 // Hook to get products by specific brand
-export function useProductsByBrand(brandName) {
+export function useProductsByBrand(brandId) {
   return useQuery({
-    queryKey: ['products', 'brand', brandName],
+    queryKey: ['products', 'brand', brandId],
     queryFn: async () => {
       const { data } = await axios.get(
-        `${BASE_URL}/products/search?q=${encodeURIComponent(brandName)}`
+        `https://ecommerce.routemisr.com/api/v1/products`,
+    { params: { brand: brandId } }
       );
-      return data.products;
+      return data.data;
     },
-    enabled: !!brandName, // Only fetch if brandName is provided
     staleTime: 2 * 60 * 1000, // 2 minutes
   });
 }

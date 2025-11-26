@@ -95,9 +95,7 @@ const HamburgerIcon = ({ className, ...props }) => (
  */
 const defaultNavigationLinks = [
   { href: '/product', label: 'Products' },
-  { href: '/category', label: 'Categories' },
   { href: '/brands', label: 'Deals' },
-  { href: '/wishlist', label: 'WishList' }
 ];
 
 /**
@@ -150,7 +148,7 @@ export const Navbar04 = React.forwardRef(({
     handleKeyDown,
     clearSearch,
     setHighlightedIndex,
-    handleSelect,
+    handleProductSelect,
   } = useProductSearch();
 useEffect(() => {
     setIsSearchActive(query.length > 0 || isOpen);
@@ -292,17 +290,17 @@ useEffect(() => {
                     <NavigationMenuItem key={index}>
                       <NavigationMenuLink
                         href={link.href}
-                        className="relative text-muted-foreground hover:text-primary py-1.5 font-medium transition-colors cursor-pointer rounded-md px-4 text-sm"
+                        className="relative text-muted-foreground hover:text-primary hover:bg-pink-100 py-1.5 font-medium transition-colors cursor-pointer rounded-md px-4 text-sm"
                       >
                         <span>{link.label}</span>
 
-                        {link.label === "WishList" && (
+                        {/* {link.label === "WishList" && (
                           <span
                             className="text-gray-800 text-xs absolute top-0 right-0 bg-amber-200 w-5 h-5 rounded-full flex justify-center items-center"
                           >
                             {wishlistCount}
                           </span>
-                        )}
+                        )} */}
                       </NavigationMenuLink>
                     </NavigationMenuItem>
                   ))}
@@ -312,9 +310,9 @@ useEffect(() => {
          
 
             {/* Search Form */}
-          <div ref={searchRef} className="relative flex-1 md:flex-initial md:max-w-sm lg:max-w-md">
+          <div ref={searchRef} className="relative flex-1 md:flex-initial max-w-sm md:max-w-sm lg:max-w-md">
       {/* Input */}
-      <div className={`relative w-full ${isSearchActive?'md:w-[900px]':'md:w-[50%]'}`}>
+      <div className={`relative w-full ${isSearchActive?'md:w-[900px]':'md:w-[100%]'}`}>
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-muted-foreground" />
 
         <Input
@@ -354,7 +352,7 @@ useEffect(() => {
                 return (
                   <motion.div
                     key={product.id}
-                    onClick={() => handleSelect(product)}
+                    onClick={() => handleProductSelect(product)}
                     onMouseEnter={() => setHighlightedIndex(index)}
                     className={`px-4 py-3 cursor-pointer border-b last:border-b-0 transition-colors ${
                       isHighlighted ? "bg-muted" : ""

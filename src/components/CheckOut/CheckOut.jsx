@@ -10,6 +10,7 @@ import { CartContext } from '../../../context/CartContext';
 
 import {Helmet} from "react-helmet";
 export default function CheckOut() {
+  const navigate = useNavigate();
 const [paymentType, setPaymentType] = useState(null)
 let {onLinePayment, cashPayment} = useContext(CartContext);
 let {state} = useLocation()
@@ -30,7 +31,10 @@ async function handleOnlinePayment(values){
     onLinePayment(values)
     console.log("online payment function")
   }else{
-    cashPayment(values)
+   const red= cashPayment(values)
+   if(red){
+    navigate('/home')
+   }
   console.log("cash payment function")
   }
 

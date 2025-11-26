@@ -17,28 +17,14 @@ export function useProductSearch(){
   const searchRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Fetch products once
-  // useEffect(() => {
-  //   async function getData() {
-  //     try {
-  //       const { data } = await axios.get(
-  //         `https://ecommerce.routemisr.com/api/v1/products/`
-  //       );
-  //       setProducts(data);
-  //       setFilteredProducts(data);
-  //     } catch (error) {
-  //       console.error("Failed to fetch products:", error);
-  //     }
-  //   }
-  //   getData();
-  // }, []);
-  // Using custom hook to fetch products
+
 const {data:products}=useProducts()
 
   // Local filtering
   useEffect(() => {
+    setFilteredProducts(products);
     const term = query.toLowerCase();
-    const filtered = products.filter((p) =>
+    const filtered = products?.filter((p) =>
       p.title.toLowerCase().includes(term) ||
       p.description.toLowerCase().includes(term) ||
       p.category?.name?.toLowerCase().includes(term)
@@ -83,7 +69,7 @@ const {data:products}=useProducts()
       case "Enter":
         e.preventDefault();
         if (filteredProducts[highlightedIndex]) {
-          handleSelect(filteredProducts[highlightedIndex]);
+          handleProductSelect(filteredProducts[highlightedIndex]);
           
         }
         break;
@@ -97,7 +83,7 @@ const {data:products}=useProducts()
   };
 
   // When user selects value
-  const handleSelect = (product) => {
+  const handleProductSelect = (product) => {
     console.log("Selected:", product);
     setQuery("");
     setIsSearching(false)
@@ -123,7 +109,7 @@ const {data:products}=useProducts()
     inputRef,
     handleKeyDown,
     clearSearch,
-    handleSelect,
+    handleProductSelect,
     isSearching,
     setIsSearching
   };
