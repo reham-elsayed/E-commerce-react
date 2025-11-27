@@ -110,14 +110,14 @@ console.log(filteredProducts,"filtered--------------------")
         <BrandsSlider handleBrandsChange={handleBrandsChange}/>
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Products</h1>
-          <p className="text-gray-600">Find the best products for your needs</p>
+          <h1 className="text-3xl font-bold text-card-foreground mb-2">Products</h1>
+          <p className="text-card-foreground/90">Find the best products for your needs</p>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Filters Sidebar */}
           <div className="w-full lg:w-80 flex-shrink-0">
-            <div className=" bg-white/50 backdrop-blur-md border border-white/20 rounded-sm shadow-sm p-6 sticky top-4">
+            <div className=" bg-card/50 backdrop-blur-md border border-white/20 rounded-sm shadow-sm p-6 sticky top-4">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-lg font-semibold">Filters</h2>
                 <Button 
@@ -171,7 +171,7 @@ console.log(filteredProducts,"filtered--------------------")
           {/* Products Grid */}
           <div className="flex-1 mt-3 lg:-mt-24">
             <div className="flex justify-between items-center mb-6">
-              <p className="text-gray-600">
+              <p className="text-card-foreground/90">
                 Showing {productsToDisplay.length} products
               </p>
             </div>

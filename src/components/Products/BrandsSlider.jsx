@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { motion, useAnimation } from 'framer-motion';
-import { ChevronRight } from 'lucide-react'; // Example icon for visual flare
 
 // 1. Prepare the Top 10 Brands Data
 const TOP_BRANDS = [
@@ -77,10 +76,9 @@ export default function BrandSlider({handleBrandsChange}) {
                 alt={`${brand.name} logo`} 
                 className="w-16 h-16 object-cover mb-2 rounded-full border border-gray-300" 
               />
-              <span className="text-sm font-medium text-gray-800 capitalize">
+              <span className="text-sm font-medium text-card-foreground capitalize">
                 {brand.name}
               </span>
-              <ChevronRight className="h-4 w-4 text-transparent group-hover:text-blue-600 transition-colors" />
             </div>
           ))}
         </motion.div>

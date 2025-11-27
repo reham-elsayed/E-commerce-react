@@ -83,8 +83,8 @@ setCartItems([])
 
    
  <div className="mb-8 text-start">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Cart</h1>
-          <p className="text-gray-600">Review your items, make any changes, and proceed to checkout.</p>
+          <h1 className="text-3xl font-bold mb-2 text-card-foreground">Cart</h1>
+          <p className="text-card-foreground/90">Review your items, make any changes, and proceed to checkout.</p>
         </div>
     {cartItems.length > 0 && (
       <Button

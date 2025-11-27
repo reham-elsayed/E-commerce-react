@@ -26,7 +26,7 @@ const ProductCard = ({ product }) => {
     return (
      <Card
       key={product._id}
-      className=" group bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden relative p-0 gap-0 border-none w-full max-w-[280px] sm:max-w-[240px] md:max-w-[260px] lg:max-w-[280px] h-[380px] flex flex-col"
+      className=" group bg-card text-card-foreground  rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden relative p-0 gap-0 border-none w-full max-w-[280px] sm:max-w-[240px] md:max-w-[260px] lg:max-w-[280px] h-[380px] flex flex-col"
       onMouseMove={handleMouseMove}
     >
 
@@ -62,11 +62,11 @@ const ProductCard = ({ product }) => {
 
       {/* Text Section */}
       <CardHeader className="p-4 pb-2 space-y-2">
-        <CardTitle className="text-sm font-semibold line-clamp-1 text-gray-900">
+        <CardTitle className="text-sm font-semibold line-clamp-1 text-card-foreground">
           {product.title}
         </CardTitle>
 
-        <CardDescription className="text-xs text-gray-500 line-clamp-2">
+        <CardDescription className="text-xs text-card-foreground line-clamp-2">
           {product.description}
         </CardDescription>
       </CardHeader>
