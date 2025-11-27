@@ -58,7 +58,7 @@
   /* soft indigo */
   --secondary-foreground: oklch(0.15 0.01 285);
   --muted: oklch(0.93 0.01 285);
-  --muted-foreground: oklch(0.55 0.02 285);
+  --muted-foreground: oklch(96.558% 0.00675 286.037);
   --accent: oklch(0.88 0.09 98);
   /* light pinkish tone */
   --accent-foreground: oklch(0.15 0.01 285);
@@ -114,7 +114,7 @@
   --secondary: oklch(0.3 0.02 285);
   --secondary-foreground: oklch(0.98 0 0);
   --muted: oklch(0.3 0.02 285);
-  --muted-foreground: oklch(0.7 0.02 285);
+  --muted-foreground: oklch(32.385% 0.01233 285.656);
   --accent: oklch(0.45 0.1 250);
   --accent-foreground: oklch(0.98 0 0);
   --destructive: oklch(0.55 0.22 25);

@@ -50,7 +50,7 @@ export const CategoryCard = ({ categoryName, categoryImage, productCount ,catego
     // Card Container: Fixed, compact size
     <Card
       key={categoryName}
-      className="w-full h-full group flex flex-col rounded-sm backdrop-blur-md  shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden relative p-0 border-none"
+      className="w-full h-full group flex flex-col rounded-sm backdrop-blur-md bg-gray-50 dark:bg-gray-900  shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden relative p-0 border-none"
     >
       {/* --- 1. Image Section (Fixed Aspect Ratio) --- */}
       <div className="relative aspect-[7/8] overflow-hidden">

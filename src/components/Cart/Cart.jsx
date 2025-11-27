@@ -15,7 +15,6 @@ export default function Cart() {
   let { getCartProduct, deleteCartProduct, updateCartProduct, clearCartProduct, totalPrice } = useContext(CartContext)
   const [cartItems, setCartItems ]= useState([])
   const [isLoading, setIsLoading]=useState(true)
-  const[isClicked, setIsClicked]= useState(false)
   const [isNotEmpty, setIsNotEmpty]=useState(false)
 async function getCart(){
   try{
@@ -42,9 +41,7 @@ useEffect(()=>{
   getCart()
 
 },[])
-function toggleDropDowon(){
-  setIsClicked(!isClicked)
-}
+
 async function deleteItem(productId){
   let response = await deleteCartProduct(productId)
   setCartItems(response.data.data.products)

@@ -127,7 +127,6 @@ export const Navbar04 = React.forwardRef(({
   token,
   cartText,
   cartCount,
-  wishlistCount, 
   onSignInClick,
   onCartClick,
   ...props
@@ -185,7 +184,7 @@ useEffect(() => {
     <header
       ref={combinedRef}
       className={cn(
-        'sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 md:px-6 [&_*]:no-underline',
+        'sticky top-0 z-50 w-full border-b border-pink-50/10 bg-pink-200 backdrop-blur supports-[backdrop-filter]:bg-pink-200/60 px-4 md:px-6 [&_*]:no-underline',
         className
       )}
       {...props}
@@ -201,7 +200,7 @@ useEffect(() => {
               <PopoverTrigger asChild>
                 <Button
                   className="group h-9 w-9 hover:bg-accent hover:text-accent-foreground"
-                  variant="ghost"
+                  variant="outline"
                   size="icon"
                 >
                   <HamburgerIcon />
@@ -213,7 +212,7 @@ useEffect(() => {
                   <NavigationMenuList className="flex-col items-start gap-0">
                     {navigationLinks.map((link, index) => (
                       <NavigationMenuItem key={index} className="w-full">
-                        <Link to={link.href} className="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground cursor-pointer">
+                        <Link to={link.href} className="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-black/10 hover:text-pink-600 cursor-pointer">
                           {link.label}
                          
                         </Link>
@@ -227,8 +226,9 @@ useEffect(() => {
                     <NavigationMenuItem className="w-full">
                       {token ? (
                         <button
+                        
                           onClick={() => onSignInClick && onSignInClick()}
-                          className="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground"
+                          className="flex w-full items-center rounded-md text-pink-900 px-3 py-2 text-sm font-medium hover:bg-black/10 hover:text-pink-600"
                         >
                           {signInText}
                         </button>
@@ -264,7 +264,7 @@ useEffect(() => {
             {/* Logo */}
             <Link
             to={'/'}
-              className="flex items-center space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer"
+              className="flex items-center space-x-2 text-primary hover:text-pink-600 transition-colors cursor-pointer rounded-md p-1 hover:bg-black/10"
             >
               <div className="text-2xl">{logo}</div>
               {/* <span className="hidden font-bold text-xl sm:inline-block">{isOpen?'happy':'not happpy'}</span> */}
@@ -288,7 +288,7 @@ useEffect(() => {
                     <NavigationMenuItem key={index}>
                       <Link
         to={link.href}
-        className="relative text-muted-foreground hover:text-primary hover:bg-pink-100 py-1.5 font-medium transition-colors cursor-pointer rounded-md px-4 text-sm"
+        className="relative text-pink-900 hover:text-pink-600 hover:bg-black/10 py-1.5 font-medium transition-colors cursor-pointer rounded-md px-4 text-sm"
       >
         <span>{link.label}</span>
       </Link>
@@ -303,7 +303,7 @@ useEffect(() => {
           <div ref={searchRef} className="relative flex-1 md:flex-initial max-w-sm md:max-w-sm lg:max-w-md">
       {/* Input */}
       <div className={`relative w-full ${isSearchActive?'md:w-[900px]':'md:w-[100%]'}`}>
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-muted-foreground" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-pink-900" />
 
         <Input
           ref={inputRef}
@@ -379,12 +379,12 @@ useEffect(() => {
             {token ? (
               <button
                 onClick={() => onSignInClick && onSignInClick()}
-                className="rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground"
+                className="rounded-md px-3 py-2 text-sm font-medium hover:bg-black/10 hover:text-pink-600"
               >
                 {signInText}
               </button>
             ) : (
-              <button className="text-sm">
+              <button className="text-sm rounded-md px-3 py-2 font-medium hover:bg-black/10 hover:text-pink-600">
                 <Link to="login">SignIn</Link>
               </button>
             )}

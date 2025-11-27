@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Facebook, Twitter, Instagram, Linkedin, Mail, Smartphone, ChevronDown
 } from 'lucide-react';

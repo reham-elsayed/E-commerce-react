@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CrossIcon } from 'lucide-react';
 import { useContext } from "react";
 import { CartContext } from '../../../context/CartContext';
 import { ProductStatsSwitcher } from './ProductStatsSwitcher';
