@@ -7,7 +7,7 @@ import { Button } from '../../button';
 import {
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuLink,
+
   NavigationMenuList,
 } from '../../navigation-menu';
 import {
@@ -213,12 +213,10 @@ useEffect(() => {
                   <NavigationMenuList className="flex-col items-start gap-0">
                     {navigationLinks.map((link, index) => (
                       <NavigationMenuItem key={index} className="w-full">
-                        <button className="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground cursor-pointer">
+                        <Link to={link.href} className="flex w-full items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground cursor-pointer">
                           {link.label}
-                          {link.label === "WishList" && (
-                            <span className="text-gray-800 text-xs">{wishlistCount}</span>
-                          )}
-                        </button>
+                         
+                        </Link>
                       </NavigationMenuItem>
                     ))}
 <ThemeToggle/>
@@ -288,20 +286,12 @@ useEffect(() => {
                 <NavigationMenuList className="gap-1">
                   {navigationLinks.map((link, index) => (
                     <NavigationMenuItem key={index}>
-                      <NavigationMenuLink
-                        href={link.href}
-                        className="relative text-muted-foreground hover:text-primary hover:bg-pink-100 py-1.5 font-medium transition-colors cursor-pointer rounded-md px-4 text-sm"
-                      >
-                        <span>{link.label}</span>
-
-                        {/* {link.label === "WishList" && (
-                          <span
-                            className="text-gray-800 text-xs absolute top-0 right-0 bg-amber-200 w-5 h-5 rounded-full flex justify-center items-center"
-                          >
-                            {wishlistCount}
-                          </span>
-                        )} */}
-                      </NavigationMenuLink>
+                      <Link
+        to={link.href}
+        className="relative text-muted-foreground hover:text-primary hover:bg-pink-100 py-1.5 font-medium transition-colors cursor-pointer rounded-md px-4 text-sm"
+      >
+        <span>{link.label}</span>
+      </Link>
                     </NavigationMenuItem>
                   ))}
                 </NavigationMenuList>

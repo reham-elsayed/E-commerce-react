@@ -32,7 +32,7 @@ const ProductCard = ({ product }) => {
 
       {/* Glow Effect */}
       <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <div className="w-full h-full bg-[radial-gradient(circle_at_var(--x)_var(--y),rgba(251,191,36,0.35),transparent_60%)]" />
+        <div className="w-full h-full bg-[radial-gradient(circle_at_var(--x)_var(--y),rgba(244,114,182,0.35),transparent_60%)]" />
       </div>
 
       {/* Motion Slider (Sold / Quantity Left) */}
@@ -62,7 +62,7 @@ const ProductCard = ({ product }) => {
 
       {/* Text Section */}
       <CardHeader className="p-4 pb-2 space-y-2">
-        <CardTitle className="text-sm font-semibold line-clamp-1">
+        <CardTitle className="text-sm font-semibold line-clamp-1 text-gray-900">
           {product.title}
         </CardTitle>
 

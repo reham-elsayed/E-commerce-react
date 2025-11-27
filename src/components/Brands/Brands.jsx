@@ -12,7 +12,7 @@ export default function Brands() {
 const{data: brands,isLoading}=useBrands()
 
   return (
-    <div className='container mx-auto px-4 '>
+    <div className='container mx-auto px-1 py-8 min-h-screen'>
     {isLoading?<Loader/>:
     <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2'>
          <Helmet>
@@ -50,7 +50,7 @@ export const CategoryCard = ({ categoryName, categoryImage, productCount ,catego
     // Card Container: Fixed, compact size
     <Card
       key={categoryName}
-      className="w-[280px] h-full group flex flex-col rounded-sm backdrop-blur-md  shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden relative p-0 border-none"
+      className="w-full h-full group flex flex-col rounded-sm backdrop-blur-md  shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden relative p-0 border-none"
     >
       {/* --- 1. Image Section (Fixed Aspect Ratio) --- */}
       <div className="relative aspect-[7/8] overflow-hidden">
@@ -72,9 +72,9 @@ export const CategoryCard = ({ categoryName, categoryImage, productCount ,catego
             <Button
               asChild // Render as a Link element for routing
               // CTA Styling: Persistent, glass effect
-              className="px-5 py-2.5  font-bold text-sm text-black transition-all duration-300 
-                         bg-white/30 backdrop-blur-md border border-white/30 
-                         hover:bg-white/40 hover:scale-105"
+              className="px-5 py-2.5  font-bold text-sm text-gray-900 transition-all duration-300 
+                         bg-pink-500/30 backdrop-blur-md border border-white/30 
+                         hover:bg-pink-500 hover:border-pink-500/40 hover:scale-105"
               variant="default" 
               size="sm"
             >

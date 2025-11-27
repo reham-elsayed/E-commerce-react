@@ -45,7 +45,7 @@
   --radius: 0.625rem;
 
   /* 🌞 LIGHT MODE */
-  --background: oklch(0.98 0.01 97);
+  --background: oklch(96.905% 0.01166 333.596);
   --foreground: oklch(0.15 0.01 285);
   --card: oklch(0.98 0.01 97);
   --card-foreground: oklch(0.15 0.01 285);

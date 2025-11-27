@@ -73,16 +73,19 @@ setCartItems([])
    
 
 <div className="container px-20 mx-auto my-32">
-
+  {isLoading && <Loader />}
   {/* Page Header */}
-  <div className="flex justify-end p-3">
+  <div className="flex justify-between p-3">
     <Helmet>
       <meta charSet="utf-8" />
       <title>Cart</title>
     </Helmet>
 
-    {isLoading && <Loader />}
-
+   
+ <div className="mb-8 text-start">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Cart</h1>
+          <p className="text-gray-600">Review your items, make any changes, and proceed to checkout.</p>
+        </div>
     {cartItems.length > 0 && (
       <Button
         variant="destructive"
@@ -92,10 +95,13 @@ setCartItems([])
         Clear Cart
       </Button>
     )}
+    
   </div>
-
+       
+       
   {/* Cart Table */}
   <Card className="overflow-hidden shadow-md">
+   
     <Table>
       <TableHeader>
         <TableRow>

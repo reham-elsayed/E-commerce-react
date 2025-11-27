@@ -20,9 +20,22 @@ const categories = [
 
 export function GlassCategoryCard() {
     return (
-        <div className="relative w-[40vh] h-[32vw] bg-transparent border-0 z-50 flex justify-center items-center">
+      <div className="flex justify-end items-center w-full h-full">
+          <div className="relative w-[40vh] h-[32vw] p-5  z-50 flex justify-center items-center">
 
-            <p className="text-3xl">20% Off on your first order</p>
+           <p className="
+        text-3xl 
+        font-extrabold 
+        text-black 
+        bg-white/10 backdrop-blur-md border border-white/20
+        p-4 
+       text-end
+        rounded-lg shadow-lg
+        tracking-tight 
+        md:text-5xl 
+        lg:text-5xl
+        uppercase
+    ">20% Off on your first order</p>
 
             {/* Hidden content for accessibility */}
             <div className="sr-only">
@@ -32,6 +45,7 @@ export function GlassCategoryCard() {
                 </p>
             </div>
         </div>
+      </div>
     );
 }
 

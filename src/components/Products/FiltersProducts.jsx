@@ -23,11 +23,11 @@ export function CollapsibleFilterSelect({
      <Collapsible>
     {/* Collapsible Trigger (The Button that opens/closes the options) */}
     <CollapsibleTrigger asChild>
-      <Button variant="outline" className="w-full justify-between capitalize">
+      <Button variant="outline" className="w-full justify-between capitalize bg-pink-400 hover:bg-pink-700/20">
         {/* Display the currently selected category */}
         {selectedValues
           ? selectedValues
-          : 'All Categories'}
+          : `Select ${title}`}
         {/* Rotate Chevron based on state for visual feedback */}
         <ChevronDown className="h-4 w-4 transition-transform duration-200 data-[state=open]:rotate-180" />
       </Button>
@@ -39,8 +39,8 @@ export function CollapsibleFilterSelect({
       {/* 1. Option to clear the filter */}
       <div 
         onClick={() => onValueChange('')} // Calling handler with null clears the filter
-        className={`flex items-center justify-between p-2 rounded-md text-sm cursor-pointer hover:bg-gray-100 ${
-          selectedValues === ''? 'bg-blue-100/70 font-medium' : ''
+        className={`flex items-center justify-between p-2 rounded-md text-sm cursor-pointer hover:bg-pink-100 ${
+          selectedValues === ''? 'bg-pink-100/70 font-medium' : ''
         }`}
       >
         <span>All {title}</span>
@@ -55,8 +55,8 @@ export function CollapsibleFilterSelect({
           <div
             key={option}
             onClick={() => onValueChange(option)}
-            className={`flex items-center justify-between  rounded-md text-sm capitalize cursor-pointer hover:bg-gray-100 ${
-              isSelected ? 'bg-blue-100/70 font-medium' : ''
+            className={`flex items-center justify-between  rounded-md text-sm capitalize cursor-pointer hover:bg-pink-100 ${
+              isSelected ? 'bg-pink-100/70 font-medium' : ''
             }`}
           >
             {option}

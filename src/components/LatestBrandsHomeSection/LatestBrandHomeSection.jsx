@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import {  useRef } from 'react'
 import { NavLink } from 'react-router-dom'
 import Loader from '../Loader/Loader'
-const imgs=["src/assets/slider-amazon.jpg","src/assets/slider-furniture.jpg","src/assets/slider-labtop.jpg","src/assets/slider-assus.jpg"]
+const imgs=["https://images.pexels.com/photos/1306248/pexels-photo-1306248.jpeg?auto=compress&cs=tinysrgb&w=600","https://images.pexels.com/photos/598917/pexels-photo-598917.jpeg?auto=compress&cs=tinysrgb&w=600","https://images.pexels.com/photos/157675/fashion-men-s-individuality-black-and-white-157675.jpeg","https://images.pexels.com/photos/4011248/pexels-photo-4011248.jpeg?auto=compress&cs=tinysrgb&w=600"]
 const LatestBrandHomeSection = () => {
  
   const { data: brands, isLoading, isError } = useBrands()
@@ -16,17 +16,17 @@ const LatestBrandHomeSection = () => {
  <div className=' flex justify-center items-center py-7 '>
   <div
    
-    className='w-screen'
+    className='container mx-auto '
   >
-    <div className='group flex flex-wrap md:flex-nowrap '>
+    <div className='group grid grid-cols-1 md:grid-cols-2  lg:flex  lg:flex-nowrap '>
       {brands?.slice(0, 4).map((brand,i) => (
       <div
         key={brand.name}
         className='
-          relative w-1/2 md:w-1/4  overflow-hidden
+          relative w-full lg:w-1/4  overflow-hidden
           transition-all duration-500 ease-out md:h-96
-        h-72  rounded-sm m-2
-          md:hover:w-[120%] md: group-hover:w-[80%]
+        h-72  rounded-sm m-2 
+          lg:hover:w-[120%] lg:group-hover:w-[80%]
         '
       >
         <img
@@ -81,7 +81,7 @@ function CTAButton({brandName}){
               className="
                 self-start 
                 px-8 py-2 
-                min-w-[120px] 
+                min-w-[125px] 
                 backdrop-blur-sm
                 bg-background/35 
                 border border-border/60

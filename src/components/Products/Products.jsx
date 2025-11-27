@@ -6,7 +6,7 @@ const LazyVortex = lazy(() => import("../VortexSaleSection/VortexComponent"));
 
 export default function Products() {
   return (
-    <div className="dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+    <div className="dark:text-white bg-background dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
         <VortexSaleSectionWrapper>
           < GlassCategoryCard />
           <Suspense fallback={<VortexFallback/>}>

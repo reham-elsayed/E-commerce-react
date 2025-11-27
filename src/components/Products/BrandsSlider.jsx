@@ -56,7 +56,7 @@ export default function BrandSlider({handleBrandsChange}) {
   };
 
   return (
-    <div className="relative w-full overflow-hidden py-4 bg-gray-50 border-y border-gray-200">
+    <div className="relative w-full overflow-hidden py-4 bg-background border-y border-pink-200">
       <div 
         className="w-full" 
         onMouseEnter={handleMouseEnter}

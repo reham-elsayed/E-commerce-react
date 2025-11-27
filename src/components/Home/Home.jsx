@@ -18,7 +18,7 @@ export default function Home() {
       <div className='min-h-[calc(100vh-28rem)] '>
         <HeroSection />
         <SliderDividerSmall />
-            <LatestBrandHomeSection/>
+        <LatestBrandHomeSection/>
 
         <FeatureProducts />
       </div>

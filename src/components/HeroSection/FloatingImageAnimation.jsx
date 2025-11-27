@@ -1,14 +1,3 @@
-"use client";
-import hero1 from "../../assets/hero1.webp";
-import hero2 from "../../assets/hero2.webp";
-import hero3 from "../../assets/hero3.webp";
-import hero4 from "../../assets/hero4.webp";
-import hero5 from "../../assets/hero5.webp";
-
-import hero6 from "../../assets/hero6.webp";
-import hero7 from "../../assets/hero7.webp";
-import hero8 from "../../assets/hero8.webp";
-
 import { motion, AnimatePresence } from "framer-motion";
 import React from "react";
 
@@ -17,77 +6,80 @@ import React from "react";
 const floatingImages = {
     clothes: [
         {
-            src:hero1,
-            color: "bg-[#3b82f6]", // blue-500
-            style: "absolute -top-1/10 left-[5%] ",
-            animation: "",
-        },
-        {
-               src:hero2,
-            color: "bg-[#3b82f6]", // blue-500
-            style: "absolute -top-1/9 right-[5%] ",
-            animation: "",
-        },
-        {
-               src:hero3,
-            color: "bg-[#3b82f6]", // blue-500
-            style: "absolute bottom-0 left-[15%] ",
-            animation: "",
-        },
-        {
-               src:hero4,
-            color: "bg-[#ef4444]",
-            style: "absolute bottom-[15%] right-[15%]",
-        },
-    ],
-    design: [
-        {
-              src:hero5,
+              src:"https://images.pexels.com/photos/1374910/pexels-photo-1374910.jpeg?auto=compress&cs=tinysrgb&w=600",
             color: "bg-[#3b82f6]", // blue-500
             style: "absolute -top-1/10 right-[10%]",
             animation: "",
         },
         {
-              src:hero6,
+              src:"https://images.pexels.com/photos/1813947/pexels-photo-1813947.jpeg?auto=compress&cs=tinysrgb&w=600",
             color: "bg-[#22c55e]", // green-500
             style: "absolute bottom-[7%] -right-5% ",
             animation: "",
         },
         {
-              src:hero7,
+              src:"https://images.pexels.com/photos/1375736/pexels-photo-1375736.jpeg?auto=compress&cs=tinysrgb&w=600",
             color: "bg-[#eab308]", // yellow-500
             style: "absolute bottom-[20%] right-[35%] ",
             animation: "",
         },
         {
-              src:hero8,
+              src:"https://images.pexels.com/photos/896291/pexels-photo-896291.jpeg?auto=compress&cs=tinysrgb&w=600",
             color: "bg-[#ef4444]", // red-500
             style: "absolute -bottom-5% left-[15%]",
             animation: "",
         },
     ]
     ,
+    
+ 
+    design:   [
+        {
+            src:"https://images.pexels.com/photos/14159263/pexels-photo-14159263.jpeg?auto=compress&cs=tinysrgb&w=600",
+            color: "bg-[#3b82f6]", // blue-500
+            style: "absolute -top-1/10 left-[5%] ",
+            animation: "",
+        },
+        {
+               src:"https://images.pexels.com/photos/5531747/pexels-photo-5531747.jpeg?auto=compress&cs=tinysrgb&w=600",
+            color: "bg-[#3b82f6]", // blue-500
+            style: "absolute -top-1/9 right-[5%] ",
+            animation: "",
+        },
+        {
+               src:"https://images.pexels.com/photos/3268625/pexels-photo-3268625.jpeg?auto=compress&cs=tinysrgb&w=600",
+            color: "bg-[#3b82f6]", // blue-500
+            style: "absolute bottom-0 left-[15%] ",
+            animation: "",
+        },
+        {
+               src:"https://images.pexels.com/photos/8112333/pexels-photo-8112333.jpeg?auto=compress&cs=tinysrgb&w=600",
+            color: "bg-[#ef4444]",
+            style: "absolute bottom-[15%] right-[15%]",
+        },
+    ],
+    
     tech: [
         {
-              src:hero6,
+              src:"https://images.pexels.com/photos/34929079/pexels-photo-34929079.jpeg?auto=compress&cs=tinysrgb&w=600",
             color: "bg-[#ef4444]", // red-500
             style: "absolute -top-7% left-[15%] ",
             animation: "",
         },
         {
-              src:hero1,
+              src:"https://images.pexels.com/photos/34944571/pexels-photo-34944571.jpeg?auto=compress&cs=tinysrgb&w=600",
             color: "bg-[#3b82f6]", // blue-500
             style: "absolute -top-[10%] right-[20%]",
             animation: "",
         },
         {
-              src:hero3,
+              src:"https://images.pexels.com/photos/3345882/pexels-photo-3345882.jpeg?auto=compress&cs=tinysrgb&w=600",
             color: "bg-[#22c55e]", // green-500
             style: "absolute -left-5% bottom-[10%] ",
             animation: "",
         },
         {
-              src:hero7,
+              src:"https://images.pexels.com/photos/850360/pexels-photo-850360.jpeg?auto=compress&cs=tinysrgb&w=600",
             color: "bg-[#f59e0b]", // amber-500
             style: "absolute bottom-[5%] right-[40%] ",
             animation: "",

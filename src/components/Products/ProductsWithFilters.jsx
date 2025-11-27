@@ -100,13 +100,13 @@ console.log(filteredProducts,"filtered--------------------")
   // --- Loading State ---
   if (loadingAll) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-lg"><Loader/></div>
       </div>
     );
   }
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen ">
         <BrandsSlider handleBrandsChange={handleBrandsChange}/>
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
@@ -117,7 +117,7 @@ console.log(filteredProducts,"filtered--------------------")
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Filters Sidebar */}
           <div className="w-full lg:w-80 flex-shrink-0">
-            <div className="bg-white/55 backdrop-blur-md rounded-sm shadow-sm p-6 sticky top-4">
+            <div className=" bg-white/50 backdrop-blur-md border border-white/20 rounded-sm shadow-sm p-6 sticky top-4">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-lg font-semibold">Filters</h2>
                 <Button 
@@ -169,7 +169,7 @@ console.log(filteredProducts,"filtered--------------------")
           </div>
    
           {/* Products Grid */}
-          <div className="flex-1 -mt-24">
+          <div className="flex-1 mt-3 lg:-mt-24">
             <div className="flex justify-between items-center mb-6">
               <p className="text-gray-600">
                 Showing {productsToDisplay.length} products
@@ -188,7 +188,7 @@ console.log(filteredProducts,"filtered--------------------")
                 </Button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
                 {productsToDisplay.map(product => (
                   <ProductCard key={product._id} product={product}/>
                 ))}

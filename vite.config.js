@@ -14,10 +14,13 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
-  }, server: {
-    proxy: {
-      '/api': ''
-    }
+  },  proxy: {
+      server:{'/api': {
+        target: 'https://httpbin.org',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   }
 
 })
